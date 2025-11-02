@@ -379,12 +379,9 @@ function buildLayerList(){
     // If no key, fallback to direct toggle
     if (!key) { toggleLayerVisibility(el, cb.checked, { animate: true }); updateHashFromLayerList(); refreshLayerListCheckboxes(); return; }
 
-    // If the user checked the checkbox, treat this as an explicit "show" (exception)
-    // and add it to showExceptions so the hash emits a +token for this layer. Do not
-    // implicitly hide other layers as a side-effect.
+    // If the user checked the checkbox, just show the layer (remove ~token if present)
+    // Do NOT add to showExceptions - only the "Only" button creates +tokens
     if (cb.checked === true) {
-      // add as explicit exception/show
-      showExceptions.add(key);
       // ensure ancestor chain is visible so this layer can be seen
       const parts = key.split('/');
       for (let i = 0; i < parts.length - 1; i++) {
@@ -399,7 +396,7 @@ function buildLayerList(){
       return;
     }
 
-    // If the user unchecked the checkbox and it was previously an explicit exception,
+    // If the user unchecked the checkbox and it was previously an explicit exception (+token),
     // remove it from showExceptions and reapply parsed visibility.
     if (cb.checked === false && showExceptions.has(key)) {
       // Remove explicit +token for this key from the hash and in-memory exceptions.
@@ -463,7 +460,9 @@ function buildLayerList(){
             toggleLayerVisibility(childEl, false, { animate: false });
           });
           refreshLayerListCheckboxes(); updateHashFromLayerList();
-        }).catch(() => { refreshLayerListCheckboxes(); updateHashFromLayerList(); });
+        }).catch(() => { 
+          refreshLayerListCheckboxes(); updateHashFromLayerList();
+        });
         return;
       }
     }
@@ -723,13 +722,19 @@ function animateLayerVisibility(el, show, duration = FADE_DURATION){
   try { el.removeAttribute && el.removeAttribute('display'); } catch(e){}
   el.style.display = 'inline';
     el.style.visibility = '';
-    // ensure starting opacity 0
+    // Start with no transition and opacity 0
     el.style.transition = 'none';
     el.style.opacity = '0';
-    // force layout
+    // Force layout
     void el.getBoundingClientRect();
-    // then transition to 1
-  el.style.transition = `opacity ${duration}ms ${SOFT_EASE}`; 
+    // Update overlays to get opacity:0 with no transition
+    try { if (window.overlayManager && typeof window.overlayManager.update === 'function') window.overlayManager.update(); } catch(e){}
+    // Now set up the transition
+  el.style.transition = `opacity ${duration}ms ${SOFT_EASE}`;
+    // Force layout again so transition is registered
+    void el.getBoundingClientRect();
+    // Update overlays to copy the transition property (opacity still at 0)
+    try { if (window.overlayManager && typeof window.overlayManager.update === 'function') window.overlayManager.update(); } catch(e){}
     let finished = false;
     const onEnd = (ev) => {
       if (ev && ev.propertyName !== 'opacity') return;
@@ -740,30 +745,50 @@ function animateLayerVisibility(el, show, duration = FADE_DURATION){
       el.style.transition = '';
       el.style.opacity = '';
       __fadeCancels.delete(el);
+      // Update overlays after visibility change completes
+      try { if (window.overlayManager && typeof window.overlayManager.update === 'function') window.overlayManager.update(); } catch(e){}
       resolve();
     };
     el.addEventListener('transitionend', onEnd);
     // start fade
-    requestAnimationFrame(() => { el.style.opacity = '1'; });
+    requestAnimationFrame(() => { 
+      el.style.opacity = '1';
+      // Double RAF to ensure overlay updates after opacity change has been committed
+      requestAnimationFrame(() => {
+        try { if (window.overlayManager && typeof window.overlayManager.update === 'function') window.overlayManager.update(); } catch(e){}
+      });
+    });
     // store cancel function
     __fadeCancels.set(el, () => {
       if (!finished) { el.removeEventListener('transitionend', onEnd); finished = true; }
       __fadeCancels.delete(el);
       el.style.transition = '';
       el.style.opacity = '';
+      // Update overlays when animation is cancelled
+      try { if (window.overlayManager && typeof window.overlayManager.update === 'function') window.overlayManager.update(); } catch(e){}
       resolve();
     });
     return;
   }
 
   // hide: fade to 0 then set display none
-  el.style.transition = `opacity ${duration}ms ${SOFT_EASE}`;
-  // ensure starting opacity is 1
+  // Start with no transition, just ensure opacity is 1
+  el.style.transition = 'none';
   if (!el.style.opacity) {
     // if no inline opacity, set to computed value or 1
     const comp = window.getComputedStyle(el).opacity;
     el.style.opacity = comp || '1';
   }
+  // Force layout
+  void el.getBoundingClientRect();
+  // Update overlays to get opacity:1 with no transition
+  try { if (window.overlayManager && typeof window.overlayManager.update === 'function') window.overlayManager.update(); } catch(e){}
+  // Now set up the transition
+  el.style.transition = `opacity ${duration}ms ${SOFT_EASE}`;
+  // Force layout so transition is registered
+  void el.getBoundingClientRect();
+  // Update overlays to copy the transition property (opacity still at 1)
+  try { if (window.overlayManager && typeof window.overlayManager.update === 'function') window.overlayManager.update(); } catch(e){}
   let finished = false;
   const onEndHide = (ev) => {
     if (ev && ev.propertyName !== 'opacity') return;
@@ -791,11 +816,19 @@ function animateLayerVisibility(el, show, duration = FADE_DURATION){
       try { el.setAttribute && el.setAttribute('display', 'none'); } catch(e){}
     }
     __fadeCancels.delete(el);
+    // Update overlays after visibility change completes
+    try { if (window.overlayManager && typeof window.overlayManager.update === 'function') window.overlayManager.update(); } catch(e){}
     resolve();
   };
   el.addEventListener('transitionend', onEndHide);
   // start fade out
-  requestAnimationFrame(() => { el.style.opacity = '0'; });
+  requestAnimationFrame(() => { 
+    el.style.opacity = '0';
+    // Double RAF to ensure overlay updates after opacity change has been committed
+    requestAnimationFrame(() => {
+      try { if (window.overlayManager && typeof window.overlayManager.update === 'function') window.overlayManager.update(); } catch(e){}
+    });
+  });
   __fadeCancels.set(el, () => {
     if (!finished) { el.removeEventListener('transitionend', onEndHide); finished = true; }
     __fadeCancels.delete(el);
@@ -815,6 +848,8 @@ function animateLayerVisibility(el, show, duration = FADE_DURATION){
       el.style.display = 'none';
       try { el.setAttribute && el.setAttribute('display', 'none'); } catch(e){}
     }
+    // Update overlays when animation is cancelled
+    try { if (window.overlayManager && typeof window.overlayManager.update === 'function') window.overlayManager.update(); } catch(e){}
     resolve();
   });
   });
@@ -1782,20 +1817,30 @@ window.viewerReady = false;
       overlay.style.width = Math.max(0.001, width) + 'px';
       overlay.style.height = Math.max(0.001, height) + 'px';
       
-      // mirror visibility/opacity with smooth transitions
+      // mirror visibility/opacity/transition with smooth transitions
       const cs = window.getComputedStyle(el);
-      const targetOpacity = cs.opacity || '1';
       const targetVisibility = cs.visibility || 'visible';
       const targetDisplay = (cs.display === 'none') ? 'none' : 'block';
       
-      // Enable smooth opacity transitions on overlays to match SVG layer fades
-      if (!overlay.style.transition || overlay.style.transition === 'none') {
-        overlay.style.transition = 'opacity 1800ms cubic-bezier(0.22,1,0.36,1)';
-      }
+      // Mirror the element's inline styles exactly - this is critical for sync
+      // Use inline style values, not computed, so we get the transition target values
+      const elTransition = el.style.transition || '';
+      const elOpacity = el.style.opacity || cs.opacity || '1';
       
-      overlay.style.opacity = targetOpacity;
+      // Always copy the element's transition exactly
+      overlay.style.transition = elTransition;
+      
+      // Mirror opacity from inline style (the target value during transitions)
+      overlay.style.opacity = elOpacity;
       overlay.style.visibility = targetVisibility;
-      overlay.style.display = targetDisplay;
+      
+      // Keep display:block during fade transitions; only hide when opacity is 0 and no transition
+      const opacityValue = parseFloat(elOpacity);
+      if (targetDisplay === 'none' || (opacityValue < 0.01 && (!elTransition || elTransition === 'none' || elTransition === ''))) {
+        overlay.style.display = 'none';
+      } else {
+        overlay.style.display = 'block';
+      }
     }catch(e){ /* ignore per-frame errors */ }
   }
 
