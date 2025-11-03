@@ -98,9 +98,10 @@ function parseHash() {
     layersOn = [];
     const layerState = {};
     layersStr.split(',').forEach(token => {
-      // Support +id:follow, ~id:follow and +id(source):follow
-      // token examples: +name, ~name, +name:follow, +name(source), +name(source):follow
-      const match = token.match(/^([+~])([^:(]+)(?:\(([^)]+)\))?(?::follow)?$/);
+      // Support +id:follow, ~id:follow, +id(source):follow, and +s2:YYYYMMDD
+      // token examples: +name, ~name, +name:follow, +name(source), +name(source):follow, +s2:20240215
+      // Updated regex to allow colons in layer names (except for the :follow suffix)
+      const match = token.match(/^([+~])([^(]+?)(?:\(([^)]+)\))?(?::follow)?$/);
       if (!match) {
         console.warn('[HASH] Failed to parse layer token:', token);
         return;
@@ -112,8 +113,22 @@ function parseHash() {
     Object.entries(layerState).forEach(([lname, { sign, sourceHint, follow }]) => {
       if (sign === '+') {
         if (!allStyleLayers.some(l => l.id === lname)) {
-          // remember source hint by pushing an object like "name|source" for later loading
-          dynamicGeojsonToLoad.push({ name: lname, sourceHint });
+          // Check if this is a Sentinel-2 layer (format: s2:YYYYMMDD)
+          const s2Match = lname.match(/^s2:(\d{8})$/);
+          if (s2Match) {
+            const dateStr = s2Match[1];
+            dynamicGeojsonToLoad.push({ name: lname, sourceHint: sourceHint || 'overlay', isS2: true, s2Date: dateStr });
+          } else {
+            // Check if this is a Wayback layer (format: wayback:YYYYMMDD)
+            const waybackMatch = lname.match(/^wayback:(\d{8})$/);
+            if (waybackMatch) {
+              const dateStr = waybackMatch[1];
+              dynamicGeojsonToLoad.push({ name: lname, sourceHint: sourceHint || 'overlay', isWayback: true, waybackDate: dateStr });
+            } else {
+              // Regular GeoJSON/CSV layer
+              dynamicGeojsonToLoad.push({ name: lname, sourceHint });
+            }
+          }
         }
         layersOn.push(lname);
         if (follow) followId = lname;
@@ -451,6 +466,384 @@ async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
   }
 }
 
+// Helper: Load Sentinel-2 imagery layer by date
+// dateStr: YYYYMMDD format (e.g., "20240215")
+// toLayer: optional { visibility, sourceHint }
+async function loadS2Layer(dateStr, toLayer) {
+  try {
+    console.log('[S2] Loading Sentinel-2 layer for date:', dateStr);
+    
+    const layerId = `s2:${dateStr}`;
+    const sourceId = layerId;
+    
+    // Validate date format
+    if (!/^\d{8}$/.test(dateStr)) {
+      throw new Error('Invalid date format. Expected YYYYMMDD, got: ' + dateStr);
+    }
+    
+    // Parse date string to YYYY-MM-DD format
+    const year = dateStr.substring(0, 4);
+    const month = dateStr.substring(4, 6);
+    const day = dateStr.substring(6, 8);
+    const s2Date = `${year}-${month}-${day}`;
+    
+    // Validate date range (Sentinel-2 started June 2015)
+    const minDate = new Date('2015-06-23');
+    const requestDate = new Date(s2Date);
+    const today = new Date();
+    
+    if (requestDate < minDate) {
+      console.warn('[S2] Date', s2Date, 'is before Sentinel-2 launch (June 23, 2015). No imagery available.');
+    }
+    if (requestDate > today) {
+      console.warn('[S2] Date', s2Date, 'is in the future. No imagery available.');
+    }
+    
+    // Extract sourceHint - default to 'overlay' layer for positioning
+    let sourceHint = 'overlay';
+    if (typeof toLayer === 'object' && toLayer !== null && toLayer.sourceHint) {
+      sourceHint = toLayer.sourceHint;
+    }
+    
+    // Sentinel-2 tile URL via EOX
+    // Using Sentinel-2 L2A True Color - 10m resolution
+    // Available from June 2015 to present, updated twice yearly (summer/winter)
+    // No authentication required for public preview layer, completely free and open
+    // 
+    // Note: Sentinel Hub offers multiple services:
+    // 1. Public WMS service (what we're using) - free, no auth, but watermarked at high zoom
+    // 2. Free tier with API key - 5000 requests/month, no watermark
+    // 3. Paid tier for commercial use
+    //
+    // For this implementation, we use the public Sentinel-2 cloudless mosaic by EOX
+    // which provides best-quality cloud-free imagery compiled from multiple acquisitions
+    const baseYear = parseInt(year);
+    const season = parseInt(month) <= 6 ? 'winter' : 'summer';
+    
+    // EOX Sentinel-2 cloudless - updated yearly
+    // This is a global cloudless mosaic at 10m resolution
+    // Mosaics are typically available with a 1-2 year delay
+    // As of November 2025, the 2024 mosaic is available
+    
+    // Use the requested year, but cap at 2024 (latest available mosaic)
+    const maxAvailableYear = 2024;
+    const mosaicYear = Math.min(baseYear, maxAvailableYear);
+    
+    if (baseYear > maxAvailableYear) {
+      console.warn('[S2] Year', baseYear, 'mosaic not yet available. Using', maxAvailableYear, 'instead.');
+    }
+    
+    const tileUrl = `https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-${mosaicYear}_3857/default/g/{z}/{y}/{x}.jpg`;
+    
+    console.log('[S2] Using Sentinel-2 cloudless mosaic for', mosaicYear, '(10m resolution)');
+    console.log('[S2] Tile URL pattern:', tileUrl.replace('{z}/{y}/{x}', 'Z/Y/X'));
+    console.log('[S2] ✓ This is a free, open service with no authentication required');
+    console.log('[S2] ℹ️  Note: Cloudless mosaics are compiled from multiple acquisitions for best quality');
+    
+    // Remove existing layer/source if present
+    if (map.getLayer(layerId)) map.removeLayer(layerId);
+    if (map.getSource(sourceId)) map.removeSource(sourceId);
+    
+    // Add raster source
+    map.addSource(sourceId, {
+      type: 'raster',
+      tiles: [tileUrl],
+      tileSize: 256,
+      minzoom: 0,
+      maxzoom: 13,  // Sentinel-2 cloudless available up to level 13 (10m resolution)
+      attribution: 'Sentinel-2 cloudless by EOX - Contains modified Copernicus Sentinel data'
+    });
+    
+    console.log('[S2] Added raster source:', sourceId);
+    
+    // Visibility
+    let visibility = 'visible';
+    if (typeof toLayer === 'object' && toLayer !== null && toLayer.visibility === 'none') {
+      visibility = 'none';
+    }
+    
+    // Create layer definition
+    const layerDef = {
+      id: layerId,
+      type: 'raster',
+      source: sourceId,
+      layout: { visibility },
+      paint: {
+        'raster-opacity': 1
+      }
+    };
+    
+    // Copy paint properties from source hint if available
+    try {
+      if (sourceHint) {
+        const styleLayer = map.getStyle().layers.find(l => l.id === sourceHint);
+        if (styleLayer && styleLayer.paint && styleLayer.paint['raster-opacity'] !== undefined) {
+          layerDef.paint['raster-opacity'] = styleLayer.paint['raster-opacity'];
+          console.log('[S2] Copied raster-opacity from', sourceHint);
+        }
+      }
+    } catch (ex) {
+      console.warn('[S2] Failed to copy paint from source hint:', ex);
+    }
+    
+    // Add layer positioned right after the source hint layer
+    try {
+      if (sourceHint) {
+        const allLayers = map.getStyle().layers;
+        const sourceIndex = allLayers.findIndex(l => l.id === sourceHint);
+        if (sourceIndex >= 0 && sourceIndex < allLayers.length - 1) {
+          const beforeId = allLayers[sourceIndex + 1].id;
+          console.log('[S2] Placing', layerId, 'right after', sourceHint, '(before', beforeId + ')');
+          map.addLayer(layerDef, beforeId);
+        } else {
+          console.log('[S2] Source layer', sourceHint, 'is last or not found, adding at top');
+          map.addLayer(layerDef);
+        }
+      } else {
+        map.addLayer(layerDef);
+      }
+    } catch (ex) {
+      console.warn('[S2] Failed to add layer with positioning:', ex);
+      map.addLayer(layerDef);
+    }
+    
+    console.log('[S2] Layer loaded:', layerId);
+    
+    // Mark as external layer
+    externalLayers.add(layerId);
+    
+    // Post-load bookkeeping
+    if (visibility === 'none') {
+      map.setLayoutProperty(layerId, 'visibility', 'none');
+    }
+    
+    // Add to allStyleLayers if not present
+    if (!allStyleLayers.some(l => l.id === layerId)) {
+      try {
+        if (sourceHint) {
+          const sourceIdx = allStyleLayers.findIndex(l => l.id === sourceHint);
+          if (sourceIdx >= 0) {
+            allStyleLayers.splice(sourceIdx + 1, 0, { id: layerId, name: `Sentinel-2 ${s2Date}` });
+            console.log('[S2] Inserted', layerId, 'after', sourceHint, 'in UI list');
+          } else {
+            allStyleLayers.push({ id: layerId, name: `Sentinel-2 ${s2Date}` });
+          }
+        } else {
+          allStyleLayers.push({ id: layerId, name: `Sentinel-2 ${s2Date}` });
+        }
+      } catch (ex) {
+        console.warn('[S2] Failed to position layer in list:', ex);
+        allStyleLayers.push({ id: layerId, name: `Sentinel-2 ${s2Date}` });
+      }
+      styleDefaultVisibility[layerId] = 'visible';
+    }
+    
+    // Update layer controls
+    createLayerControls(map, allStyleLayers.filter(l => map.getLayer(l.id) && map.getLayoutProperty(l.id, 'visibility') === 'visible').map(l => l.id));
+    
+  } catch (err) {
+    console.error('[S2] ❌ Error loading Sentinel-2 layer:', err);
+    console.error('[S2] This may indicate:');
+    console.error('[S2]   - Invalid date format or date out of range');
+    console.error('[S2]   - Network connectivity issues');
+    console.error('[S2]   - EOX Sentinel-2 service temporary unavailability');
+    console.error('[S2] Valid date range: June 23, 2015 to present');
+  }
+}
+
+// Helper: Load ESRI Wayback imagery layer by date
+// dateStr: YYYYMMDD format (e.g., "20240215")
+// toLayer: optional { visibility, sourceHint }
+async function loadWaybackLayer(dateStr, toLayer) {
+  try {
+    console.log('[WAYBACK] Loading ESRI Wayback layer for date:', dateStr);
+    
+    const layerId = `wayback:${dateStr}`;
+    const sourceId = layerId;
+    
+    // Validate date format
+    if (!/^\d{8}$/.test(dateStr)) {
+      throw new Error('Invalid date format. Expected YYYYMMDD, got: ' + dateStr);
+    }
+    
+    // Parse date
+    const year = dateStr.substring(0, 4);
+    const month = dateStr.substring(4, 6);
+    const day = dateStr.substring(6, 8);
+    const requestDate = `${year}-${month}-${day}`;
+    
+    // Fetch Wayback configuration
+    console.log('[WAYBACK] Fetching Wayback release catalog...');
+    const configResponse = await fetch('https://s3-us-west-2.amazonaws.com/config.maptiles.arcgis.com/waybackconfig.json');
+    if (!configResponse.ok) {
+      throw new Error('Failed to fetch Wayback configuration');
+    }
+    
+    const config = await configResponse.json();
+    
+    // Parse releases and find closest one to requested date
+    const releases = Object.entries(config).map(([releaseId, info]) => {
+      // Extract date from title like "World Imagery (Wayback 2024-11-18)"
+      const match = info.itemTitle.match(/(\d{4}-\d{2}-\d{2})/);
+      if (match) {
+        return {
+          releaseId,
+          date: match[1],
+          dateObj: new Date(match[1]),
+          title: info.itemTitle
+        };
+      }
+      return null;
+    }).filter(r => r !== null);
+    
+    // Sort by date
+    releases.sort((a, b) => a.dateObj - b.dateObj);
+    
+    // Find closest release to requested date
+    const targetDate = new Date(requestDate);
+    let closestRelease = releases[0];
+    let minDiff = Math.abs(targetDate - releases[0].dateObj);
+    
+    for (const release of releases) {
+      const diff = Math.abs(targetDate - release.dateObj);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestRelease = release;
+      }
+      // If we've passed the target date, stop
+      if (release.dateObj > targetDate) {
+        break;
+      }
+    }
+    
+    console.log(`[WAYBACK] Requested: ${requestDate}, Using release: ${closestRelease.date} (ID: ${closestRelease.releaseId})`);
+    
+    // ESRI Wayback tile URL
+    // High resolution Maxar satellite imagery + aerial imagery
+    // Updated every few weeks since February 2014
+    const tileUrl = `https://wayback.maptiles.arcgis.com/arcgis/rest/services/world_imagery/wmts/1.0.0/default028mm/mapserver/tile/${closestRelease.releaseId}/{z}/{y}/{x}`;
+    
+    console.log('[WAYBACK] Using ESRI World Imagery Wayback (Maxar satellite imagery)');
+    console.log('[WAYBACK] Tile URL pattern:', tileUrl.replace('{z}/{y}/{x}', 'Z/Y/X'));
+    console.log('[WAYBACK] ✓ High resolution imagery (up to 30cm in urban areas)');
+    console.log('[WAYBACK] ℹ️  Release:', closestRelease.title);
+    
+    // Extract sourceHint - default to 'overlay' layer for positioning
+    let sourceHint = 'overlay';
+    if (typeof toLayer === 'object' && toLayer !== null && toLayer.sourceHint) {
+      sourceHint = toLayer.sourceHint;
+    }
+    
+    // Remove existing layer/source if present
+    if (map.getLayer(layerId)) map.removeLayer(layerId);
+    if (map.getSource(sourceId)) map.removeSource(sourceId);
+    
+    // Add raster source
+    map.addSource(sourceId, {
+      type: 'raster',
+      tiles: [tileUrl],
+      tileSize: 256,
+      minzoom: 0,
+      maxzoom: 22,  // Wayback supports very high zoom levels
+      attribution: '© Esri, Maxar, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community'
+    });
+    console.log('[WAYBACK] Added raster source:', sourceId);
+    
+    // Visibility
+    let visibility = 'visible';
+    if (typeof toLayer === 'object' && toLayer !== null && toLayer.visibility === 'none') {
+      visibility = 'none';
+    }
+    
+    // Create layer definition
+    const layerDef = {
+      id: layerId,
+      type: 'raster',
+      source: sourceId,
+      layout: { visibility },
+      paint: {
+        'raster-opacity': 1
+      }
+    };
+    
+    // Copy paint properties from source hint if available
+    try {
+      if (sourceHint) {
+        const styleLayer = map.getStyle().layers.find(l => l.id === sourceHint);
+        if (styleLayer && styleLayer.paint && styleLayer.paint['raster-opacity'] !== undefined) {
+          layerDef.paint['raster-opacity'] = styleLayer.paint['raster-opacity'];
+          console.log('[WAYBACK] Copied raster-opacity from', sourceHint);
+        }
+      }
+    } catch (ex) {
+      console.warn('[WAYBACK] Failed to copy paint from source hint:', ex);
+    }
+    
+    // Add layer positioned right after the source hint layer
+    try {
+      if (sourceHint) {
+        const allLayers = map.getStyle().layers;
+        const sourceIndex = allLayers.findIndex(l => l.id === sourceHint);
+        if (sourceIndex >= 0 && sourceIndex < allLayers.length - 1) {
+          const beforeId = allLayers[sourceIndex + 1].id;
+          console.log('[WAYBACK] Placing', layerId, 'right after', sourceHint, '(before', beforeId + ')');
+          map.addLayer(layerDef, beforeId);
+        } else {
+          console.log('[WAYBACK] Source layer', sourceHint, 'is last or not found, adding at top');
+          map.addLayer(layerDef);
+        }
+      } else {
+        map.addLayer(layerDef);
+      }
+    } catch (ex) {
+      console.warn('[WAYBACK] Failed to add layer with positioning:', ex);
+      map.addLayer(layerDef);
+    }
+    
+    console.log('[WAYBACK] Layer loaded:', layerId);
+    
+    // Mark as external layer
+    externalLayers.add(layerId);
+    
+    // Post-load bookkeeping
+    if (visibility === 'none') {
+      map.setLayoutProperty(layerId, 'visibility', 'none');
+    }
+    
+    // Add to allStyleLayers if not present
+    if (!allStyleLayers.some(l => l.id === layerId)) {
+      try {
+        if (sourceHint) {
+          const sourceIdx = allStyleLayers.findIndex(l => l.id === sourceHint);
+          if (sourceIdx >= 0) {
+            allStyleLayers.splice(sourceIdx + 1, 0, { id: layerId, name: `Wayback ${requestDate}` });
+            console.log('[WAYBACK] Inserted', layerId, 'after', sourceHint, 'in UI list');
+          } else {
+            allStyleLayers.push({ id: layerId, name: `Wayback ${requestDate}` });
+          }
+        } else {
+          allStyleLayers.push({ id: layerId, name: `Wayback ${requestDate}` });
+        }
+      } catch (ex) {
+        console.warn('[WAYBACK] Failed to position layer in list:', ex);
+        allStyleLayers.push({ id: layerId, name: `Wayback ${requestDate}` });
+      }
+      styleDefaultVisibility[layerId] = 'visible';
+    }
+    
+    // Update layer controls
+    createLayerControls(map, allStyleLayers.filter(l => map.getLayer(l.id) && map.getLayoutProperty(l.id, 'visibility') === 'visible').map(l => l.id));
+    
+  } catch (err) {
+    console.error('[WAYBACK] ❌ Error loading Wayback layer:', err);
+    console.error('[WAYBACK] This may indicate:');
+    console.error('[WAYBACK]   - Invalid date format or date out of range');
+    console.error('[WAYBACK]   - Network connectivity issues');
+    console.error('[WAYBACK]   - ESRI Wayback service temporary unavailability');
+    console.error('[WAYBACK] Valid date range: February 2014 to present');
+  }
+}
+
 // Update hash from map state
 function updateHash(map, visibleLayers) {
   const c = map.getCenter();
@@ -765,22 +1158,33 @@ map.on('load', () => {
   } catch (e) {
     console.warn('[INIT] Failed to apply parsed camera on load', e);
   }
-  // Load any dynamic geojsons requested in the hash
+  // Load any dynamic layers requested in the hash
   const { dynamicGeojsonToLoad, layers: layersOn } = parseHash();
   if (dynamicGeojsonToLoad && dynamicGeojsonToLoad.length) {
     dynamicGeojsonToLoad.forEach(entry => {
-      let name = null, sourceHint = null;
+      let name = null, sourceHint = null, isS2 = false, s2Date = null, isWayback = false, waybackDate = null;
       if (typeof entry === 'string') {
         name = entry;
       } else if (entry && typeof entry === 'object') {
         name = entry.name;
         sourceHint = entry.sourceHint;
+        isS2 = entry.isS2 || false;
+        s2Date = entry.s2Date || null;
+        isWayback = entry.isWayback || false;
+        waybackDate = entry.waybackDate || null;
       }
       if (name) {
-        loadAndAddOrReplaceGeoJSON(name + '.geojson', { 
-          visibility: (layersOn && layersOn.includes(name)) ? 'visible' : 'none',
-          sourceHint 
-        });
+        const visibility = (layersOn && layersOn.includes(name)) ? 'visible' : 'none';
+        if (isS2 && s2Date) {
+          // Load Sentinel-2 layer
+          loadS2Layer(s2Date, { visibility, sourceHint });
+        } else if (isWayback && waybackDate) {
+          // Load ESRI Wayback layer
+          loadWaybackLayer(waybackDate, { visibility, sourceHint });
+        } else {
+          // Load GeoJSON/CSV layer
+          loadAndAddOrReplaceGeoJSON(name + '.geojson', { visibility, sourceHint });
+        }
       }
     });
   }
@@ -1105,36 +1509,110 @@ window.addEventListener('hashchange', () => {
     }
   });
 
-  // 2. Load or unload geojson layers as needed
+  // 2. Load dynamic layers as needed (GeoJSON/CSV, Sentinel-2, or Wayback)
   if (dynamicGeojsonToLoad && dynamicGeojsonToLoad.length) {
     const layersOn = layers || [];
     dynamicGeojsonToLoad.forEach(entry => {
-      let name = null, sourceHint = null;
-      if (typeof entry === 'string') name = entry;
-      else if (entry && typeof entry === 'object') { name = entry.name; sourceHint = entry.sourceHint; }
-      if (!name) return;
-      if (!allStyleLayers.some(l => l.id === name)) {
-        allStyleLayers.push({ id: name, name });
-        styleDefaultVisibility[name] = 'visible';
+      let name = null, sourceHint = null, isS2 = false, s2Date = null, isWayback = false, waybackDate = null;
+      if (typeof entry === 'string') {
+        name = entry;
+      } else if (entry && typeof entry === 'object') {
+        name = entry.name;
+        sourceHint = entry.sourceHint;
+        isS2 = entry.isS2 || false;
+        s2Date = entry.s2Date || null;
+        isWayback = entry.isWayback || false;
+        waybackDate = entry.waybackDate || null;
       }
+      if (!name) return;
+      
+      // For external layers (S2, Wayback), don't pre-add to allStyleLayers
+      // Let the individual load functions handle naming and positioning
+      if (!isS2 && !isWayback) {
+        if (!allStyleLayers.some(l => l.id === name)) {
+          allStyleLayers.push({ id: name, name });
+          styleDefaultVisibility[name] = 'visible';
+        }
+      }
+      
       // Load if not present
       const layerExists = map.getLayer(name);
-      if (!layerExists) {
-        console.log('[HASHCHANGE] Loading new layer:', name, 'with sourceHint:', sourceHint);
-        loadAndAddOrReplaceGeoJSON(name + '.geojson', { visibility: layersOn.includes(name) ? 'visible' : 'none', sourceHint });
-      } else if (sourceHint) {
-        // Layer exists but sourceHint provided - reload to apply styling
-        console.log('[HASHCHANGE] Reloading existing layer:', name, 'with sourceHint:', sourceHint);
-        loadAndAddOrReplaceGeoJSON(name + '.geojson', { visibility: layersOn.includes(name) ? 'visible' : 'none', sourceHint });
+      const visibility = layersOn.includes(name) ? 'visible' : 'none';
+      
+      if (isS2 && s2Date) {
+        // Sentinel-2 layer
+        if (!layerExists) {
+          console.log('[HASHCHANGE] Loading new Sentinel-2 layer:', name);
+          loadS2Layer(s2Date, { visibility, sourceHint });
+        } else if (sourceHint) {
+          console.log('[HASHCHANGE] Reloading Sentinel-2 layer:', name, 'with sourceHint:', sourceHint);
+          loadS2Layer(s2Date, { visibility, sourceHint });
+        }
+      } else if (isWayback && waybackDate) {
+        // ESRI Wayback layer
+        if (!layerExists) {
+          console.log('[HASHCHANGE] Loading new Wayback layer:', name);
+          loadWaybackLayer(waybackDate, { visibility, sourceHint });
+        } else if (sourceHint) {
+          console.log('[HASHCHANGE] Reloading Wayback layer:', name, 'with sourceHint:', sourceHint);
+          loadWaybackLayer(waybackDate, { visibility, sourceHint });
+        }
+      } else {
+        // GeoJSON/CSV layer
+        if (!layerExists) {
+          console.log('[HASHCHANGE] Loading new layer:', name, 'with sourceHint:', sourceHint);
+          loadAndAddOrReplaceGeoJSON(name + '.geojson', { visibility, sourceHint });
+        } else if (sourceHint) {
+          console.log('[HASHCHANGE] Reloading existing layer:', name, 'with sourceHint:', sourceHint);
+          loadAndAddOrReplaceGeoJSON(name + '.geojson', { visibility, sourceHint });
+        }
       }
-      // Unload if present but not in hash (optional, currently not removing)
     });
   }
 
-  // 3. Copy paint and layout properties (handled in loadAndAddOrReplaceGeoJSON)
+  // 3. Remove external layers (s2:*, wayback:*, or dynamic GeoJSON) that are no longer in the hash
+  const allHashLayers = new Set([...(layers || []), ...(dynamicGeojsonToLoad || []).map(e => typeof e === 'string' ? e : e.name)]);
+  const layersToRemove = [];
+  
+  externalLayers.forEach(layerId => {
+    if (!allHashLayers.has(layerId)) {
+      layersToRemove.push(layerId);
+    }
+  });
+  
+  layersToRemove.forEach(layerId => {
+    console.log('[HASHCHANGE] Removing layer no longer in hash:', layerId);
+    
+    // Remove from map
+    if (map.getLayer(layerId)) {
+      map.removeLayer(layerId);
+    }
+    if (map.getSource(layerId)) {
+      map.removeSource(layerId);
+    }
+    
+    // Remove from tracking
+    externalLayers.delete(layerId);
+    
+    // Remove from allStyleLayers
+    const idx = allStyleLayers.findIndex(l => l.id === layerId);
+    if (idx !== -1) {
+      allStyleLayers.splice(idx, 1);
+    }
+    
+    // Remove from visibility tracking
+    delete styleDefaultVisibility[layerId];
+  });
+  
+  // If any layers were removed, update the layer controls
+  if (layersToRemove.length > 0) {
+    createLayerControls(map, allStyleLayers.filter(l => map.getLayer(l.id) && map.getLayoutProperty(l.id, 'visibility') === 'visible').map(l => l.id));
+  }
+
+  // 4. Copy paint and layout properties (handled in loadAndAddOrReplaceGeoJSON)
   // Already done when loading new geojson layers above
 
-  // 4. Fly to hash geolocation (with animation), then start follow only after fly completes
+  // 5. Fly to hash geolocation (with animation), then start follow only after fly completes
   const flyOpts = {
     center: [camera.center[0], camera.center[1]],
     zoom: camera.zoom,
