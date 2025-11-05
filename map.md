@@ -121,19 +121,19 @@ Combine high-resolution imagery with vector annotations.
 ## Camera Animations
 
 [](map/#31.52090,34.47332,14.00,19.2,48.5/+jabalia-rafah:follow "Animate along displacement path")
-Create cinematic camera movements with `+layername:follow` — the camera flies along path geometry.
+Create cinematic camera movements with `+layername:follow` — the camera flies along path geometry. A **distance ticker** automatically appears showing the cumulative distance traveled (0 km to total path length).
 
 
 [](map/#31.52103,34.46974,12.79,-14.4,30.4/+jabalia-rafah:follow,+jabalia,+rafah "Path animation with markers")
-Show origin and destination points during the ~30-second animation.
+Show origin and destination points during the animation. The white circular ticker counts from 0.0 km to 37.0 km over ~74 seconds for this path.
 
 
 [](map/#31.52090,34.47332,14.00,19.2,48.5/+jabalia-rafah:follow,+s2:20231001 "Fly over historical Sentinel-2 imagery")
-Combine path animation with historical satellite imagery.
+Combine path animation with historical satellite imagery. The distance ticker overlays cleanly on satellite layers.
 
 
 [](map/#31.52090,34.47332,14.00,19.2,48.5/+jabalia-rafah:follow,+wayback:20240215 "High-resolution flyover with Wayback")
-Use Wayback for detailed terrain visualization during animation.
+Use Wayback for detailed terrain visualization during animation. Watch the distance accumulate as you fly over high-resolution imagery.
 
 
 {.heading}
@@ -176,6 +176,13 @@ Embed in iframes (control panel auto-hides). Hash updates trigger instant map ch
 - `+layer` show | `~layer` hide | `+file` load GeoJSON/CSV
 - `+file(source)` copy styles | `+file:follow` animate camera
 - `+s2:YYYYMMDD` Sentinel-2 | `+wayback:YYYYMMDD` Maxar imagery
+
+**Distance Ticker:**
+- Appears automatically during `:follow` animations
+- White circular overlay (80px) at line tip position
+- Displays cumulative distance: `0.0 km` → `total km`
+- Updates in real-time, hides on completion/cancel
+- Only visible when following GeoJSON LineString paths
 
 
 ## TBC…
