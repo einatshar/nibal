@@ -41,7 +41,7 @@
             height: 100%;
         }
 
-        /* Dual iframe mode styles - hidden by default */
+        /* Dual iframe mode styles - visibility toggling */
         body:not(.dual-iframe) #background-frame,
         body:not(.dual-iframe) #foreground-frame {
             display: none !important;
@@ -51,37 +51,11 @@
             display: none !important;
         }
         
-        /* Container doesn't need special positioning since iframes are fixed */
-        
-        /* Dual iframes use same positioning as single iframe (from base.css) */
+        /* Dual iframe opacity transitions and initial state */
         #background-frame,
         #foreground-frame {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 60vw;
-            height: 100vh;
-            height: 100dvh; /* Dynamic viewport height for mobile browsers */
-            border: none;
-            background: transparent;
             transition: opacity 0.4s ease;
-        }
-        
-        #background-frame {
-            z-index: 1;
             opacity: 0;
-        }
-        
-        #foreground-frame {
-            z-index: 2;
-            opacity: 0;
-            pointer-events: auto;
-        }
-        
-        /* When foreground is inactive, allow clicks through to background */
-        #foreground-frame.inactive {
-            pointer-events: none;
         }
 
           /* We will adjust only the transparency (alpha) of the body's

@@ -347,6 +347,32 @@ iframe#if {
     padding: 0;
 }
 
+/* Dual iframe mode - background and foreground frames */
+#background-frame,
+#foreground-frame {
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#background-frame {
+    z-index: 1;
+}
+
+#foreground-frame {
+    z-index: 2;
+    pointer-events: auto;
+}
+
+#foreground-frame.inactive {
+    pointer-events: none;
+}
+
 iframe {
     transition: opacity 0.1s ease-in;
 }
@@ -372,6 +398,25 @@ iframe {
         height: 70vh;
         z-index: 0;
         pointer-events: none; /* don't intercept taps when covered */
+    }
+
+    /* Dual iframe mode - mobile layout */
+    #background-frame,
+    #foreground-frame {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 70vh;
+        pointer-events: none; /* don't intercept taps when covered */
+    }
+
+    #background-frame {
+        z-index: 0;
+    }
+
+    #foreground-frame {
+        z-index: 1;
     }
 
     body>div#iframe-container:after {
