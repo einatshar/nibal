@@ -637,6 +637,7 @@ css: src/theme.css
 
 [ עדכנו אותי על גורלה של ניבאל ]
 
+
 ## מתודולוגיה ומקורות
 
 <a href="https://btselem.org/" target="blank" class="dontinflect">
