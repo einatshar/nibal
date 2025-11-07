@@ -40,11 +40,20 @@
             display: block;
             height: 100%;
             /* Keep original element hierarchy by default */
+            pointer-events: none; /* default: don't grab events */
         }
         
         #if.editing-mode {
-            z-index: 1000; /* front: above main content for editing */
-            pointer-events: auto; /* allow interaction with iframe content */
+            pointer-events: auto; /* grab mouse events in edit mode */
+        }
+        
+        main {
+            transition: opacity 0.3s ease, pointer-events 0s;
+        }
+        
+        body.editing-mode main {
+            opacity: 0.15; /* 15% opacity */
+            pointer-events: none; /* allow clicking through */
         }
 
           /* We will adjust only the transparency (alpha) of the body's
@@ -86,11 +95,13 @@
                             // Entering edit mode: remove embedded class to show controls
                             docElement.classList.remove('embedded');
                             iframe.classList.add('editing-mode');
+                            document.body.classList.add('editing-mode');
                             console.log('[ROOT] SVG edit mode: ON');
                         } else {
                             // Exiting edit mode: add embedded class to hide controls
                             docElement.classList.add('embedded');
                             iframe.classList.remove('editing-mode');
+                            document.body.classList.remove('editing-mode');
                             console.log('[ROOT] SVG edit mode: OFF');
                         }
                     }
@@ -107,9 +118,11 @@
                 if (iframe) {
                     if (e.data.enabled) {
                         iframe.classList.add('editing-mode');
+                        document.body.classList.add('editing-mode');
                         console.log('[ROOT] SVG edit mode enabled via message');
                     } else {
                         iframe.classList.remove('editing-mode');
+                        document.body.classList.remove('editing-mode');
                         console.log('[ROOT] SVG edit mode disabled via message');
                     }
                 }

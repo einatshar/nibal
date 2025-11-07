@@ -1385,7 +1385,7 @@ svgContainer.addEventListener('wheel', (e)=>{
   const rect = svgContainer.getBoundingClientRect();
   if (!rect.width || !rect.height) return;
   
-  const zoomFactor = e.deltaY > 0 ? 1.1 : 0.9;
+  const zoomFactor = e.deltaY > 0 ? 1.05 : 0.95;  // Smaller intervals for softer control
   const ref = getReferenceFrame();
   const scaleToFitRef = Math.min(ref.size / bbox.width, ref.size / bbox.height);
   
@@ -1436,6 +1436,91 @@ svgContainer.addEventListener('wheel', (e)=>{
   // persist new view/scale to the hash after user stops zooming
   try { scheduleViewHashWrite(100); } catch(e){}
 },{ passive: false });
+
+// Keyboard zoom with + and - keys
+document.addEventListener('keydown', (e) => {
+  // Ignore if typing in an input field
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  
+  if (e.key === '+' || e.key === '=') {
+    // Zoom in centered on viewport center
+    e.preventDefault();
+    if (!bbox) return;
+    
+    const zoomFactor = 0.95;  // Same as mousewheel for consistency
+    const ref = getReferenceFrame();
+    const scaleToFitRef = Math.min(ref.size / bbox.width, ref.size / bbox.height);
+    const oldViewportScale = state.scale * scaleToFitRef;
+    
+    // Center of viewport in reference frame coords
+    const centerRefX = 0;
+    const centerRefY = 0;
+    
+    // The point in SVG coords that's currently at center
+    const txPx = state.tx * ref.size;
+    const tyPx = state.ty * ref.size;
+    const svgX = (centerRefX - txPx) / oldViewportScale + (bbox.x + bbox.width/2);
+    const svgY = (centerRefY - tyPx) / oldViewportScale + (bbox.y + bbox.height/2);
+    
+    // Apply zoom
+    const newScale = state.scale / zoomFactor;
+    const newViewportScale = newScale * scaleToFitRef;
+    
+    // Keep center point fixed
+    const newTxPx = centerRefX - (svgX - (bbox.x + bbox.width/2)) * newViewportScale;
+    const newTyPx = centerRefY - (svgY - (bbox.y + bbox.height/2)) * newViewportScale;
+    
+    state.scale = newScale;
+    state.tx = newTxPx / ref.size;
+    state.ty = newTyPx / ref.size;
+    
+    render();
+    try { 
+      const ref = getReferenceFrame();
+      setStatus(`scale:${Math.round(state.scale*100)/100} ref:${Math.round(ref.size)}px`); 
+    } catch(e){}
+    try { scheduleViewHashWrite(100); } catch(e){}
+    
+  } else if (e.key === '-' || e.key === '_') {
+    // Zoom out centered on viewport center
+    e.preventDefault();
+    if (!bbox) return;
+    
+    const zoomFactor = 1.05;  // Same as mousewheel for consistency
+    const ref = getReferenceFrame();
+    const scaleToFitRef = Math.min(ref.size / bbox.width, ref.size / bbox.height);
+    const oldViewportScale = state.scale * scaleToFitRef;
+    
+    // Center of viewport in reference frame coords
+    const centerRefX = 0;
+    const centerRefY = 0;
+    
+    // The point in SVG coords that's currently at center
+    const txPx = state.tx * ref.size;
+    const tyPx = state.ty * ref.size;
+    const svgX = (centerRefX - txPx) / oldViewportScale + (bbox.x + bbox.width/2);
+    const svgY = (centerRefY - tyPx) / oldViewportScale + (bbox.y + bbox.height/2);
+    
+    // Apply zoom
+    const newScale = state.scale / zoomFactor;
+    const newViewportScale = newScale * scaleToFitRef;
+    
+    // Keep center point fixed
+    const newTxPx = centerRefX - (svgX - (bbox.x + bbox.width/2)) * newViewportScale;
+    const newTyPx = centerRefY - (svgY - (bbox.y + bbox.height/2)) * newViewportScale;
+    
+    state.scale = newScale;
+    state.tx = newTxPx / ref.size;
+    state.ty = newTyPx / ref.size;
+    
+    render();
+    try { 
+      const ref = getReferenceFrame();
+      setStatus(`scale:${Math.round(state.scale*100)/100} ref:${Math.round(ref.size)}px`); 
+    } catch(e){}
+    try { scheduleViewHashWrite(100); } catch(e){}
+  }
+});
 
 // rotate/zoom input controls removed per user preference
 
