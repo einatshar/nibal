@@ -619,10 +619,14 @@ document.addEventListener('DOMContentLoaded', function() {
       const dateStr = dateValue.replace(/-/g, '');
       layerId = `wayback:${dateStr}`;
       
-      // Default sourceHint for satellite layers is 'satellite' if not specified
-      const defaultRef = refLayer || 'satellite';
-      newToken = `+${layerId}(${defaultRef})`;
-      console.log('[ADD LAYER] Using sourceHint:', defaultRef);
+      // Build token: omit (satellite) since it's the default sourceHint
+      if (refLayer && refLayer !== 'satellite') {
+        newToken = `+${layerId}(${refLayer})`;
+        console.log('[ADD LAYER] Using explicit sourceHint:', refLayer);
+      } else {
+        newToken = `+${layerId}`;
+        console.log('[ADD LAYER] Using default sourceHint (satellite)');
+      }
     }
     
     // Check if layer already exists
