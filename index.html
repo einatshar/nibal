@@ -39,6 +39,12 @@
             border: none;
             display: block;
             height: 100%;
+            /* Keep original element hierarchy by default */
+        }
+        
+        #if.editing-mode {
+            z-index: 1000; /* front: above main content for editing */
+            pointer-events: auto; /* allow interaction with iframe content */
         }
 
           /* We will adjust only the transparency (alpha) of the body's
@@ -54,6 +60,62 @@
 <main></main>
 
 <script>
+        // Keyboard shortcuts for toggling iframe editing mode
+        document.addEventListener('keydown', function(e) {
+            // Ignore if typing in an input field
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            
+            const iframe = document.getElementById('if');
+            if (!iframe || !iframe.contentWindow) return;
+            
+            if (e.key === 's' || e.key === 'S') {
+                // Toggle SVG editing mode
+                e.preventDefault();
+                try {
+                    const iframeDoc = iframe.contentWindow.document;
+                    const iframeSrc = iframe.src || '';
+                    
+                    // Only work if iframe is showing svg/
+                    if (iframeSrc.includes('/svg/')) {
+                        const docElement = iframeDoc.documentElement;
+                        
+                        // Check if currently in embedded mode
+                        const isEmbedded = docElement.classList.contains('embedded');
+                        
+                        if (isEmbedded) {
+                            // Entering edit mode: remove embedded class to show controls
+                            docElement.classList.remove('embedded');
+                            iframe.classList.add('editing-mode');
+                            console.log('[ROOT] SVG edit mode: ON');
+                        } else {
+                            // Exiting edit mode: add embedded class to hide controls
+                            docElement.classList.add('embedded');
+                            iframe.classList.remove('editing-mode');
+                            console.log('[ROOT] SVG edit mode: OFF');
+                        }
+                    }
+                } catch(err) {
+                    console.warn('[ROOT] Cannot access iframe:', err);
+                }
+            }
+        });
+        
+        // Listen for messages from iframe about edit mode changes
+        window.addEventListener('message', function(e) {
+            if (e.data && e.data.type === 'svg-edit-mode') {
+                const iframe = document.getElementById('if');
+                if (iframe) {
+                    if (e.data.enabled) {
+                        iframe.classList.add('editing-mode');
+                        console.log('[ROOT] SVG edit mode enabled via message');
+                    } else {
+                        iframe.classList.remove('editing-mode');
+                        console.log('[ROOT] SVG edit mode disabled via message');
+                    }
+                }
+            }
+        });
+        
         // Enable verbose debug logs during this investigation
         try { window.__inflectDebug = true; console.info('inflect: __inflectDebug = true'); } catch(e){}
         // Global smooth scroll helper used by both nav clicks and snap gestures.
