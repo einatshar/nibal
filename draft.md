@@ -55,13 +55,12 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#opening.svg/0,-0.13,1.81/+nibal2023+home)
+[](embed/#vimeo.com%2F1134865613%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop,cover)
 
 אני הצעירה מבין תשעה אחים ושלוש אחיות.  
 
 
 {.testimony typewriter}
-[](svg/#opening.svg/-0.23,-0.21,2.11/+nibal2023+home)
 
 בגלל שאני הקטנה, ההורים והאחים שלי תמיד פינקו אותי. הייתה לי תשוקה גדולה לחיים, ובתיכון מאוד אהבתי ללמוד.
 
