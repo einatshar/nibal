@@ -93,10 +93,6 @@ Historical archive back to February 2014. System selects closest available relea
 Updated every few weeks. Free WMTS service, max zoom 22 for extreme detail.
 
 
-[](map/#31.52374,34.43343,15.00,37.6,0.0/+wayback:20241015,+jabalia "Wayback with vector markers")
-Combine high-resolution imagery with vector annotations.
-
-
 {.heading}
 
 ## Camera Animations
@@ -113,12 +109,8 @@ A **distance ticker** automatically appears showing the cumulative distance trav
 The **distance ticker** can start with an offset by marking the km count after the :follow+.
 
 
-[](map/#31.52103,34.46974,12.79,-14.4,30.4/+jabalia-rafah:follow,+jabalia,+rafah "Path animation with markers")
-Show origin and destination points during the animation. The white circular ticker counts from 0.0 km to 37.0 km over ~74 seconds for this path.
-
-
-[](map/#31.52090,34.47332,14.00,19.2,48.5/+jabalia-rafah:follow,+wayback:20240215 "High-resolution flyover with Wayback")
-Use Wayback for detailed terrain visualization during animation. Watch the distance accumulate as you fly over high-resolution imagery.
+[](map/#31.52090,34.47332,14.00,19.2,48.5/~jabalia-rafah:follow,+wayback:20240215 "High-resolution flyover with Wayback")
+Use Wayback for detailed terrain visualization during animation. In this case the path is hidden with a ~jabalia-rafah:follow using the animation only for camera control.
 
 
 {.heading}

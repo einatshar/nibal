@@ -754,8 +754,8 @@ const defaultCamera = {
 // Parse hash: #lat,lng,zoom,bearing,pitch/+layer1,-layer2/load:filename
 function parseHash() {
   const hash = window.location.hash.replace('#', '');
-  if (!hash) return { camera: { ...defaultCamera }, layers: allStyleLayers.map(l => l.id), dynamicGeojsonToLoad: [], followId: null, followOffset: 0, showTicker: false };
-  let cameraStr = '', layersStr = '', followId = null, followOffset = 0, showTicker = false;
+  if (!hash) return { camera: { ...defaultCamera }, layers: allStyleLayers.map(l => l.id), dynamicGeojsonToLoad: [], followId: null, followOffset: 0, showTicker: false, followHidden: false };
+  let cameraStr = '', layersStr = '', followId = null, followOffset = 0, showTicker = false, followHidden = false;
   const parts = hash.split('/');
   const restParts = [];
   for (let i = 0; i < parts.length; i++) {
@@ -786,13 +786,18 @@ function parseHash() {
       const hasFollow = token.includes(':follow');
       const hasTickerFlag = !!plusSign; // true if group 4 captured anything (:follow+ or :follow+number)
       const parsedOffset = offset ? parseInt(offset, 10) : 0;
-      console.log('[HASH] Parsed token:', token, '-> hasFollow:', hasFollow, 'plusSign:', plusSign, 'hasTickerFlag:', hasTickerFlag, 'offset:', parsedOffset);
       // Always use the id without :follow for loading/toggling
       layerState[lname] = { sign, sourceHint: sourceHint || null, follow: hasFollow, followOffset: parsedOffset, showTicker: hasTickerFlag };
     });
-    Object.entries(layerState).forEach(([lname, { sign, sourceHint, follow, followOffset: layerFollowOffset, showTicker: layerShowTicker }]) => {
+  Object.entries(layerState).forEach(([lname, { sign, sourceHint, follow, followOffset: layerFollowOffset, showTicker: layerShowTicker }]) => {
       if (sign === '+') {
-        if (!allStyleLayers.some(l => l.id === lname)) {
+        const isStyleLayer = allStyleLayers.some(l => l.id === lname);
+        const isExternalLayer = externalLayers.has(lname);
+        
+        // Load layer if:
+        // 1. It's not a style layer (new external layer)
+        // 2. It's an external layer and has a sourceHint (reload with new style)
+        if (!isStyleLayer || (isExternalLayer && sourceHint)) {
           // Check if this is a Wayback layer (format: wayback:YYYYMMDD)
           const waybackMatch = lname.match(/^wayback:(\d{8})$/);
           if (waybackMatch) {
@@ -808,17 +813,21 @@ function parseHash() {
           followId = lname;
           followOffset = layerFollowOffset;
           showTicker = layerShowTicker;
-          console.log('[HASH] Setting follow for layer:', lname, 'showTicker:', showTicker, 'offset:', followOffset);
+          followHidden = (sign === '~');
         }
       } else if (sign === '~') {
         // For ~new-id, load as invisible (unchecked) dynamic layer
-        if (!allStyleLayers.some(l => l.id === lname)) {
+        const isStyleLayer = allStyleLayers.some(l => l.id === lname);
+        const isExternalLayer = externalLayers.has(lname);
+        
+        if (!isStyleLayer || (isExternalLayer && sourceHint)) {
           dynamicGeojsonToLoad.push({ name: lname, sourceHint });
         }
         if (follow) {
           followId = lname;
           followOffset = layerFollowOffset;
           showTicker = layerShowTicker;
+          followHidden = (sign === '~');
         }
         // Do NOT add to layersOn, so it is not visible/checked
       }
@@ -840,7 +849,8 @@ function parseHash() {
     dynamicGeojsonToLoad,
     followId,
     followOffset,
-    showTicker
+    showTicker,
+    followHidden
   };
 }
 
@@ -1009,8 +1019,6 @@ async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
     if (typeof toLayer === 'object' && toLayer !== null && toLayer.sourceHint) sourceHint = toLayer.sourceHint;
     if (!sourceHint && typeof geojsonFile === 'object' && geojsonFile.sourceHint) sourceHint = geojsonFile.sourceHint;
     
-    console.log('[LOAD] Layer:', layerId, 'with sourceHint:', sourceHint);
-    
     let type = 'line';
     let sourceLayerFound = false;
     
@@ -1019,9 +1027,6 @@ async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
       if (styleLayer && styleLayer.type) {
         type = styleLayer.type;
         sourceLayerFound = true;
-        console.log('[LAYER TYPE] Using type', type, 'from source layer', sourceHint);
-      } else {
-        console.warn('[LAYER TYPE] Source layer', sourceHint, 'not found in style! Available layers:', map.getStyle().layers.map(l => l.id).join(', '));
       }
     }
     
@@ -1064,9 +1069,6 @@ async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
             if (typeof copiedLayout.visibility !== 'undefined') delete copiedLayout.visibility;
             layerDef.layout = Object.assign({}, layerDef.layout, copiedLayout);
           }
-          console.log('[STYLE COPY] Copied paint/layout from', sourceHint, 'to', layerId);
-        } else {
-          console.warn('[STYLE COPY] Source layer', sourceHint, 'not found, cannot copy styling');
         }
       }
     } catch (ex) {
@@ -1082,16 +1084,13 @@ async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
         if (sourceIndex >= 0) {
           if (sourceIndex < allLayers.length - 1) {
             const beforeId = allLayers[sourceIndex + 1].id;
-            console.log('[LAYER ORDER] Placing', layerId, 'right after', sourceHint, '(before', beforeId + ')');
             map.addLayer(layerDef, beforeId);
           } else {
             // Source layer is last, add at top
-            console.log('[LAYER ORDER] Source layer', sourceHint, 'is last, adding', layerId, 'at top');
             map.addLayer(layerDef);
           }
         } else {
           // Source layer not found
-          console.warn('[LAYER ORDER] Source layer', sourceHint, 'not found in style, adding', layerId, 'at top');
           map.addLayer(layerDef);
         }
       } else {
@@ -1108,7 +1107,6 @@ async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
         throw ex2;
       }
     }
-    console.log(`Layer loaded: ${layerId}`);
     
     // Mark as external layer
     externalLayers.add(layerId);
@@ -1123,7 +1121,6 @@ async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
       });
       if (hasPathGeometry) {
         followableLayers.add(layerId);
-        console.log('[FOLLOW] Layer', layerId, 'marked as followable');
       }
     }
 
@@ -1143,7 +1140,6 @@ async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
           if (sourceIdx >= 0) {
             // Insert right after the source layer
             allStyleLayers.splice(sourceIdx + 1, 0, { id: layerId, name: cleanId });
-            console.log('[LAYER LIST] Inserted', layerId, 'after', sourceHint, 'in UI list');
           } else {
             // Source not in list, add at end
             allStyleLayers.push({ id: layerId, name: cleanId });
@@ -1474,7 +1470,7 @@ function createLayerControls(map, visibleLayers) {
       const isFollowing = followState[layer.id] || false;
       const hasTickerFlag = showTicker[layer.id] || false;
       // Apply bold blue styling for external layers
-      const labelStyle = isExternalLayer ? 'font-weight:bold;color:#0028ff;' : (bold ? 'font-weight:bold;' : '');
+      const labelStyle = isExternalLayer ? 'font-weight:bold;color:#4caf50;' : (bold ? 'font-weight:bold;' : '');
       
       // Build button HTML
       let buttonHtml = '';
@@ -1806,7 +1802,7 @@ window.map = map;
 
 map.on('load', () => {
   // After all layers are loaded, if :follow is present in the hash, trigger follow logic directly (no hashchange event)
-  const { camera: camInit, layers: layersInit, dynamicGeojsonToLoad: dynInit, followId: followInit, followOffset: followOffsetInit, showTicker: showTickerInit } = parseHash();
+  const { camera: camInit, layers: layersInit, dynamicGeojsonToLoad: dynInit, followId: followInit, followOffset: followOffsetInit, showTicker: showTickerInit, followHidden: followHiddenInit } = parseHash();
   if (followInit) {
     // Only start follow if not already running (avoid double-trigger)
     if (!window._isFollowStarted) {
@@ -1845,7 +1841,7 @@ map.on('load', () => {
             window._suppressNextFollowCancel = true;
             window.location.replace(newHash);
             window._isFollowStarted = false;
-          }, followInit, followOffsetInit || 0, showTickerInit);
+          }, followInit, followOffsetInit || 0, showTickerInit, followHiddenInit);
         }
       };
       setTimeout(tryStartFollow, 0);
@@ -1982,7 +1978,7 @@ map.on('move', () => {
 // Listen for hash changes (external navigation)
 let isFreeCameraAnimating = false;
 let pendingHashUpdate = null;
-function followPathWithFreeCamera(map, coords, onComplete, layerId, startOffset = 0, showTicker = false) {
+function followPathWithFreeCamera(map, coords, onComplete, layerId, startOffset = 0, showTicker = false, keepLayerHidden = false) {
   // Periodic check for :follow in the hash
   // Escape layerId for regex
   const safeLayerId = layerId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -2020,10 +2016,14 @@ function followPathWithFreeCamera(map, coords, onComplete, layerId, startOffset 
   isFreeCameraAnimating = true;
   console.log('[FOLLOW] Animation state set: isFreeCameraAnimating = true');
   
-  // Make the layer visible at the start of the follow animation
+  // Capture original visibility and only force-visible if not instructed to keep hidden
+  let originalVisibility = null;
   if (layerId && map.getLayer(layerId)) {
-    map.setLayoutProperty(layerId, 'visibility', 'visible');
-    console.log('[FOLLOW] Made layer visible:', layerId);
+    try { originalVisibility = map.getLayoutProperty(layerId, 'visibility'); } catch(e) { originalVisibility = null; }
+    if (!keepLayerHidden) {
+      map.setLayoutProperty(layerId, 'visibility', 'visible');
+      console.log('[FOLLOW] Made layer visible:', layerId);
+    }
   }
   
   // Expose a global cancel to allow immediate stop on hash changes
@@ -2037,6 +2037,12 @@ function followPathWithFreeCamera(map, coords, onComplete, layerId, startOffset 
       if (layerId && originalData) {
         const src = map.getSource(layerId);
         if (src && src.setData) src.setData(originalData);
+      }
+    } catch(e) {}
+    // Restore original visibility if we changed it
+    try {
+      if (layerId && originalVisibility !== null && !keepLayerHidden) {
+        map.setLayoutProperty(layerId, 'visibility', originalVisibility);
       }
     } catch(e) {}
     // Hide distance ticker
@@ -2231,6 +2237,12 @@ function followPathWithFreeCamera(map, coords, onComplete, layerId, startOffset 
         const src = map.getSource(layerId);
         if (src) src.setData(originalData);
       }
+      // Restore original visibility if we changed it (only when not keeping hidden)
+      try {
+        if (layerId && originalVisibility !== null && !keepLayerHidden) {
+          map.setLayoutProperty(layerId, 'visibility', originalVisibility);
+        }
+      } catch(e) {}
       isFreeCameraAnimating = false;
       // Keep ticker visible on completion (don't hide it)
       // Store final position in data attributes so map move handler can update it
@@ -2274,7 +2286,7 @@ window.addEventListener('hashchange', () => {
 
   // ...existing code...
 
-  const { camera, layers, dynamicGeojsonToLoad, followId, followOffset, showTicker } = parseHash();
+  const { camera, layers, dynamicGeojsonToLoad, followId, followOffset, showTicker, followHidden } = parseHash();
   console.log('[FOLLOW DEBUG] Hash:', window.location.hash, '| followId:', followId, '| followOffset:', followOffset, '| showTicker:', showTicker, '| layers:', layers, '| dynamicGeojsonToLoad:', dynamicGeojsonToLoad);
   console.log('[FOLLOW DEBUG] About to process layers and dynamic sources...');
 
@@ -2313,10 +2325,15 @@ window.addEventListener('hashchange', () => {
         } else {
           // Not mentioned - check if it's an external layer
           if (externalLayers.has(id)) {
-            // External layers not in hash should be hidden
-            if (map.getLayoutProperty(id, 'visibility') !== 'none') {
-              map.setLayoutProperty(id, 'visibility', 'none');
-              console.log('[HASHCHANGE] Hiding external layer not in hash:', id);
+            // External layers not in hash should be removed entirely
+            if (!explicitState[id]) {
+              if (map.getLayer(id)) map.removeLayer(id);
+              if (map.getSource(id)) map.removeSource(id);
+              const idx = allStyleLayers.findIndex(l => l.id === id);
+              if (idx !== -1) allStyleLayers.splice(idx, 1);
+              delete styleDefaultVisibility[id];
+              externalLayers.delete(id);
+              followableLayers.delete(id);
             }
           } else {
             // Style layers - restore to style default
@@ -2350,7 +2367,7 @@ window.addEventListener('hashchange', () => {
     });
   }
 
-  // Update layer controls to reflect current state
+  // Update layer controls to reflect current state (after any removals)
   createLayerControls(map, allStyleLayers.filter(l => map.getLayer(l.id) && map.getLayoutProperty(l.id, 'visibility') === 'visible').map(l => l.id));
 
   // Load dynamic layers as needed (GeoJSON/CSV, Sentinel-2, or Wayback)
@@ -2371,8 +2388,8 @@ window.addEventListener('hashchange', () => {
       // Check if layer already exists
       const layerExists = map.getLayer(name);
       // If this layer will be followed, load it hidden initially - the follow animation will show it
-      const isFollowLayer = (name === followId);
-      const visibility = isFollowLayer ? 'none' : (layersOn.includes(name) ? 'visible' : 'none');
+  const isFollowLayer = (name === followId);
+  const visibility = isFollowLayer ? 'none' : (layersOn.includes(name) ? 'visible' : 'none');
       
       if (isWayback && waybackDate) {
         // ESRI Wayback layer
@@ -2454,7 +2471,7 @@ window.addEventListener('hashchange', () => {
           window._suppressNextFollowCancel = true;
           window.location.replace(newHash);
           window._isFollowStarted = false;
-        }, followId, followOffset || 0, showTicker);
+  }, followId, followOffset || 0, showTicker, followHidden);
       } else {
         console.log('[FOLLOW DEBUG] Not enough coordinates to follow for layer:', followId);
       }
