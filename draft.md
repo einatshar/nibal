@@ -1,4 +1,4 @@
-<img width="468" height="24" alt="image" src="https://github.com/user-attachments/assets/b84df496-78ba-4359-8291-aa7f9d72e2a4" /><img width="468" height="42" alt="image" src="https://github.com/user-attachments/assets/2f307008-a583-49ac-b8cf-233f740efad7" />---
+---
 body-class: snap
 css: src/theme.css
 ---
