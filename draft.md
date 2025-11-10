@@ -5,8 +5,8 @@ css: src/theme.css
 ---
 
 # _מסע העקירה של_ ניבאל אל היסי
-[](map/#31.33923,34.28541,9.56,37.6,0.0/~labels_he "Gaza map")
-[](svg/#opening.svg/~IDFareas~gazamap)
+[](map/#31.33028,34.30651,9.56,37.6,0.0/~labels_he "Gaza map")
+[](svg/#opening.svg/-0.03,0.08,1.52/~IDFareas~gazamap)
 
 <img src="img/bts_logo.svg" alt="בצלם: מסעות עקירה]" style="max-width:100px;height:auto;">
 
@@ -32,18 +32,20 @@ css: src/theme.css
 
 
 {.meta}
-[](svg/#opening.svg/0.27,0.19,1.81/+displaced)
+[](svg/#opening.svg/~opening)
 [](map/#31.43664,34.34673,10.18,37.6,0.0/+cities,+villages,+unosat-damage-231015)
 במקביל לעקירה בשל צווי הפינוי, תושבי עזה נאלצו לעקור בשל ההפצצות התכופות של הצבא הישראלי בכל רחבי הרצועה, שגרמו להרס ומוות בקנה מידה עצום.
 
 
 {.meta}
-[](svg/#opening.svg/0.88,-0.06,3.42/+displaced+IDFareas+gazamap "עקורים צועדים בתאריך XX XX XX")
+[](svg/#opening.svg/0.29,-0.09,1.81/+displaced)
+[](map/#31.49997,34.25627,10.18,37.6,0.0/+cities,+villages,+unosat-damage-231015 "עקורים צועדים בתאריך XX XX XX")
 לאורך כל חודשי המתקפה, ישראל לא אפשרה לעקורים למצוא מחסה בטוח ומנעה מהם גישה למזון, מים ושירותים בסיסיים.
 
 
 {.meta}
-[](svg/#opening.svg/-0.06,-0.05,2.05/~home)
+[](map/#31.33028,34.30651,9.56,37.6,0.0/~labels_he)
+[](svg/#opening.svg/-0.06,-0.05,2.05/~gazamap~IDFareas~home)
 ניבאל אל היסי נעקרה יחד עם בתה ריתא, כיום בת שנתיים.
 
 זה הסיפור שלה.
@@ -51,7 +53,7 @@ css: src/theme.css
 
 {.subheader}
 [](about:blank)
-
+[](map/#31.53332,34.48215,14.18,37.6,0.0/~labels_he,+Gaza_border_dash,+Gaza_border_base,~family-home)
 ## החיים שלפני
 
 

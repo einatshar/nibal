@@ -197,6 +197,168 @@
             }
         }
         
+        // Sync <body> classes based on current editing state across frames
+        function syncEditModeBodyClasses() {
+            try {
+                const iframe = document.getElementById('if');
+                const backgroundFrame = document.getElementById('background-frame');
+                const foregroundFrame = document.getElementById('foreground-frame');
+
+                const bgEditing = !!(backgroundFrame && backgroundFrame.classList.contains('editing-mode'));
+                const fgEditing = !!(foregroundFrame && foregroundFrame.classList.contains('editing-mode'));
+                const singleEditing = !!(iframe && iframe.classList.contains('editing-mode'));
+
+                const anyEditing = bgEditing || fgEditing || singleEditing;
+                document.body.classList.toggle('editing-mode', anyEditing);
+
+                // Map vs SVG specific classes
+                let singleType = null;
+                try { singleType = getIframeType(); } catch(e){}
+                const mapEditing = bgEditing || (singleEditing && singleType === 'map');
+                const svgEditing = fgEditing || (singleEditing && singleType === 'svg');
+                document.body.classList.toggle('map-edit', !!mapEditing);
+                document.body.classList.toggle('svg-edit', !!svgEditing);
+            } catch(e) { /* swallow */ }
+        }
+
+        // Toggle foreground (SVG/other) iframe only
+        function toggleForegroundEditMode() {
+            const isDualMode = document.body.classList.contains('dual-iframe');
+            if (isDualMode) {
+                const foregroundFrame = document.getElementById('foreground-frame');
+                const backgroundFrame = document.getElementById('background-frame');
+                if (!foregroundFrame || !foregroundFrame.contentWindow) return;
+                try {
+                    const fgDoc = foregroundFrame.contentWindow.document;
+                    const docElement = fgDoc.documentElement;
+                    const isEmbedded = docElement.classList.contains('embedded');
+                    if (isEmbedded) {
+                        // Enable edit mode (foreground only)
+                        docElement.classList.remove('embedded');
+                        foregroundFrame.classList.add('editing-mode');
+                        console.log('[ROOT] Foreground edit mode: ON');
+                        // Foreground-only editing: disable mouse on background
+                        try {
+                            if (backgroundFrame) {
+                                backgroundFrame.classList.add('inactive');
+                                backgroundFrame.style.pointerEvents = 'none';
+                            }
+                            foregroundFrame.classList.remove('inactive');
+                            foregroundFrame.style.pointerEvents = '';
+                        } catch(e){}
+                    } else {
+                        // Disable edit mode (foreground only)
+                        docElement.classList.add('embedded');
+                        foregroundFrame.classList.remove('editing-mode');
+                        console.log('[ROOT] Foreground edit mode: OFF');
+                        // Re-enable background interactions when leaving foreground-only mode
+                        try {
+                            if (backgroundFrame) {
+                                backgroundFrame.classList.remove('inactive');
+                                backgroundFrame.style.pointerEvents = '';
+                            }
+                            foregroundFrame.style.pointerEvents = '';
+                        } catch(e){}
+                    }
+                    syncEditModeBodyClasses();
+                } catch(err) {
+                    console.warn('[ROOT] Cannot access foreground-frame:', err);
+                }
+            } else {
+                // Single iframe mode: only act when current content is SVG
+                const iframe = document.getElementById('if');
+                if (!iframe || !iframe.contentWindow) return;
+                const type = getIframeType();
+                if (type !== 'svg') return;
+                try {
+                    const iframeDoc = iframe.contentWindow.document;
+                    const docElement = iframeDoc.documentElement;
+                    const isEmbedded = docElement.classList.contains('embedded');
+                    if (isEmbedded) {
+                        docElement.classList.remove('embedded');
+                        iframe.classList.add('editing-mode');
+                        console.log('[ROOT] Edit mode: ON (single svg)');
+                    } else {
+                        docElement.classList.add('embedded');
+                        iframe.classList.remove('editing-mode');
+                        console.log('[ROOT] Edit mode: OFF (single svg)');
+                    }
+                    syncEditModeBodyClasses();
+                } catch(err) {
+                    console.warn('[ROOT] Cannot access iframe (svg):', err);
+                }
+            }
+        }
+
+        // Toggle background (map) iframe only
+        function toggleBackgroundEditMode() {
+            const isDualMode = document.body.classList.contains('dual-iframe');
+            if (isDualMode) {
+                const backgroundFrame = document.getElementById('background-frame');
+                const foregroundFrame = document.getElementById('foreground-frame');
+                if (!backgroundFrame || !backgroundFrame.contentWindow) return;
+                try {
+                    const bgDoc = backgroundFrame.contentWindow.document;
+                    const layerControls = bgDoc.getElementById('layer-controls');
+                    if (layerControls) {
+                        const isHidden = layerControls.classList.contains('hidden');
+                        layerControls.classList.toggle('hidden');
+                        if (isHidden) {
+                            backgroundFrame.classList.add('editing-mode');
+                            console.log('[ROOT] Background edit mode: ON');
+                            // Background-only editing: disable mouse on foreground
+                            try {
+                                if (foregroundFrame) {
+                                    foregroundFrame.classList.add('inactive');
+                                    foregroundFrame.style.pointerEvents = 'none';
+                                }
+                                backgroundFrame.classList.remove('inactive');
+                                backgroundFrame.style.pointerEvents = '';
+                            } catch(e){}
+                        } else {
+                            backgroundFrame.classList.remove('editing-mode');
+                            console.log('[ROOT] Background edit mode: OFF');
+                            // Re-enable foreground interactions when leaving background-only mode
+                            try {
+                                if (foregroundFrame) {
+                                    foregroundFrame.classList.remove('inactive');
+                                    foregroundFrame.style.pointerEvents = '';
+                                }
+                                backgroundFrame.style.pointerEvents = '';
+                            } catch(e){}
+                        }
+                        syncEditModeBodyClasses();
+                    }
+                } catch(err) {
+                    console.warn('[ROOT] Cannot access background-frame:', err);
+                }
+            } else {
+                // Single iframe mode: only act when current content is a map
+                const iframe = document.getElementById('if');
+                if (!iframe || !iframe.contentWindow) return;
+                const type = getIframeType();
+                if (type !== 'map') return;
+                try {
+                    const iframeDoc = iframe.contentWindow.document;
+                    const layerControls = iframeDoc.getElementById('layer-controls');
+                    if (layerControls) {
+                        const isHidden = layerControls.classList.contains('hidden');
+                        layerControls.classList.toggle('hidden');
+                        if (isHidden) {
+                            iframe.classList.add('editing-mode');
+                            console.log('[ROOT] Edit mode: ON (single map)');
+                        } else {
+                            iframe.classList.remove('editing-mode');
+                            console.log('[ROOT] Edit mode: OFF (single map)');
+                        }
+                        syncEditModeBodyClasses();
+                    }
+                } catch(err) {
+                    console.warn('[ROOT] Cannot access iframe (map):', err);
+                }
+            }
+        }
+
         // Keyboard shortcut for toggling edit mode
         document.addEventListener('keydown', function(e) {
             // Ignore if typing in an input field
@@ -206,8 +368,135 @@
             if (e.code === 'KeyE') {
                 e.preventDefault();
                 toggleEditMode();
+            } else if (e.code === 'KeyF') {
+                // Foreground-only edit toggle
+                e.preventDefault();
+                toggleForegroundEditMode();
+            } else if (e.code === 'KeyB') {
+                // Background-only edit toggle
+                e.preventDefault();
+                toggleBackgroundEditMode();
+            } else if (e.code === 'KeyC') {
+                // Copy relative URL of the active layer (svg/ or map/)
+                e.preventDefault();
+                try { copyActiveLayerUrl(); } catch(err) { console.warn('Copy URL failed:', err); }
             }
         });
+
+        // Determine which layer is currently active (foreground svg vs background map)
+        function getActiveLayerFrame() {
+            const isDualMode = document.body.classList.contains('dual-iframe');
+            if (!isDualMode) {
+                const iframe = document.getElementById('if');
+                let type = null;
+                try { type = getIframeType(); } catch(e){}
+                // Map to a role for consistency
+                const role = (type === 'map') ? 'background' : 'foreground';
+                return { frame: iframe, role, type };
+            }
+
+            const backgroundFrame = document.getElementById('background-frame');
+            const foregroundFrame = document.getElementById('foreground-frame');
+
+            const svgEdit = document.body.classList.contains('svg-edit') || (foregroundFrame && foregroundFrame.classList.contains('editing-mode'));
+            const mapEdit = document.body.classList.contains('map-edit') || (backgroundFrame && backgroundFrame.classList.contains('editing-mode'));
+            if (svgEdit && !mapEdit) return { frame: foregroundFrame, role: 'foreground', type: 'svg' };
+            if (mapEdit && !svgEdit) return { frame: backgroundFrame, role: 'background', type: 'map' };
+
+            const bgInactive = backgroundFrame && backgroundFrame.classList.contains('inactive');
+            const fgInactive = foregroundFrame && foregroundFrame.classList.contains('inactive');
+            if (bgInactive && !fgInactive) return { frame: foregroundFrame, role: 'foreground', type: 'svg' };
+            if (fgInactive && !bgInactive) return { frame: backgroundFrame, role: 'background', type: 'map' };
+
+            // Fallback: prefer foreground
+            return { frame: foregroundFrame || backgroundFrame || null, role: foregroundFrame ? 'foreground' : 'background', type: foregroundFrame ? 'svg' : 'map' };
+        }
+
+        // Extract a relative URL beginning with svg/ or map/ (including hash if present)
+        function extractRelativeLayerUrl(frame, expectedType) {
+            if (!frame || !frame.src) return null;
+            try {
+                const u = new URL(frame.src, window.location.origin);
+                const path = u.pathname || '';
+                const hash = u.hash || '';
+
+                function pickRelFromPath(p, keyword) {
+                    const withSlash = '/' + keyword + '/';
+                    const idx = p.lastIndexOf(withSlash);
+                    if (idx >= 0) return p.substring(idx + 1) + (hash || ''); // drop leading '/'
+                    const endMarker = '/' + keyword;
+                    if (p.endsWith(endMarker)) return keyword + (hash || '');
+                    return null;
+                }
+
+                if (expectedType === 'map') {
+                    const rel = pickRelFromPath(path, 'map');
+                    return rel;
+                } else if (expectedType === 'svg') {
+                    const rel = pickRelFromPath(path, 'svg');
+                    return rel;
+                } else {
+                    // Fallback: try both
+                    return pickRelFromPath(path, 'svg') || pickRelFromPath(path, 'map');
+                }
+            } catch (e) {
+                return null;
+            }
+        }
+
+        async function copyTextToClipboard(text) {
+            if (!text) return false;
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(text);
+                    console.info('[ROOT] Copied to clipboard:', text);
+                    return true;
+                }
+            } catch (e) {
+                // fall back below
+            }
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.top = '-1000px';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.focus();
+                ta.select();
+                const ok = document.execCommand('copy');
+                document.body.removeChild(ta);
+                if (ok) console.info('[ROOT] Copied to clipboard (fallback):', text);
+                return !!ok;
+            } catch (e) {
+                console.warn('Clipboard copy failed:', e);
+                return false;
+            }
+        }
+
+        // Copy the relative URL (svg/… or map/…) of the active layer
+        async function copyActiveLayerUrl() {
+            const isDualMode = document.body.classList.contains('dual-iframe');
+            if (isDualMode) {
+                const { frame, role } = getActiveLayerFrame();
+                const expectedType = (role === 'background') ? 'map' : 'svg';
+                const rel = extractRelativeLayerUrl(frame, expectedType);
+                if (!rel) {
+                    console.warn('[ROOT] No', expectedType, 'URL found to copy for active layer');
+                    return false;
+                }
+                return copyTextToClipboard(rel);
+            } else {
+                const iframe = document.getElementById('if');
+                const type = (function(){ try { return getIframeType(); } catch(e){ return null; } })();
+                const rel = extractRelativeLayerUrl(iframe, type);
+                if (!rel) {
+                    console.warn('[ROOT] No map/svg URL found to copy');
+                    return false;
+                }
+                return copyTextToClipboard(rel);
+            }
+        }
         
         // Listen for messages from iframe about edit mode changes
         window.addEventListener('message', function(e) {
