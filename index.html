@@ -39,28 +39,18 @@
             border: none;
             display: block;
             height: 100%;
-        }
-
-        /* Dual iframe mode styles - visibility toggling */
-        body:not(.dual-iframe) #background-frame,
-        body:not(.dual-iframe) #foreground-frame {
-            display: none !important;
+            /* Keep original element hierarchy by default */
+            pointer-events: none; /* default: don't grab events */
         }
         
-        body.dual-iframe #if {
-            display: none !important;
+        #if.editing-mode {
+            pointer-events: auto; /* grab mouse events in edit mode */
         }
         
-        /* Dual iframe opacity transitions and initial state */
-        #background-frame,
-        #foreground-frame {
-            transition: opacity 0.4s ease;
-            opacity: 0;
+        main {
+            transition: opacity 0.3s ease, pointer-events 0s;
         }
 
-          /* We will adjust only the transparency (alpha) of the body's
-              background during iframe fades via inline styles. Avoid making a
-              permanent change to the default background color here. */
     </style>
 </head>
 
@@ -75,6 +65,106 @@
 <main></main>
 
 <script>
+        // Detect which type of content is loaded in iframe
+        function getIframeType() {
+            const iframe = document.getElementById('if');
+            if (!iframe || !iframe.src) return null;
+            
+            const src = iframe.src;
+            if (src.includes('/map/')) return 'map';
+            if (src.includes('/svg/')) return 'svg';
+            return null;
+        }
+        
+        // Toggle edit mode for current iframe content
+        function toggleEditMode() {
+            const iframe = document.getElementById('if');
+            if (!iframe || !iframe.contentWindow) return;
+            
+            const type = getIframeType();
+            if (!type) return;
+            
+            try {
+                const iframeDoc = iframe.contentWindow.document;
+                
+                if (type === 'map') {
+                    // Toggle map layer controls
+                    const layerControls = iframeDoc.getElementById('layer-controls');
+                    if (layerControls) {
+                        const isHidden = layerControls.classList.contains('hidden');
+                        layerControls.classList.toggle('hidden');
+                        
+                        if (isHidden) {
+                            // Enable edit mode
+                            iframe.classList.add('editing-mode');
+                            document.body.classList.add('editing-mode', 'map-edit');
+                            console.log('[ROOT] Edit mode: ON (map)');
+                        } else {
+                            // Disable edit mode
+                            iframe.classList.remove('editing-mode');
+                            document.body.classList.remove('editing-mode', 'map-edit', 'svg-edit');
+                            console.log('[ROOT] Edit mode: OFF');
+                        }
+                    }
+                } else if (type === 'svg') {
+                    // Toggle SVG controls
+                    const docElement = iframeDoc.documentElement;
+                    const isEmbedded = docElement.classList.contains('embedded');
+                    
+                    if (isEmbedded) {
+                        // Enable edit mode
+                        docElement.classList.remove('embedded');
+                        iframe.classList.add('editing-mode');
+                        document.body.classList.add('editing-mode', 'svg-edit');
+                        console.log('[ROOT] Edit mode: ON (svg)');
+                    } else {
+                        // Disable edit mode
+                        docElement.classList.add('embedded');
+                        iframe.classList.remove('editing-mode');
+                        document.body.classList.remove('editing-mode', 'map-edit', 'svg-edit');
+                        console.log('[ROOT] Edit mode: OFF');
+                    }
+                }
+            } catch(err) {
+                console.warn('[ROOT] Cannot access iframe:', err);
+            }
+        }
+        
+        // Keyboard shortcut for toggling edit mode
+        document.addEventListener('keydown', function(e) {
+            // Ignore if typing in an input field
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            
+            // Use code instead of key to work across keyboard layouts
+            if (e.code === 'KeyE') {
+                e.preventDefault();
+                toggleEditMode();
+            }
+        });
+        
+        // Listen for messages from iframe about edit mode changes
+        window.addEventListener('message', function(e) {
+            if (e.data && (e.data.type === 'svg-edit-mode' || e.data.type === 'map-edit-mode')) {
+                const iframe = document.getElementById('if');
+                if (iframe) {
+                    if (e.data.enabled) {
+                        iframe.classList.add('editing-mode');
+                        if (e.data.type === 'svg-edit-mode') {
+                            document.body.classList.add('editing-mode', 'svg-edit');
+                            console.log('[ROOT] Edit mode enabled via message (svg)');
+                        } else {
+                            document.body.classList.add('editing-mode', 'map-edit');
+                            console.log('[ROOT] Edit mode enabled via message (map)');
+                        }
+                    } else {
+                        iframe.classList.remove('editing-mode');
+                        document.body.classList.remove('editing-mode', 'map-edit', 'svg-edit');
+                        console.log('[ROOT] Edit mode disabled via message');
+                    }
+                }
+            }
+        });
+        
         // Enable verbose debug logs during this investigation
         try { window.__inflectDebug = true; console.info('inflect: __inflectDebug = true'); } catch(e){}
         // Global smooth scroll helper used by both nav clicks and snap gestures.

@@ -39,7 +39,7 @@ The camera smoothly flies between positions as you scroll or click links.
 
 ## Layer Management
 
-[](map/#31.42380,34.35370,10.00,37.6,0.0/+idf-poly-outlines "IDF evacuation zone outlines")
+[](map/#31.42380,34.35370,10.00,37.6,0.0/+idf-poly "IDF evacuation zone outlines")
 Show built-in style layers by adding `+layername` to the hash.
 
 
@@ -47,50 +47,38 @@ Show built-in style layers by adding `+layername` to the hash.
 Stack multiple layers together: polygons and their outlines.
 
 
-[](map/#31.43315,34.35321,10.06,37.6,0.0/~satellite "Hide satellite layer")
-Hide layers with `~layername` — useful for replacing default basemaps.
+[](map/#31.42391,34.35369,10.00,37.6,0.0/~labels_he "Hide labels")
+Hide layers with `~layername` — useful for replacing default basemap layers.
 
 
-[](map/#31.52374,34.43343,15.00,37.6,0.0/~satellite,+overlay "Custom overlay replaces satellite")
+[](map/#31.52374,34.43343,15.00,37.6,0.0/+overlay,~Gaza_border_dash,~Gaza_border_base "Custom overlay without borders")
 Combine hiding and showing to swap layers.
 
 
-[](map/#31.52929,34.47915,15.50,37.6,0.0/+satellite,+jabalia "Satellite with point markers")
-Available layers: `satellite`, `overlay`, `idf-poly`, `idf-poly-outlines`, `jabalia`, `rafah`.
+[](map/#31.53410,34.48202,15.34,37.6,0.0/+satellite,+family-home "Satellite with point markers")
+Open editor (click "E") to view the layers available in the map, both shown and hidden by default.
 
 
 {.heading}
 
 ## Loading External Data
 
-[](map/#31.43672,34.34664,10.16,37.6,0.0/+jabalia-rafah "Displacement path from Jabalia to Rafah")
+[](map/#31.43672,34.34664,10.16,37.6,0.0/+jabalia-rafah "Displacement path from Jabalia to Rafah: +jabalia-rafah")
 Load GeoJSON files from `/map/` by adding `+filename` to the hash.
 
 
-[](map/#31.45086,34.38246,11.54,37.6,0.0/+jabalia-rafah(track) "Styled path using track layer appearance")
-Copy styles from existing layers with `+filename(sourceLayer)` syntax. Available sources: `track`, `overlay`, `idf-poly`, `idf-poly-outlines`.
+[](map/#31.47602,34.41973,11.17,37.6,0.0/+jabalia-deir-al-balah(by-foot) "Styled path using track layer appearance: +jabalia-deir-al-balah(by-foot)")
+Copy styles from existing layers with `+filename(sourceLayer)` syntax.
+
+
+[](map/#31.45086,34.38246,11.54,37.6,0.0/+IDF_zone_060524-110524(idf-poly),+idf-poly-outlines "External polygons layered above polygon outlines")
+Use `(sourceHint)` to control z-index and render order.
 
 
 [](map/#31.42380,34.35370,10.00,37.6,0.0/+displacement-points "CSV point data with lat/lng columns")
 CSV files with `lat`/`lng` columns automatically convert to point markers.
 
 The system searches: `filename.geojson` → `filename.csv` → `data/filename.csv`
-
-
-{.heading}
-
-## Sentinel-2 Imagery
-
-[](map/#31.52374,34.43343,15.00,37.6,0.0/+s2:20240215 "Sentinel-2 cloudless mosaic: Feb 2024")
-Load historical satellite imagery with `+s2:YYYYMMDD` — 10-meter resolution, cloud-free annual mosaics from EOX.
-
-
-[](map/#31.42380,34.35370,10.00,37.6,0.0/+s2:20230815 "Sentinel-2: Summer 2023")
-View imagery from previous years. Available from June 2015 to 2024.
-
-
-[](map/#31.52374,34.43343,15.00,37.6,0.0/+s2:20200601 "Sentinel-2: Pre-conflict baseline 2020")
-Free and open service, no authentication. Mosaics updated annually.
 
 
 {.heading}
@@ -109,51 +97,24 @@ Historical archive back to February 2014. System selects closest available relea
 Updated every few weeks. Free WMTS service, max zoom 22 for extreme detail.
 
 
-[](map/#31.42380,34.35370,10.00,37.6,0.0/+s2:20230815,+idf-poly-outlines "Sentinel-2 with evacuation zone overlays")
-Stack historical imagery with vector layers for overlay analysis.
-
-[](map/#31.52374,34.43343,15.00,37.6,0.0/+wayback:20241015,+jabalia "Wayback with vector markers")
-Combine high-resolution imagery with vector annotations.
-
-
 {.heading}
 
 ## Camera Animations
 
 [](map/#31.52090,34.47332,14.00,19.2,48.5/+jabalia-rafah:follow "Animate along displacement path")
-Create cinematic camera movements with `+layername:follow` — the camera flies along path geometry. A **distance ticker** automatically appears showing the cumulative distance traveled (0 km to total path length).
+Create cinematic camera movements with `+layername:follow` — the camera flies along path geometry. 
 
 
-[](map/#31.52103,34.46974,12.79,-14.4,30.4/+jabalia-rafah:follow,+jabalia,+rafah "Path animation with markers")
-Show origin and destination points during the animation. The white circular ticker counts from 0.0 km to 37.0 km over ~74 seconds for this path.
+[](map/#31.52090,34.47332,14.00,19.2,48.5/+jabalia-rafah:follow+ "counter added with follow+")
+A **distance ticker** automatically appears showing the cumulative distance traveled (0 km to total path length).
 
 
-[](map/#31.52090,34.47332,14.00,19.2,48.5/+jabalia-rafah:follow,+s2:20231001 "Fly over historical Sentinel-2 imagery")
-Combine path animation with historical satellite imagery. The distance ticker overlays cleanly on satellite layers.
+[](map/#31.47949,34.42091,12.96,0.0,39.0/+jabalia-gaza(by-car),+gaza-nuseirat(by-foot):follow+10100,+family-home,+s.gaza,+nuseirat,+cities,+villages,+idf-poly-outlines "offset can be added after like :follow+10100")
+The **distance ticker** can start with an offset by marking the km count after the :follow+.
 
 
-[](map/#31.52090,34.47332,14.00,19.2,48.5/+jabalia-rafah:follow,+wayback:20240215 "High-resolution flyover with Wayback")
-Use Wayback for detailed terrain visualization during animation. Watch the distance accumulate as you fly over high-resolution imagery.
-
-
-{.heading}
-
-## Multiple Layers
-
-[](map/#31.43672,34.34664,10.16,37.6,0.0/+jabalia-rafah,+jabalia,+rafah "Three external layers stacked")
-Load and control multiple GeoJSON/CSV files independently.
-
-
-[](map/#31.45086,34.38246,11.54,37.6,0.0/+jabalia-rafah(track),+idf-poly-outlines "Paths layered above polygons")
-Use `(sourceHint)` to control z-index and render order.
-
-
-[](map/#31.42380,34.35370,10.00,37.6,0.0/+idf-poly "Layers persist")
-Layers remain active across camera movements...
-
-
-[](map/#31.52956,34.47717,14.33,22.4,60.5/+idf-poly "...until removed from hash")
-...until explicitly removed from the hash URL.
+[](map/#31.52090,34.47332,14.00,19.2,48.5/~jabalia-rafah:follow,+wayback:20240215 "High-resolution flyover with Wayback")
+Use Wayback for detailed terrain visualization during animation. In this case the path is hidden with a ~jabalia-rafah:follow using the animation only for camera control.
 
 
 {.heading}
@@ -175,10 +136,10 @@ Embed in iframes (control panel auto-hides). Hash updates trigger instant map ch
 **Hash tokens:**
 - `+layer` show | `~layer` hide | `+file` load GeoJSON/CSV
 - `+file(source)` copy styles | `+file:follow` animate camera
-- `+s2:YYYYMMDD` Sentinel-2 | `+wayback:YYYYMMDD` Maxar imagery
 
 **Distance Ticker:**
-- Appears automatically during `:follow` animations
+- Simply add + to start from 0 `:follow+`
+- Add offset after + to continue from say 1000km `:follow+1000`
 - White circular overlay (80px) at line tip position
 - Displays cumulative distance: `0.0 km` → `total km`
 - Updates in real-time, hides on completion/cancel
