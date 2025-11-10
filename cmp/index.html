@@ -63,6 +63,15 @@
     user-select:none;
   }
   
+  #layerList .layer-thumbnail {
+    width:40px;
+    height:40px;
+    object-fit:cover;
+    border-radius:4px;
+    background:rgba(255,255,255,0.05);
+    flex-shrink:0;
+  }
+  
   #layerList label:hover {
     background:rgba(255,255,255,0.08);
   }
@@ -112,6 +121,28 @@
   .embedded #controls, .embedded #status, .embedded #referenceFrame{ display:none !important; }
   /* Ensure the embedded SVG is not resized by CSS; we control size via transforms */
   #svgContainer > svg{position:absolute;left:0;top:0;max-width:none;max-height:none;width:auto;height:auto}
+  
+  /* Hide UI chrome when .ui-hidden is set on body */
+  body.ui-hidden #status,
+  body.ui-hidden #referenceFrame {
+    display: none !important;
+  }
+  /* Sidebar slides out/in, never display:none so transition works */
+  body:not(.embedded) #controls {
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s;
+    transform: translateX(0);
+    opacity: 1;
+  }
+  body:not(.embedded).ui-hidden #controls {
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  body.embedded #controls {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 </style>
 <style>
   /* Force an exception child to remain visible without transitions to avoid flicker */
@@ -147,6 +178,13 @@ try {
 } catch(e) {
   // cross-origin top access may throw; assume embedded in that case
   try { document.documentElement.classList.add('embedded'); } catch(e){}
+}
+
+// Set initial UI state: hidden if embedded, shown if not
+if (document.documentElement.classList.contains('embedded')) {
+  document.body.classList.add('ui-hidden');
+} else {
+  document.body.classList.remove('ui-hidden');
 }
 
 // Simple inflect-style hash parser: fields separated by & with url in 5th slot.
@@ -444,6 +482,37 @@ function buildLayerList(){
     return el.id || null;
   }
 
+  // Fetch Vimeo thumbnail via oEmbed API
+  async function getVimeoThumbnail(videoId) {
+    try {
+      const response = await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${videoId}`);
+      const data = await response.json();
+      return data.thumbnail_url || null;
+    } catch(e) {
+      console.warn('Failed to fetch Vimeo thumbnail for', videoId, e);
+      return null;
+    }
+  }
+
+  // Get thumbnail URL for a layer element
+  async function getLayerThumbnail(el, baseKey) {
+    // Check if this is a vimeo layer
+    const vimeoMatch = baseKey.match(/^vimeo-(\d+)$/i);
+    if (vimeoMatch) {
+      const videoId = vimeoMatch[1];
+      return await getVimeoThumbnail(videoId);
+    }
+    
+    // Check if element has an image child
+    const img = el.querySelector('image');
+    if (img) {
+      const href = img.getAttribute('href') || img.getAttributeNS('http://www.w3.org/1999/xlink', 'href');
+      if (href) return href;
+    }
+    
+    return null;
+  }
+
   function makeNode(el, idx, parentKey){
     // Skip elements that do not have an id — we only expose id'd elements
     // in the layer list.
@@ -702,7 +771,32 @@ function buildLayerList(){
   // display only the local label (omit parent prefix) for readability
   const displayLabel = parentKey ? baseKey : baseKey;
   span.textContent = displayLabel;
-    label.appendChild(cb); label.appendChild(span);
+    
+    // Add thumbnail if available
+    const thumbnailImg = document.createElement('img');
+    thumbnailImg.className = 'layer-thumbnail';
+    thumbnailImg.style.display = 'none'; // Hide until loaded
+    
+    // Fetch thumbnail asynchronously
+    getLayerThumbnail(el, baseKey).then(thumbnailUrl => {
+      if (thumbnailUrl) {
+        thumbnailImg.src = thumbnailUrl;
+        thumbnailImg.style.display = 'block';
+        // Enable download on right-click by setting download attribute
+        thumbnailImg.setAttribute('download', `${baseKey}-thumbnail.jpg`);
+        // Add context menu handler to enable download
+        thumbnailImg.addEventListener('contextmenu', (e) => {
+          // Allow default context menu which includes "Save Image As..."
+          // The browser will handle the download
+        });
+      }
+    }).catch(err => {
+      console.warn('Failed to load thumbnail for', baseKey, err);
+    });
+    
+    label.appendChild(cb);
+    label.appendChild(thumbnailImg);
+    label.appendChild(span);
   // append only button after label contents
   label.appendChild(onlyBtn);
     li.appendChild(label);
@@ -867,7 +961,9 @@ function animateLayerVisibility(el, show, duration = FADE_DURATION){
     });
     // store cancel function
     __fadeCancels.set(el, () => {
-      if (!finished) { el.removeEventListener('transitionend', onEnd); finished = true; }
+      if (finished) return;
+      el.removeEventListener('transitionend', onEnd);
+      finished = true;
       __fadeCancels.delete(el);
       el.style.transition = '';
       el.style.opacity = '';
@@ -937,7 +1033,9 @@ function animateLayerVisibility(el, show, duration = FADE_DURATION){
     });
   });
   __fadeCancels.set(el, () => {
-    if (!finished) { el.removeEventListener('transitionend', onEndHide); finished = true; }
+    if (finished) return;
+    el.removeEventListener('transitionend', onEndHide);
+    finished = true;
     __fadeCancels.delete(el);
     el.style.transition = '';
     el.style.opacity = '';
@@ -1038,7 +1136,7 @@ function applyVisibilityFromVis(vis, opts){
   // all descendant keys (in case some logic later treats parents specially).
   const expandedHideSet = new Set(hideSet);
   for (const h of hides) {
-    if (!h) continue;
+    if (!h) return;
     for (const k of layerKeyMap.keys()){
       if (k.startsWith(h + '/')) expandedHideSet.add(k);
     }
@@ -1784,6 +1882,21 @@ window.addEventListener('resize', () => {
 });
 
 window.viewerReady = false;
+
+// Keyboard shortcut to toggle interface (sidebar/status/reference frame) on/off
+// Works both standalone and embedded
+function toggleInterface() {
+  document.body.classList.toggle('ui-hidden');
+}
+document.addEventListener('keydown', function(e) {
+  // Ignore if typing in an input field
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  // Use code instead of key to work across keyboard layouts
+  if (e.code === 'KeyE') {
+    e.preventDefault();
+    toggleInterface();
+  }
+});
 </script>
 
 <!-- Overlay manager: position HTML/iframe layers to follow SVG elements -->
