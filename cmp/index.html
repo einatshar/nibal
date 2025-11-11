@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Inflect SVG Viewer</title>
 <style>
-  html,body{height:100%;margin:0;background:#333;color:#fff;font-family:Helvetica,Arial,sans-serif}
+  html,body{height:100%;margin:0;background:transparent;color:#fff;font-family:Helvetica,Arial,sans-serif}
   #app{position:relative;height:100vh;overflow:hidden}
   #canvas{width:100%;height:100%;position:relative}
   #referenceFrame{position:absolute;pointer-events:none;border:1px solid #0B99FF;box-sizing:border-box;z-index:10}
@@ -1873,9 +1873,22 @@ function autoAttachVideoOverlays(){
       }
       if (url && isDisplayed){
         // Only attach if not already present
-        if (!window.overlayManager.items || !window.overlayManager.items.has(key)) {
+        const wasAlreadyAttached = window.overlayManager.items && window.overlayManager.items.has(key);
+        if (!wasAlreadyAttached) {
           console.log('[auto-attach] Attaching video to layer', key, 'with URL', url);
           window.overlayManager.attachIframe(key, url);
+        }
+        // Start playing visible video layers (both newly attached and existing)
+        try {
+          const item = window.overlayManager.items.get(key);
+          if (item && item.el && item.el.tagName === 'FOREIGNOBJECT') {
+            const iframe = item.el.querySelector('iframe');
+            if (iframe && iframe.contentWindow) {
+              iframe.contentWindow.postMessage({ type: 'start-video' }, '*');
+            }
+          }
+        } catch(e) {
+          console.warn('[auto-attach] Failed to start video for', key, e);
         }
       } else if (window.overlayManager && typeof window.overlayManager.remove === 'function') {
         window.overlayManager.remove(key);
@@ -1908,6 +1921,18 @@ document.addEventListener('keydown', function(e) {
   if (e.code === 'KeyE') {
     e.preventDefault();
     toggleInterface();
+  } else if (e.code === 'KeyF') {
+    // Foreground-only toggle - relay to parent
+    e.preventDefault();
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'toggle-foreground-edit' }, '*');
+    }
+  } else if (e.code === 'KeyB') {
+    // Background-only toggle - relay to parent
+    e.preventDefault();
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'toggle-background-edit' }, '*');
+    }
   }
 });
 </script>
