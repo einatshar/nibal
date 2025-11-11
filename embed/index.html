@@ -110,6 +110,17 @@
     }catch(e){ return {}; }
   }
 
+  // Ensure a URL string has an absolute scheme (https://) and not protocol-relative
+  function ensureAbsoluteUrl(u){
+    try{
+      if(!u) return u;
+      const s = String(u).trim();
+      if(/^https?:\/\//i.test(s)) return s;
+      if(s.startsWith('//')) return 'https:' + s;
+      return 'https://' + s.replace(/^https?:\/\//i,'');
+    }catch(e){ return u; }
+  }
+
   function writeHash(state){
     try{
       const parts = [];
@@ -163,6 +174,8 @@
 
   async function loadUrl(u){
     if(!u) return;
+    // Always normalize to absolute URL with scheme
+    u = ensureAbsoluteUrl(u);
 
     if(!shouldUsePlyrAdapter(u)){
       console.warn('Only YouTube, Vimeo, and direct video files are supported');
@@ -266,7 +279,7 @@
 
   // --- Event handlers -----------------------------------------------------
   loadBtn.addEventListener('click', ()=>{
-    const u = urlIn.value.trim();
+    const u = ensureAbsoluteUrl(urlIn.value.trim());
     if(!u) return;
     loadUrl(u);
     writeHash({ url: u, autoplay: autoplayChk.checked, loop: loopChk.checked, cover: coverChk.checked, auto: autoChk.checked });
@@ -291,7 +304,7 @@
   });
 
   coverChk.addEventListener('change', ()=>{
-    const u = urlIn.value.trim();
+    const u = ensureAbsoluteUrl(urlIn.value.trim());
     if(u){
       loadUrl(u);
       writeHash({ url: u, autoplay: autoplayChk.checked, loop: loopChk.checked, cover: coverChk.checked, auto: autoChk.checked });
@@ -299,7 +312,7 @@
   });
 
   autoChk.addEventListener('change', ()=>{
-    const u = urlIn.value.trim();
+    const u = ensureAbsoluteUrl(urlIn.value.trim());
     if(u){
       loadUrl(u);
       writeHash({ url: u, autoplay: autoplayChk.checked, loop: loopChk.checked, cover: coverChk.checked, auto: autoChk.checked });
@@ -308,7 +321,7 @@
 
   urlIn.addEventListener('keydown', (e)=>{ 
     if(e.key === 'Enter'){ 
-      const u = urlIn.value.trim();
+      const u = ensureAbsoluteUrl(urlIn.value.trim());
       if(u){
         loadUrl(u);
         writeHash({ url: u, autoplay: autoplayChk.checked, loop: loopChk.checked, cover: coverChk.checked, auto: autoChk.checked });
