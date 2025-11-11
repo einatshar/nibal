@@ -1285,8 +1285,8 @@
 
     // with IntersectionObserver we can check what is visible    
     function initializeObservers() {
-        const observer = new IntersectionObserver((entries) => {
-
+        const isMobilePortrait = window.matchMedia("(max-width: 1000px) and (orientation: portrait)").matches;
+        const observer = new IntersectionObserver((entries) => {            
             entries.forEach(entry => {
                 if (entry.isIntersecting) {                    
                     // Add active class only to the visible link
@@ -1315,6 +1315,8 @@
                 }
                 else entry.target.classList.remove("active")
             });
+        },{
+            rootMargin: isMobilePortrait ? "-50% 0px 0px 0px" : "0px"
         });
 
         // Also observe sections: some markdown creates empty anchors inside
@@ -1819,10 +1821,52 @@
 
     }
 
+    function scrollToNextSection() {
+        const sections = Array.from(document.querySelectorAll('main section'));
+        const target = sections.find(section => {
+            const rect = section.getBoundingClientRect();
+            return rect.top > 1;
+        });
+        if (target) target.scrollIntoView({ behavior: 'smooth' });            
+    }
+
+    function scrollToPreviousSection() {
+        const sections = Array.from(document.querySelectorAll('main section'));
+        for (let i = sections.length - 1; i >= 0; i--) {
+            const rect = sections[i].getBoundingClientRect();
+            if (rect.bottom < -1) {
+                sections[i].scrollIntoView({ behavior: 'smooth' });
+                break;
+            }
+        }
+    }
     // scroll up when pressing Escape
+    // scroll to next or previous sections using space bar or arrow keys
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        else if (
+            event.key === 'ArrowDown' ||
+            event.key === 'ArrowUp' ||
+            event.key === ' '  // space key
+        ) {
+            // determine direction
+            const goingDown = (
+                event.key === 'ArrowDown' ||
+                (event.key === ' ' && !event.shiftKey)
+            );
+
+            const goingUp = (
+                event.key === 'ArrowUp' ||
+                (event.key === ' ' && event.shiftKey)
+            );
+
+            event.preventDefault();
+            if (goingDown) scrollToNextSection();
+            else if (goingUp) scrollToPreviousSection();                            
+
         }
     });
 
