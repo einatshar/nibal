@@ -113,7 +113,7 @@ css: src/theme.css
 
 
 {.meta} 
-[](map/#31.38551,34.37811,10.31,-10.4,42.0/+oct7-labels,~labels_he,~label-focused,+oct7-hamas(label-focused),+oct7-hamas(bubbles))
+[](map/#31.38551,34.37811,10.31,-10.4,42.0/~labels_he,+oct7-hamas(label-focused),+oct7-hamas#2(bubbles))
 1,220 בני אדם נהרגים באותה מתקפה, ובהם נשים, זקנים וילדים.  
 
 עשרות אלפים נפצעים, ו-252 בני אדם חיים וגופות נחטפים לרצועת עזה.

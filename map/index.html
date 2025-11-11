@@ -636,6 +636,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
   const layerType = currentTab === 'satellite' ? 'satellite' : 'geojson';
     const refLayer = refSelect ? refSelect.value.trim() : '';
+    let baseLayerId = '';
     let layerId = '';
     let newToken = '';
     
@@ -649,9 +650,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.warn('[ADD LAYER] Custom file/URL not in predefined list:', raw);
         // Don't return error - allow custom files/URLs
       }
-      layerId = raw;
-      newToken = `+${layerId}`;
-      if (refLayer) newToken = `+${layerId}(${refLayer})`;
+      baseLayerId = raw;
       
     } else if (layerType === 'satellite') {
       const dateValue = ((satelliteDateInput ? satelliteDateInput.value : '') || '').trim();
@@ -660,22 +659,30 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Convert YYYY-MM-DD to YYYYMMDD
       const dateStr = dateValue.replace(/-/g, '');
-      layerId = `wayback:${dateStr}`;
-      
-      // Build token: omit (satellite) since it's the default sourceHint
-      if (refLayer && refLayer !== 'satellite') {
-        newToken = `+${layerId}(${refLayer})`;
-        console.log('[ADD LAYER] Using explicit sourceHint:', refLayer);
-      } else {
-        newToken = `+${layerId}`;
-        console.log('[ADD LAYER] Using default sourceHint (satellite)');
-      }
+      baseLayerId = `wayback:${dateStr}`;
     }
     
-    // Check if layer already exists
-    const layerAlreadyExists = window.map && window.map.getLayer && window.map.getLayer(layerId);
-    if (layerAlreadyExists) {
-      console.warn('[ADD LAYER] Layer already exists:', layerId, '— proceeding to close panel as per new UX.');
+    // Auto-increment layer ID if base layer already exists
+    layerId = baseLayerId;
+    let counter = 2;
+    while (window.map && window.map.getLayer && window.map.getLayer(layerId)) {
+      layerId = `${baseLayerId}#${counter}`;
+      counter++;
+    }
+    
+    if (layerId !== baseLayerId) {
+      console.log('[ADD LAYER] Base layer exists, using auto-incremented ID:', layerId);
+    }
+    
+    // Build token with potentially incremented layerId
+    newToken = `+${layerId}`;
+    if (refLayer) {
+      if (layerType === 'satellite' && refLayer === 'satellite') {
+        // Omit (satellite) since it's the default sourceHint
+        newToken = `+${layerId}`;
+      } else {
+        newToken = `+${layerId}(${refLayer})`;
+      }
     }
     
     // Update hash with new layer
@@ -690,10 +697,18 @@ document.addEventListener('DOMContentLoaded', function() {
     let layersStr = parts[1] || '';
     const tokens = layersStr ? layersStr.split(',').filter(t => t.length>0) : [];
     
-    // Check if layer already exists in tokens and replace, otherwise append
-    const regex = new RegExp(`^[+~]${layerId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:\\([^)]+\\))?(?::follow(?:\\+\\d*)?)?$`);
+    // Check if this exact layer ID already exists in tokens and replace, otherwise append
+    // Escape special regex chars but preserve # for counter matching
+    const escapedLayerId = layerId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`^[+~]${escapedLayerId}(?:\\([^)]+\\))?(?:\\[([^\\]]+)\\])?(?::follow(?:\\+\\d*)?)?$`);
     const idx = tokens.findIndex(t => regex.test(t));
-    if (idx >= 0) tokens[idx] = newToken; else tokens.push(newToken);
+    if (idx >= 0) {
+      // Layer with this exact ID exists, replace it
+      tokens[idx] = newToken;
+    } else {
+      // New layer, append
+      tokens.push(newToken);
+    }
     layersStr = tokens.join(',');
     const newHash = `#${cameraStr}` + (layersStr ? `/${layersStr}` : '');
     console.log('[ADD LAYER] Old hash:', existing);
@@ -817,17 +832,19 @@ function parseHash() {
     layersOn = [];
     const layerState = {};
     layersStr.split(',').forEach(token => {
-      // Support +id:follow, ~id:follow, +id(source):follow, +id:follow+offset, +wayback:YYYYMMDD, and +id[property=value]
-      // token examples: +name, ~name, +name:follow, +name:follow+, +name:follow+0, +name:follow+15000, +name(source), +name(source):follow, +wayback:20240215, +pois[name=jabalia]
-      // New: :follow (no ticker), :follow+ or :follow+0 (ticker at 0), :follow+1000 (ticker at 1000m), [property=value] (filter)
-      const match = token.match(/^([+~])([^\[(]+?)(?:\(([^)]+)\))?(?:\[([^\]]+)\])?(?::follow(\+(\d*))?)?$/);
+      // Support +id:follow, ~id:follow, +id(source):follow, +id:follow+offset, +wayback:YYYYMMDD, +id[property=value], and +id#2 (auto-increment)
+      // token examples: +name, ~name, +name:follow, +name:follow+, +name:follow+0, +name:follow+15000, +name(source), +name(source):follow, +wayback:20240215, +pois[name=jabalia], +gaza.geojson#2
+      // New: :follow (no ticker), :follow+ or :follow+0 (ticker at 0), :follow+1000 (ticker at 1000m), [property=value] (filter), #N (auto-increment counter)
+      const match = token.match(/^([+~])([^\[(#]+?)(?:#(\d+))?(?:\(([^)]+)\))?(?:\[([^\]]+)\])?(?::follow(\+(\d*))?)?$/);
       if (!match) {
         console.warn('[HASH] Failed to parse layer token:', token);
         return;
       }
-      const [, sign, lname, sourceHint, filterExpr, plusSign, offset] = match;
+      const [, sign, baseName, counterStr, sourceHint, filterExpr, plusSign, offset] = match;
+      // Reconstruct full layer name with counter if present
+      const lname = counterStr ? `${baseName}#${counterStr}` : baseName;
       const hasFollow = token.includes(':follow');
-      const hasTickerFlag = !!plusSign; // true if group 5 captured anything (:follow+ or :follow+number)
+      const hasTickerFlag = !!plusSign; // true if group 6 captured anything (:follow+ or :follow+number)
       const parsedOffset = offset ? parseInt(offset, 10) : 0;
       
       // Parse filter expression like "name=jabalia" or "type!=boundary" or "name=jabalia|beit_hanoun"
@@ -929,9 +946,19 @@ function parseHash() {
 }
 
 // Helper: load and add GeoJSON (or CSV as fallback) as a top layer or replace source of a layer
-// geojsonFile: path or filename (typically name.geojson). If not found, we also try name.csv in the same folder.
+// geojsonFile: path or filename (typically name.geojson or name.geojson#2 for auto-incremented layers). If not found, we also try name.csv in the same folder.
 // toLayer: optional { visibility } or { sourceHint }
 async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
+  // Extract base filename (without #N counter) for loading, but keep full name for layer ID
+  // Pattern: match name, optional counter (#N), optional extension (.geojson/.json/.csv)
+  const counterMatch = geojsonFile.match(/^(.+?)(#\d+)?(\.(?:geo)?json|\.csv)?$/);
+  const baseName = counterMatch ? counterMatch[1] : geojsonFile.replace(/\.(geo)?json$|\.csv$/i, '');
+  const counter = counterMatch ? (counterMatch[2] || '') : '';
+  const extension = counterMatch ? (counterMatch[3] || '') : '';
+  
+  // Reconstruct: baseFile is for loading (no counter), geojsonFile stays as-is for layer ID
+  const baseFile = baseName + extension;
+  
   // 1) Attempt to fetch and normalize into GeoJSON
   async function loadAsGeoJSONOrCSV(path) {
     const lower = path.toLowerCase();
@@ -1075,11 +1102,11 @@ async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
   }
 
   try {
-    const geojson = await loadAsGeoJSONOrCSV(geojsonFile);
-    // 2) Determine ids and clean
+    const geojson = await loadAsGeoJSONOrCSV(baseFile);
+    // 2) Determine ids and clean - use full geojsonFile (with counter) for IDs
     let fileId = geojsonFile.split('/').pop();
     let cleanId = fileId.replace(/(_geojson|\.geojson|\.json|\.csv)$/i, '');
-    cleanId = cleanId.replace(/[^a-zA-Z0-9_-]/g, '_');
+    cleanId = cleanId.replace(/[^a-zA-Z0-9_#-]/g, '_'); // Allow # for counter
     const sourceId = cleanId;
     const layerId = cleanId;
 
@@ -1869,20 +1896,16 @@ function createLayerControls(map, visibleLayers) {
     btn.addEventListener('click', function(e) {
       e.preventDefault();
       const layerId = this.getAttribute('data-delete');
-      // Parse current hash for explicit toggles
+      // Parse current hash and remove the token for this layer
       const hash = window.location.hash.replace('#', '');
       const [cameraStr, layersStr] = hash.split('/');
-      const explicitState = {};
-      if (layersStr) {
-        layersStr.split(',').forEach(token => {
-          const match = token.match(/^([+~])(.+)$/);
-          if (!match) return;
-          const [, sign, lname] = match;
-          explicitState[lname] = sign;
-        });
-      }
-      // Remove explicit toggle for this layer
-      delete explicitState[layerId];
+      const tokens = layersStr ? layersStr.split(',').filter(t => t.length > 0) : [];
+      
+      // Remove tokens that match this layerId (handles counter, sourceHint, filter, follow, etc.)
+      const escapedLayerId = layerId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`^[+~]${escapedLayerId}(?:\\([^)]+\\))?(?:\\[([^\\]]+)\\])?(?::follow(?:\\+\\d*)?)?$`);
+      const filteredTokens = tokens.filter(t => !regex.test(t));
+      
       // Remove from map and state
       if (map.getLayer(layerId)) map.removeLayer(layerId);
       if (map.getSource(layerId)) map.removeSource(layerId);
@@ -1893,9 +1916,8 @@ function createLayerControls(map, visibleLayers) {
       followableLayers.delete(layerId);
       // Don't call createLayerControls here - let hashchange handler do it
       // Remove from hash and update URL (hashchange will refresh UI)
-      const tokens = Object.entries(explicitState).map(([lname, sign]) => `${sign}${lname}`);
-      if (tokens.length > 0) {
-        window.location.replace(`#${cameraStr}/${tokens.join(',')}`);
+      if (filteredTokens.length > 0) {
+        window.location.replace(`#${cameraStr}/${filteredTokens.join(',')}`);
       } else {
         window.location.replace(`#${cameraStr}`);
       }
@@ -2137,7 +2159,13 @@ map.on('load', () => {
           loadWaybackLayer(waybackDate, { visibility, sourceHint, filter });
         } else {
           // Load GeoJSON/CSV layer
-          loadAndAddOrReplaceGeoJSON(name + '.geojson', { visibility, sourceHint, filter });
+          // Extract base name (without #N counter) for file loading, but pass full name for layer ID
+          const counterMatch = name.match(/^(.+?)(#\d+)?$/);
+          const baseName = counterMatch ? counterMatch[1] : name;
+          const fullName = name; // Keep the full name with counter for layer ID
+          
+          // Load using base filename, but the function will use fullName for layer/source IDs
+          loadAndAddOrReplaceGeoJSON(fullName + '.geojson', { visibility, sourceHint, filter });
         }
       }
     });
