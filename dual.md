@@ -52,7 +52,7 @@ css: src/theme.css
 
 
 {.subheader}
-[](svg/#opening-new.svg/0.01,0,0.84)
+[](svg/#opening-new.svg/0.08,1,1)
 [](map/#31.53332,34.48215,14.18,37.6,0.0/~labels_he,+Gaza_border_dash,+Gaza_border_base,~family-home)
 ## החיים שלפני
 

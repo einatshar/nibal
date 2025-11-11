@@ -356,6 +356,26 @@
     }
   }catch(e){}
 
+  // Listen for messages from parent to control playback
+  window.addEventListener('message', (event) => {
+    try {
+      const msg = event.data;
+      if (msg && msg.type === 'start-video') {
+        // Start playing the video
+        if (playerAdapter) {
+          playerAdapter.setMuted(true);
+          playerAdapter.play().then(() => {
+            console.log('[embed] Play triggered by parent message');
+          }).catch(e => {
+            console.warn('[embed] Play failed:', e);
+          });
+        }
+      }
+    } catch(e) {
+      console.warn('[embed] Message handler error:', e);
+    }
+  });
+
   urlIn.focus();
 })();
 </script>
