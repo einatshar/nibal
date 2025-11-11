@@ -363,6 +363,12 @@ iframe#if {
     border: 0;
     margin: 0;
     padding: 0;
+    display: none;
+}
+
+body.dual-iframe #background-frame,
+body.dual-iframe #foreground-frame {
+    display: block;
 }
 
 #background-frame {
