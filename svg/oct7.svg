@@ -2,8 +2,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="1500px" height="1500px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g id="oct7">
-        <use id="detainies-1" xlink:href="#_Image1" x="0" y="0" width="5500px" height="4125px" transform="matrix(0.974032,-0.139378,0.134998,1.007048,118.277946,142.593356)"/>
-        <use id="detainies-2" xlink:href="#_Image2" x="0" y="0" width="4032px" height="3024px" transform="matrix(0.980565,0.069402,-0.067264,1.01446,299.134723,164.306036)"/>
+        <use id="detainies-1" xlink:href="#_Image1" x="0" y="0" width="5500px" height="4125px" transform="matrix(0.974032,-0.139378,0.134998,1.007048,8.277946,77.593356)"/>
+        <use id="detainies-2" xlink:href="#_Image2" x="0" y="0" width="4032px" height="3024px" transform="matrix(0.980565,0.069402,-0.067264,1.01446,189.134723,99.306036)"/>
         <use id="ruined_jabalia.JPG" xlink:href="#_Image3" x="0" y="0" width="4032px" height="2212px" transform="matrix(0.370288,0,0,0.370288,3.827679,681.567162)"/>
     </g>
     <defs>

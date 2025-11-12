@@ -125,7 +125,7 @@ css: src/theme.css
 
 {.meta showdate}
 ### Oct 23
-[](svg/#oct7.svg/0,-1,1)
+[](about:blank)
 [](map/#31.38551,34.37811,10.31,-10.4,42.0/+oct7-labels,~labels_he,~label-focused,+oct7-hamas(label-focused))
 ב-7 באוקטובר 2023 מבצעים ארגון חמאס ופלגים חמושים פלסטינים נוספים מרצועת עזה את המתקפה הקטלנית והנפשעת ביותר שהתרחשה אי פעם נגד אזרחים ישראלים.
 
