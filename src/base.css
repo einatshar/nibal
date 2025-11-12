@@ -82,9 +82,15 @@ section img { max-width: 100%; }
     z-index: 1100;
     font-size: 0.75em;
     line-height: 1.4;
-    pointer-events: none; /* don’t block map or page interactions */
+    pointer-events: none; /* don't block map or page interactions */
 }
 .inflect-caption a { pointer-events: auto; }
+
+/* Special styling for note captions (starting with !!!) */
+.inflect-caption.note-caption {
+    background: #ffd200;
+    color: #000;
+}
 
 h1 { font-size: 2.4em; font-weight: 200; margin-bottom: 0; }
 h2 { font-size: 1.8em; }

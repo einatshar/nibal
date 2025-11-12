@@ -1079,10 +1079,19 @@
 
                     function setCaptionFromLink(a){
                         try {
-                            if (!a) { el.style.display = 'none'; el.textContent = ''; return; }
+                            if (!a) { el.style.display = 'none'; el.textContent = ''; el.classList.remove('note-caption'); return; }
                             const title = (a.getAttribute('title') || a.getAttribute('data-caption') || a.textContent || '').trim();
-                            if (!title) { el.style.display = 'none'; el.textContent = ''; return; }
-                            el.textContent = title;
+                            if (!title) { el.style.display = 'none'; el.textContent = ''; el.classList.remove('note-caption'); return; }
+                            
+                            // Check if title starts with !!! for note styling
+                            if (title.startsWith('!!!')) {
+                                el.classList.add('note-caption');
+                                el.textContent = title.substring(3).trim(); // Remove !!! prefix
+                            } else {
+                                el.classList.remove('note-caption');
+                                el.textContent = title;
+                            }
+                            
                             el.style.display = '';
                         } catch(e){ /* swallow */ }
                     }
