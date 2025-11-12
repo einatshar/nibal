@@ -4,6 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Inflect SVG Viewer</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
 <style>
   html,body{height:100%;margin:0;background:transparent;color:#fff;font-family:Helvetica,Arial,sans-serif}
   #app{position:relative;height:100vh;overflow:hidden}
@@ -296,18 +299,22 @@ function parseHash(){
     const x = !isNaN(parts[0]) ? parts[0] : null;
     const y = !isNaN(parts[1]) ? parts[1] : null;
     const s = !isNaN(parts[2]) ? parts[2] : null;
-    // parse layers section which follows same +/~ tokens optionally
-    // Support both formats: +layer1+layer2 and +layer1,+layer2
-    const vis = { show: [], hide: [] };
+    // parse layers section which follows +/~/@ tokens
+    // + = show layer (image only for vimeo layers)
+    // ~ = hide layer
+    // @ = show video (load iframe for vimeo layers)
+    const vis = { show: [], hide: [], video: [] };
     if (layers) {
       // Split by comma first, then process each token
       const tokens = layers.split(',').map(t => t.trim()).filter(t => t);
       tokens.forEach(token => {
-        const re = /([+~])([^+~\/]+)/g;
+        const re = /([+~@])([^+~@\/]+)/g;
         let mm;
         while ((mm = re.exec(token)) !== null){
           const sym = mm[1]; const name = decodeURIComponent(mm[2]);
-          if (sym === '+') vis.show.push(name); else vis.hide.push(name);
+          if (sym === '+') vis.show.push(name);
+          else if (sym === '~') vis.hide.push(name);
+          else if (sym === '@') vis.video.push(name);
         }
       });
     }
@@ -345,7 +352,8 @@ function buildCompactHash(file, params, vis){
   const paramsAreDefault = (x === 0 && y === 0 && (Math.abs(s - 1) < 1e-6));
   if (!paramsAreDefault) token += `/${x},${y},${s}`;
   // append visibility tokens after either the params (if present) or the filename
-  if (vis && ((Array.isArray(vis.show) && vis.show.length) || (Array.isArray(vis.hide) && vis.hide.length))){
+  // + = show layer (image), @ = show video (iframe), ~ = hide layer
+  if (vis && ((Array.isArray(vis.show) && vis.show.length) || (Array.isArray(vis.hide) && vis.hide.length) || (Array.isArray(vis.video) && vis.video.length))){
     let seg = '';
     // When serializing layer keys into the compact hash, only include the
     // local label (last path segment) to keep tokens short and avoid
@@ -356,13 +364,28 @@ function buildCompactHash(file, params, vis){
       const s = String(k).split('/').pop();
       return s;
     }
-    if (vis.show && vis.show.length) {
-      const showTokens = vis.show.map(item => `+${encodeURIComponent(String(shortLabel(item)))}`);
-      seg += showTokens.join(',');
+    
+    const tokens = [];
+    
+    // If we have any + or @ tokens, output those (focus mode or explicit show)
+    if ((vis.show && vis.show.length) || (vis.video && vis.video.length)) {
+      if (vis.show && vis.show.length) {
+        const showTokens = vis.show.map(item => `+${encodeURIComponent(String(shortLabel(item)))}`);
+        tokens.push(...showTokens);
+      }
+      if (vis.video && vis.video.length) {
+        const videoTokens = vis.video.map(item => `@${encodeURIComponent(String(shortLabel(item)))}`);
+        tokens.push(...videoTokens);
+      }
     }
+    // Otherwise, if we only have ~ tokens (normal mode), output ~ tokens
     else if (vis.hide && vis.hide.length) {
       const hideTokens = vis.hide.map(item => `~${encodeURIComponent(String(shortLabel(item)))}`);
-      seg += hideTokens.join(',');
+      tokens.push(...hideTokens);
+    }
+    
+    if (tokens.length > 0) {
+      seg = tokens.join(',');
     }
     if (seg) token += `/${seg}`;
   }
@@ -814,6 +837,86 @@ function buildLayerList(){
     label.appendChild(span);
   // append only button after label contents
   label.appendChild(onlyBtn);
+  
+  // Add video button for vimeo layers
+  const isVimeoLayer = baseKey.match(/^vimeo-(\d+)$/i);
+  if (isVimeoLayer) {
+    const videoBtn = document.createElement('button');
+    videoBtn.type = 'button';
+    videoBtn.className = 'video-btn';
+    videoBtn.title = 'Toggle video mode';
+    videoBtn.style.marginLeft = '6px';
+    videoBtn.style.background = 'transparent';
+    videoBtn.style.border = 'none';
+    videoBtn.style.color = 'inherit';
+    videoBtn.style.cursor = 'pointer';
+    videoBtn.style.fontSize = '14px';
+    
+    // Function to update button appearance based on hash state
+    const updateButtonState = () => {
+      const parsed = parseHash();
+      const shortKey = key.split('/').pop();
+      const hasVideoToken = parsed.vis && parsed.vis.video && 
+        (parsed.vis.video.includes(key) || parsed.vis.video.includes(shortKey));
+      
+      if (hasVideoToken) {
+        videoBtn.textContent = '▶️'; // Playing video
+        videoBtn.title = 'Video playing (click to hide)';
+      } else {
+        videoBtn.textContent = '⏹️'; // Stopped/image only
+        videoBtn.title = 'Show image only (click to play video)';
+      }
+    };
+    
+    updateButtonState();
+    
+    videoBtn.addEventListener('click', (ev) => {
+      ev.preventDefault(); ev.stopPropagation();
+      
+      const parsed = parseHash();
+      parsed.vis = parsed.vis || { show: [], hide: [], video: [] };
+      const shortKey = key.split('/').pop();
+      
+      const hasVideoToken = parsed.vis.video && 
+        (parsed.vis.video.includes(key) || parsed.vis.video.includes(shortKey));
+      
+      if (hasVideoToken) {
+        // Remove @ token (switch from video to image)
+        parsed.vis.video = parsed.vis.video.filter(k => k !== key && k !== shortKey);
+        // Ensure layer has + token for image display
+        if (!parsed.vis.show.includes(key) && !parsed.vis.show.includes(shortKey)) {
+          parsed.vis.show.push(key);
+        }
+      } else {
+        // Add @ token (switch from image to video)
+        if (!parsed.vis.video.includes(key)) {
+          parsed.vis.video.push(key);
+        }
+        // Remove + token if present (@ replaces +)
+        parsed.vis.show = parsed.vis.show.filter(k => k !== key && k !== shortKey);
+        // Ensure checkbox is checked
+        cb.checked = true;
+        showExceptions.add(key);
+      }
+      
+      // Update hash
+      suppressHashFor(120);
+      const token = buildCompactHash(parsed.url, parsed.params, parsed.vis);
+      location.hash = '#' + token;
+      
+      // Update video overlays
+      try { if (typeof autoAttachVideoOverlays === 'function') autoAttachVideoOverlays(); } catch(e){}
+      try { if (window.overlayManager && typeof window.overlayManager.update === 'function') window.overlayManager.update(); } catch(e){}
+      
+      updateButtonState();
+      refreshLayerListCheckboxes();
+    });
+    
+    label.appendChild(videoBtn);
+    // Store reference for later updates
+    videoBtn.dataset.layerKey = key;
+  }
+  
     li.appendChild(label);
     // if element has element children, show nested list
     const childElems = Array.from(el.children).filter(c => c.nodeType===1 && !excluded.has((c.tagName||'').toUpperCase()) && !c.closest('defs'));
@@ -1089,6 +1192,7 @@ function applyVisibilityFromVis(vis, opts){
   // Resolve short vis tokens (like 'princess') against layerKeyMap by last-segment
   const rawHides = (vis && Array.isArray(vis.hide)) ? vis.hide.slice() : [];
   const rawShows = (vis && Array.isArray(vis.show)) ? vis.show.slice() : [];
+  const rawVideos = (vis && Array.isArray(vis.video)) ? vis.video.slice() : [];
     const resolveToken = (tok) => {
     if (!tok) return tok;
     if (String(tok).includes('/')) return tok;
@@ -1101,9 +1205,13 @@ function applyVisibilityFromVis(vis, opts){
   };
   const hides = rawHides.map(resolveToken);
   const shows = rawShows.map(resolveToken);
-  // Sync in-memory exceptions with parsed vis.show so parsed state wins
-  showExceptions = new Set(shows);
-  // Ancestor-preserve behavior for +tokens: for each shown key, walk up its
+  const videos = rawVideos.map(resolveToken);
+  // Layers with @ tokens should also be visible (shown), just with video loaded
+  // So merge videos into shows for visibility purposes
+  const allShows = [...shows, ...videos];
+  // Sync in-memory exceptions with parsed vis.show+video so parsed state wins
+  showExceptions = new Set(allShows);
+  // Ancestor-preserve behavior for +/@ tokens: for each shown key, walk up its
   // ancestor chain and hide all direct sibling branches at each ancestor level
   // (unless those siblings are explicitly shown or marked as exceptions).
   try {
@@ -1113,7 +1221,7 @@ function applyVisibilityFromVis(vis, opts){
         if (k === baseKey || k.startsWith(baseKey + '/')) set.add(k);
       }
     }
-    for (const s of shows){
+    for (const s of allShows){
       if (!s) continue;
       const parts = String(s).split('/');
       // top-level: hide other top-level keys
@@ -1121,7 +1229,7 @@ function applyVisibilityFromVis(vis, opts){
         for (const k of layerKeyMap.keys()){
           if (String(k).split('/').length !== 1) continue;
           if (k === s) continue;
-          if (shows.includes(k)) continue; // don't hide other requested shows
+          if (allShows.includes(k)) continue; // don't hide other requested shows
           if (showExceptions.has(k)) continue;
           addDescendantsToSet(k, ancestorHideAdditions);
         }
@@ -1134,7 +1242,7 @@ function applyVisibilityFromVis(vis, opts){
           const children = getDirectChildrenKeys(ancestorKey);
           for (const childKey of children) {
             if (childKey === childToKeep) continue;
-            if (shows.includes(childKey)) continue;
+            if (allShows.includes(childKey)) continue;
             if (showExceptions.has(childKey)) continue;
             addDescendantsToSet(childKey, ancestorHideAdditions);
           }
@@ -1142,7 +1250,7 @@ function applyVisibilityFromVis(vis, opts){
       }
     }
     // merge additions into hides (avoid duplicates)
-    for (const k of ancestorHideAdditions) if (!hides.includes(k) && !shows.includes(k)) hides.push(k);
+    for (const k of ancestorHideAdditions) if (!hides.includes(k) && !allShows.includes(k)) hides.push(k);
   } catch(e){ console.warn('ancestor-preserve merge failed', e); }
   // Build sets for quick lookup
   const hideSet = new Set();
@@ -1164,7 +1272,7 @@ function applyVisibilityFromVis(vis, opts){
     }
     if (layerKeyMap.has(h)) expandedHideSet.add(h);
   }
-  for (const s of shows) {
+  for (const s of allShows) {
     for (const k of layerKeyMap.keys()){
       if (k === s || k.startsWith(s + '/')) showSet.add(k);
     }
@@ -1174,7 +1282,7 @@ function applyVisibilityFromVis(vis, opts){
   // detect parents that are hidden but have a shown descendant
   const parentsWithExceptions = new Set();
   for (const h of hides){
-    for (const s of shows){
+    for (const s of allShows){
       if (s === h) continue;
       if (String(s).startsWith(String(h) + '/')) parentsWithExceptions.add(h);
     }
@@ -1870,18 +1978,40 @@ window.addEventListener('hashchange', ()=>{
 // Auto-attach video overlays based on layer IDs
 function autoAttachVideoOverlays(){
   if (!window.overlayManager || !layerKeyMap) return;
+  
+  // Get list of layers with @ tokens (video mode)
+  const parsed = parseHash();
+  const videoLayers = new Set(parsed.vis && parsed.vis.video ? parsed.vis.video : []);
+  
+  // Also check by short label
+  const videoLayersByShort = new Set();
+  for (const layer of videoLayers) {
+    videoLayersByShort.add(layer);
+    const shortLabel = String(layer).split('/').pop();
+    if (shortLabel) videoLayersByShort.add(shortLabel);
+  }
+  
   for (const [key, el] of layerKeyMap.entries()){
     try{
       const id = el.id || String(key).split('/').pop();
       if (!id) continue;
-      // Only attach overlays for displayed layers (allow opacity 0 during fade-in)
+      
+      // Check if this layer has @ token (video mode)
+      const hasVideoMode = videoLayersByShort.has(key) || videoLayersByShort.has(id);
+      
+      // Only attach overlays for displayed layers with @ token
       const cs = window.getComputedStyle(el);
       const isDisplayed = cs.display !== 'none' && cs.visibility !== 'hidden';
-      // Remove overlay if not displayed
-      if (!isDisplayed && window.overlayManager && typeof window.overlayManager.remove === 'function') {
+      
+      // Remove overlay if not displayed or no @ token
+      if ((!isDisplayed || !hasVideoMode) && window.overlayManager && typeof window.overlayManager.remove === 'function') {
         window.overlayManager.remove(key);
         continue;
       }
+      
+      // Only proceed if layer has @ token
+      if (!hasVideoMode) continue;
+      
       // Match patterns: vimeo-1234567, embed-vimeo.com%2F1234567, etc.
       let url = null;
       // Pattern: vimeo-1234567 -> /embed/#vimeo.com%2F1234567/autoplay,loop,cover
@@ -1897,7 +2027,7 @@ function autoAttachVideoOverlays(){
         const embedPath = embedMatch[1];
         url = `/embed/#${embedPath}`;
       }
-      if (url && isDisplayed){
+      if (url && isDisplayed && hasVideoMode){
         // Only attach if not already present
         const wasAlreadyAttached = window.overlayManager.items && window.overlayManager.items.has(key);
         if (!wasAlreadyAttached) {
