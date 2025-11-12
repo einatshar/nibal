@@ -34,7 +34,7 @@ css: src/theme.css
 {.meta}
 [](svg/#intro-pre.svg/-0.02,1.21,1.52/~nibal2023,~home,~displacement)
 [](map/#31.43664,34.34673,10.18,37.6,0.0/+cities,+villages,+unosat-damage-231015)
-במקביל לעקירה בשל צווי הפינוי, תושבי עזה נאלצו לעקור בשל ההפצצות התכופות של הצבא הישראלי בכל רחבי הרצועה, שגרמו להרס ומוות בקנה מידה עצום.
+במקביל לעקירה בשל צווי הפינוי, תושבי עזה נאלצו לעקור בשל ההפצצות התכופות של הצבא הישראלי בכל רחבי הרצועה, שהביאו להרס ולמוות בקנה מידה עצום.
 
 
 {.meta}
@@ -48,6 +48,8 @@ css: src/theme.css
 [](map/#31.40864,34.38832,9.39,37.6,0.0/~labels_he)
 אחת מהמוני העקורים היא ניבאל אל היסי, בת 25, שנעקרה מביתה יחד עם בתה ריתא, כיום בת שנתיים.
 
+
+{.meta}
 זה הסיפור שלה.
 
 
@@ -64,7 +66,7 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#intro-pre.svg/-0.67,0.25,2.4/+parents-w-baby,+nibal2023)
+[](svg/#intro-pre.svg/-0.67,0.25,2.4/,+nibal2023)
 
 אני הצעירה מבין תשעה אחים ושלוש אחיות.  
 
@@ -166,16 +168,19 @@ css: src/theme.css
 [](img/#prisoners_2.JPG  "פלסטינים שנעצרו בידי הצבא הישראלי לאחר ששוחררו לרפיח, 28 בדצמבר 2023. (רויטרס / באסם מסעוד)")
 בימים שאחרי 7 באוקטובר, ישראל שללה את כלל היתרי העבודה של עשרות אלפי העובדים הפלסטינים מרצועת עזה, בשעה שחלקם נמצאים בשטח ישראל ולא יכולים לשוב לביתם. 
 
-אחמד ואלפי עובדים הופכים באחת ל״שוהים בלתי-חוקיים״.
+אחמד ואלפי עובדים אחרים הופכים באחת ל״שוהים בלתי-חוקיים״.
 
 
 {.meta} 
-בימים שלאחר מכן, ישראל עוצרת אלפי עובדים - ובהם גם אחמד, בעלה של ניבאל.
+בימים שלאחר מכן, ישראל עצרה אלפי עובדים - ובהם גם אחמד, בעלה של ניבאל.
 
 
 {.meta} 
 [](map/#31.37771,34.43288,10.00,37.6,0.0/+north)
 ב-13 באוקטובר 2023 הוציא הצבא הישראלי את צווי הפינוי ההמוניים הראשונים לתושבי עזה.
+
+`תמונה ל-overlay:
+IDF_order_north_held_pre.jpeg`
 
 
 {.meta thumb} 
@@ -197,7 +202,7 @@ css: src/theme.css
 
 {.meta} 
 [](map/#31.52287,34.46534,12.90,-3.2,39.0/+family-home,+unosat-damage-231015,+cities "ההרס באזור ג׳אבליא בסוף אוקטובר 2023. מקור: UNOSAT")
-ניבאל, שחששה מיציאה למסע הקשה לדרום הרצועה לבדה עם בתה בת החודש, מחליטה להישאר בבית הוריה בג׳אבליא. 
+ניבאל, שחששה מיציאה למסע הקשה לדרום הרצועה לבדה עם בתה בת החודש, החליטה להישאר בבית הוריה בג׳אבליא. 
 
 
 {.testimony typewriter}
@@ -212,7 +217,7 @@ css: src/theme.css
 [](img/#ruined_jabalia.JPG "תושבים בוחנים אתר תקיפה ישראלית על בית בג'באליא, 3 בינואר 2024. (רויטרס / עימאד גבון)")
 עד סוף 2023, ההפצצות הישראליות שינו לבלי היכר את פני צפון הרצועה. 
 
-התושבים שנותרו בג׳אבליא תועדו מסתובבים בין ההריסות, כשהם מנסים לאסוף את מה שנותר מרכושם.
+התושבים שנותרו אז בג׳אבליא תועדו מסתובבים בין ההריסות, כשהם מנסים לאסוף את מה שנותר מרכושם.
 
 
 {.meta} 
@@ -229,11 +234,11 @@ css: src/theme.css
 
 {.meta} 
 [](map/#31.50634,34.45154,12.96,0.0,39.0/+jabalia-gaza(by-car):follow+,+family-home,+s.gaza,+cities,+villages,+idf-poly-outlines)
-את תחילת הדרך עושה ניבאל עם אביה, שמסיע אותה ואת ריתא מביתם בג'אבליא לעיר עזה.
+את תחילת הדרך עושה ניבאל עם אביה, שמסיע אותה ואת ריתא מביתם בג'אבליא לפאתי העיר עזה.
 
 
 {.meta}
-[](embed/#vimeo.com%2F1133751988%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop,auto)
+[](embed/#vimeo.com%2F1133751988%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop,auto `מתוך חשבון האינסטגרם של ניבאל`)
 בעדותה תיארה ניבאל נסיעה רוויית אימה, במהלכה ראתה מבעד לחלון המכונית את ההפצצות הכבדות של הצבא הישראלי.
 
 
@@ -256,6 +261,8 @@ css: src/theme.css
 
 התרגשתי מאוד לראות את אחמד. הוא חיבק ונישק את ריתא בלי הפסקה. 
 
+
+{.testimony typewriter}
 אבל המפגש איתו היה גם מזעזע. הוא ירד המון במשקל, ונראה שהוא איבד את ניצוץ החיים שלו. 
 
 
@@ -321,11 +328,7 @@ css: src/theme.css
 [](map/#31.35894,34.31925,10.36,0.0,39.0/+rafah-bureij(2-by-foot):follow+,+pois(poi)[name=rafah],+pois(poi)[name=bureij],+cities,+villages,+idf-poly-outlines)
 ניבאל, אחמד וריתא נאלצו להימלט מרפיח יחד עם כמיליון תושבים אחרים, רובם המוחלט עקורים שהגיעו לעיר בחודשים שלפני כן בהוראת הצבא הישראלי.
 
-`לשנות את הנקודה של רפיח.
-
-סטילס ל-overlay נסיעה: https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2024%3Anewsml_MT1NURPHO000S49GI0%3A116671089&share=true
-או
-https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2024%3Anewsml_MT1NURPHO000S4A1JT%3A423051675&share=true`
+`שם תמונה ל-overlay: leaving_rafah_pre.jpeg`
 
 
 {.meta} 
@@ -373,8 +376,6 @@ https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2024%3Anewsml_MT1NU
 
 בזמן השיחה שלהם, פגז פגע במחסן.
 
-`שירי, בשביל מסך ריק תכניסי כקישור [](about:blank)`
-
 
 {.meta}
 [](about:blank)
@@ -403,8 +404,11 @@ https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2024%3Anewsml_MT1NU
 
 מבית החולים הם הגיעו ל״אזור ההומניטרי״ הצפוף שהגדיר הצבא הישראלי באל-מוואסי, שם הם חיו שוב באוהל.
 
-`סטילס ל-overlay נסיעה: https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2024%3Anewsml_MT1NURPHO000P9FN31%3A1782804767&share=true`
- 
+`שם תמונה ל-overlay: 
+leaving_hospital_pre.jpeg
+שם תמונת צו הפינוי:
+IDF_order_rafah_11_may_24.jpeg`
+
 
 {.meta thumb} 
 [](embed/#vimeo.com%2F1132225660%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop,cover)
@@ -660,7 +664,12 @@ https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2024%3Anewsml_MT1NU
 [](map/#31.43623,34.35063,10.79,0.0,39.0/+gaza-deir-al-balah(by-car):follow+,+s.gaza,+deir-al-balah,+cities,+villages,+idf-poly-outlines)
 המשפחה נעקרה שוב, הפעם דרומה, למתחם אוהלים בדיר אל-בלח. 
 
-׳סטילס ל-overlay נסיעה: https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2025%3Anewsml_MT1NURPHO000YTDPWA%3A733119034&share=true׳
+`שם תמונה ל-overlay:
+leaving_gaza_city_pre.jpeg
+שם תמונה של צו הפינוי:
+IDF_order_gaza_city_9_sep_25.jpeg
+ידיים מחזיקות את צו הפינוי:
+IDF_order_gaza_city_held_pre.jpeg`
 
 
 {.testimony typewriter}
