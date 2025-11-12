@@ -1237,36 +1237,6 @@
                 }
                 // Try to find the anchor in the document and its containing section
                 try {
-                    if (waitForSection) {
-                        let resolved = null;
-                        try {
-                            const targetURL = new URL(href, window.location.href).href;
-                            // Iterate anchors and normalize their href attributes to compare
-                            const as = Array.from(document.querySelectorAll('a'));
-                            for (const a of as) {
-                                const raw = a.getAttribute && a.getAttribute('href');
-                                if (!raw) continue;
-                                try {
-                                    const norm = new URL(raw, window.location.href).href;
-                                    if (norm === targetURL) { resolved = a; break; }
-                                } catch(e) { /* ignore invalid hrefs */ }
-                            }
-                            try { if (window && window.__inflectDebug) console.debug('setIframeNext resolved anchor for', href, '->', resolved); } catch(e){}
-                        } catch(e) { /* ignore */ }
-                        if (resolved) {
-                            const sec = resolved.closest && resolved.closest('section');
-                            if (sec && sec.getAttribute('data-tw-active') === '1') {
-                                // wait for typewriter:done (event), fallback to timeout
-                                let done = false;
-                                const onDone = () => { if (!done) { done = true; try { sec.removeEventListener('typewriter:done', onDone); } catch(e){}; setIframeIfPathChanged(href); __iframeNextTimeout = null; } };
-                                try { sec.addEventListener('typewriter:done', onDone); } catch(e){}
-                                try { if (window && window.__inflectDebug) console.debug('setIframeNext waiting for typewriter:done on', sec); } catch(e){}
-                                const maxWait = 1400;
-                                setTimeout(() => { if (!done) { done = true; try { sec.removeEventListener('typewriter:done', onDone); } catch(e){}; try { if (window && window.__inflectDebug) console.debug('setIframeNext timeout while waiting for', sec); } catch(e){}; setIframeIfPathChanged(href); __iframeNextTimeout = null; } }, maxWait);
-                                return;
-                            }
-                        }
-                    }
                 } catch(e) { /* swallow */ }
                 try { setIframeIfPathChanged(href); } catch(e){}
                 __iframeNextTimeout = null;
@@ -1408,7 +1378,6 @@
                             try { if (window.__setInflectCaptionFromLink) window.__setInflectCaptionFromLink(a); } catch(e){}
                         }
                     } catch(e) { /* swallow */ }
-                    sectionObserver.unobserve(en.target);
                 }
             });
         }, { threshold: 0.25 });

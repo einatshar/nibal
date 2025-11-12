@@ -297,14 +297,19 @@ function parseHash(){
     const y = !isNaN(parts[1]) ? parts[1] : null;
     const s = !isNaN(parts[2]) ? parts[2] : null;
     // parse layers section which follows same +/~ tokens optionally
+    // Support both formats: +layer1+layer2 and +layer1,+layer2
     const vis = { show: [], hide: [] };
     if (layers) {
-      const re = /([+~])([^+~\/]+)/g;
-      let mm;
-      while ((mm = re.exec(layers)) !== null){
-        const sym = mm[1]; const name = decodeURIComponent(mm[2]);
-        if (sym === '+') vis.show.push(name); else vis.hide.push(name);
-      }
+      // Split by comma first, then process each token
+      const tokens = layers.split(',').map(t => t.trim()).filter(t => t);
+      tokens.forEach(token => {
+        const re = /([+~])([^+~\/]+)/g;
+        let mm;
+        while ((mm = re.exec(token)) !== null){
+          const sym = mm[1]; const name = decodeURIComponent(mm[2]);
+          if (sym === '+') vis.show.push(name); else vis.hide.push(name);
+        }
+      });
     }
     const params = {};
     if (s !== null) params.s = s;
@@ -351,8 +356,14 @@ function buildCompactHash(file, params, vis){
       const s = String(k).split('/').pop();
       return s;
     }
-    if (vis.show && vis.show.length) vis.show.forEach(item => seg += `+${encodeURIComponent(String(shortLabel(item)))}`);
-    else if (vis.hide && vis.hide.length) vis.hide.forEach(item => seg += `~${encodeURIComponent(String(shortLabel(item)))}`);
+    if (vis.show && vis.show.length) {
+      const showTokens = vis.show.map(item => `+${encodeURIComponent(String(shortLabel(item)))}`);
+      seg += showTokens.join(',');
+    }
+    else if (vis.hide && vis.hide.length) {
+      const hideTokens = vis.hide.map(item => `~${encodeURIComponent(String(shortLabel(item)))}`);
+      seg += hideTokens.join(',');
+    }
     if (seg) token += `/${seg}`;
   }
   return token;
@@ -409,8 +420,8 @@ async function loadSVG(url){
     if (!svgEl) throw new Error('no <svg> in file');
     // ensure width/height viewBox exists
     if (!svgEl.getAttribute('viewBox')) {
-      const w = svgEl.getAttribute('width')||svgEl.clientWidth||300;
-      const h = svgEl.getAttribute('height')||svgEl.clientHeight||150;
+      const w = parseFloat(svgEl.getAttribute('width')) || svgEl.clientWidth || 300;
+      const h = parseFloat(svgEl.getAttribute('height')) || svgEl.clientHeight || 150;
       svgEl.setAttribute('viewBox','0 0 '+w+' '+h);
     }
   // We manipulate the SVG using CSS transforms on the svg element.

@@ -5,8 +5,8 @@ css: src/theme.css
 ---
 
 # _מסע העקירה של_ ניבאל אל היסי
-[](map/#31.33028,34.30651,9.56,37.6,0.0/~labels_he "Gaza map")
-[](svg/#opening.svg/-0.03,0.08,1.52/~IDFareas~gazamap)
+[](map/#31.30336,34.29179,9.53,37.6,0.0/~labels_he)
+[](svg/#intro-pre.svg/-0.01,0.45,1.52/+nibal2023+home+displacement)
 
 <img src="img/bts_logo.svg" alt="בצלם: מסעות עקירה]" style="max-width:100px;height:auto;">
 
@@ -14,74 +14,75 @@ css: src/theme.css
 
 
 {.meta}
-[](svg/#opening.svg/-0.01,0.78,1.52/~gazamap~IDFareas~displaced~home~nibal2023)
+[](svg/#intro-pre.svg/-0.02,1.21,1.52/+nibal2023,~home,~displacement)
 [](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he)
 במשך שנתיים, ישראל כפתה על תושבי רצועת עזה לעקור שוב ושוב ממקומם.
 
 
 {.meta}
-[](svg/#opening.svg/~opening)
+[](svg/#intro-pre.svg/-0.02,1.21,1.52/~nibal2023,~home,~displacement)
 [](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he,+idf-zones,+idf-poly-outlines "האזורים שנכללו תחת צווי הפינוי של הצבא בין אוקטובר 2023 לאוקטובר 2025")
 לרוב, היא עשתה זאת באמצעות צווי הפינוי שהוציא הצבא הישראלי.
 
 
 {.meta}
-[](svg/#opening.svg/~opening)
+[](svg/#intro-pre.svg/-0.02,1.21,1.52/~nibal2023,~home,~displacement)
 [](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he,+idf-zones)
 במקרים רבים, הצווים היו בלתי-ברורים, מטעים, או שהוצאו רק לאחר שמתקפות הצבא באזורי הפינוי כבר החלו, מה שהגביר את החרדה, עורר בלבול ויצר סכנה ממשית לחיי העקורים.
 
 
 {.meta}
-[](svg/#opening.svg/~opening)
+[](svg/#intro-pre.svg/-0.02,1.21,1.52/~nibal2023,~home,~displacement)
 [](map/#31.43664,34.34673,10.18,37.6,0.0/+cities,+villages,+unosat-damage-231015)
 במקביל לעקירה בשל צווי הפינוי, תושבי עזה נאלצו לעקור בשל ההפצצות התכופות של הצבא הישראלי בכל רחבי הרצועה, שגרמו להרס ומוות בקנה מידה עצום.
 
 
 {.meta}
-[](svg/#opening.svg/0.29,-0.09,1.81/+displaced)
-[](map/#31.49997,34.25627,10.18,37.6,0.0/+cities,+villages,+unosat-damage-231015 "עקורים צועדים בתאריך XX XX XX")
+[](svg/#intro-pre.svg/0.34,0.36,1.81/+displacement)
+[](map/#31.49997,34.25627,10.18,37.6,0.0/+cities,+villages,+unosat-damage-231015 "!!! התמונה הזו תוחלף")
 לאורך כל חודשי המתקפה, ישראל לא אפשרה לעקורים למצוא מחסה בטוח ומנעה מהם גישה למזון, מים ושירותים בסיסיים.
 
 
 {.meta}
-[](map/#31.33028,34.30651,9.56,37.6,0.0/~labels_he)
-[](svg/#opening.svg/-0.06,-0.05,2.05/~gazamap~IDFareas~home)
+[](svg/#intro-pre.svg/-0.01,0.27,1.02/+displacement,+nibal2023)
+[](map/#31.40864,34.38832,9.39,37.6,0.0/~labels_he)
 ניבאל אל היסי נעקרה יחד עם בתה ריתא, כיום בת שנתיים.
 
 זה הסיפור שלה.
 
 
 {.subheader}
-[](svg/#opening-new.svg/0.08,1,1)
+[](svg/#intro-pre.svg/-0.28,1.05,1/+nibal2023)
 [](map/#31.53332,34.48215,14.18,37.6,0.0/~labels_he,+Gaza_border_dash,+Gaza_border_base,~family-home)
 ## החיים שלפני
 
 
 {.testimony typewriter}
-[](svg/#opening.svg/-0.64,-0.22,2.27/+nibal2023)
+[](svg/#intro-pre.svg/-0.29,0.28,1/+nibal2023)
 
 שמי ניבאל. אני בת 25. עד לאוקטובר 2023, גרתי בג׳אבליא עם בעלי, אחמד ובתנו התינוקת ריתא.
 
 
 {.testimony typewriter}
-[](embed/#vimeo.com%2F1134865613%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop,cover)
+[](svg/#intro-pre.svg/-0.56,0.3,1.46/+parents-w-baby,+nibal2023)
 
 אני הצעירה מבין תשעה אחים ושלוש אחיות.  
 
 
 {.testimony typewriter}
+[](svg/#intro-pre.svg/-0.64,0.14,2.07/+parents-w-baby,+vimeo-1136032993)
 
 בגלל שאני הקטנה, ההורים והאחים שלי תמיד פינקו אותי. הייתה לי תשוקה גדולה לחיים, ובתיכון מאוד אהבתי ללמוד.
 
 
 {.testimony typewriter}
-[](embed/#vimeo.com%2F1130641184/autoplay,loop,cover "מתוך חשבון הטיקטוק של ניבאל")
+[](svg/#intro-pre.svg/-0.28,-0.11,2.07/+vimeo-1130641184 "מתוך חשבון הטיקטוק של ניבאל")
 
 אחרי התיכון, המשכתי ללימודי אנגלית ותרגום באוניברסיטת אל-אזהר בעיר עזה.
 
 
 {.testimony typewriter}
-[](embed/#vimeo.com%2F1130634353/autoplay,loop,cover "מתוך חשבון הטיקטוק של ניבאל")
+[](svg/#intro-pre.svg/0.02,-0.49,2.9/+vimeo-1130634353 "מתוך חשבון הטיקטוק של ניבאל")
 
 בשנה האחרונה באוניברסיטה הכרתי את אחמד. הרגשתי שהוא דומה לי, שהוא מבין אותי. 
 
@@ -89,37 +90,46 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](embed/#vimeo.com%2F1130834125%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop,cover "מתוך חשבון הטיקטוק של ניבאל")
+[](svg/#intro-pre.svg/0.22,-0.37,2.56/+vimeo-1130834125 "מתוך חשבון הטיקטוק של ניבאל")
 
 בספטמבר 2022 עברנו לגור בדירה משלנו בבניין של המשפחה של אחמד, בג׳אבליא, לא רחוק מהוריי. היו לנו חיים מאושרים, מלאים באהבה ועטופים בחום של המשפחה. 
 
 
 {.testimony typewriter}
+[](svg/#intro-pre.svg/0.22,-0.37,2.56/+vimeo-1130834125 "מתוך חשבון הטיקטוק של ניבאל")
+
 היינו מובטלים ומצבנו הכלכלי לא היה פשוט, אבל שרדנו בעזרת התמיכה של המשפחות שלנו.
 
 
 {.meta}
-[](embed/#vimeo.com%2F1130634480%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop,cover "מתוך חשבון הטיקטוק של ניבאל")
+[](svg/#intro-pre.svg/0.48,-0.09,2.46/+vimeo-1130634480 "מתוך חשבון הטיקטוק של ניבאל")
+
 שנה אחרי החתונה, בספטמבר 2023, נולדת לניבאל ואחמד בתם, ריתא. 
 
 
 {.meta}
+[](svg/#intro-pre.svg/-0.02,0.02,0.5/+vimeo-1130634480)
+[](map/#31.63011,34.71983,8.57,24.0,41.5/~labels_he)
+
 חמישה ימים לאחר לידתה, אחמד מקבל היתר עבודה בישראל ומתחיל לעבוד בבניין.
 
 
 {.subheader}
-[](about:blank)
+[](svg/#intro-pre.svg/-0.08,-2.31,0.54/+vimeo-1130634480)
+[](map/#31.38551,34.37811,10.31,-10.4,42.0/+oct7-labels,~labels_he,+Gaza_border_base,+Gaza_border_dash)
 
 ## 7 באוקטובר 2023 
 
 
 {.meta showdate}
 ### Oct 23
+[](svg/#intro-pre.svg/-0.08,-2.31,0.54/+vimeo-1130634480)
 [](map/#31.38551,34.37811,10.31,-10.4,42.0/+oct7-labels,~labels_he)
 ב-7 באוקטובר 2023 מבצעים ארגון חמאס ופלגים חמושים פלסטינים נוספים מרצועת עזה את המתקפה הקטלנית והנפשעת ביותר שהתרחשה אי פעם נגד אזרחים ישראלים.
 
 
 {.meta} 
+[](svg/#intro-pre.svg/-0.08,-2.31,0.54/+vimeo-1130634480)
 [](map/#31.38551,34.37811,10.31,-10.4,42.0/+oct7-labels,+oct7-bubbles,~labels_he)
 1,220 בני אדם נהרגים באותה מתקפה, ובהם נשים, זקנים וילדים.  
 
@@ -127,18 +137,22 @@ css: src/theme.css
 
 
 {.meta} 
+[](svg/#intro-pre.svg/-0.08,-2.31,0.54/+vimeo-1130634480)
 [](map/#31.43664,34.34673,10.18,37.6,0.0/+cities,+villages,+unosat-damage-231015 "מיפוי ההרס ברצועת עזה לאחר השבוע הראשון למתקפה. מקור: UNOSAT")
 עוד באותו יום, ישראל פותחת בגל תקיפות נרחב ברצועה.
 
 
 {.meta} 
-[](map/#31.53064,34.47112,12.43,37.6,0.0/+cities,+villages,+family-home,+unosat-damage-231015,+satellite "מיפוי ההרס ברצועת עזה לאחר השבוע הראשון למתקפה. מקור: UNOSAT")
+[](svg/#intro-pre.svg/-0.02,0.02,0.5/+vimeo-1130634480)
+[](map/#31.63011,34.71983,8.57,24.0,41.5/+family-home,+unosat-damage-231015,+satellite "מיפוי ההרס ברצועת עזה לאחר השבוע הראשון למתקפה. מקור: UNOSAT")
 ניבאל נמצאת אז בביתה בג׳באליא עם בתה ריתא, אז בת חודש בלבד. 
 
 אחמד, בעלה, עובד באותה עת כפועל בניין בתוך ישראל.
 
 
 {.meta} 
+[](svg/#intro-pre.svg/-0.02,0.02,0.5/+vimeo-1130634480)
+[](map/#31.53064,34.47112,12.43,37.6,0.0/+cities,+villages,+family-home,+unosat-damage-231015,+satellite "מיפוי ההרס ברצועת עזה לאחר השבוע הראשון למתקפה. מקור: UNOSAT")
 ניבאל המבוהלת מחליטה לעבור עם ריתא לבית הוריה הסמוך.
 
 
