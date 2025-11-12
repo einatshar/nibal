@@ -2829,7 +2829,6 @@ window.addEventListener('hashchange', () => {
       const id = layer.id;
       const explicit = explicitState[id];
       const defaultVis = styleDefaultVisibility[id] || 'visible';
-      
       if (map.getLayer(id)) {
         if (explicit === '+') {
           // Explicitly shown in hash
@@ -2842,7 +2841,7 @@ window.addEventListener('hashchange', () => {
             map.setLayoutProperty(id, 'visibility', 'none');
           }
         } else {
-          // Not mentioned - check if it's an external layer
+          // Not mentioned in hash
           if (externalLayers.has(id)) {
             // External layers not in hash should be removed entirely
             if (!explicitState[id]) {
@@ -2858,6 +2857,11 @@ window.addEventListener('hashchange', () => {
             // Style layers - restore to style default
             if (map.getLayoutProperty(id, 'visibility') !== defaultVis) {
               map.setLayoutProperty(id, 'visibility', defaultVis);
+            }
+            // Always reset filter to style default if not mentioned in hash
+            if (layerSupportsFilter(id)) {
+              const def = (id in styleDefaultFilter) ? styleDefaultFilter[id] : null;
+              try { map.setFilter(id, def); } catch(e) { /* ignore unsupported */ }
             }
           }
         }
