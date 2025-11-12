@@ -769,10 +769,43 @@ document.addEventListener('DOMContentLoaded', function() {
   var copyBtn = document.getElementById('copy-link-btn');
   if (copyBtn) {
     copyBtn.addEventListener('click', function() {
-      // Get current URL and extract from 'map/' onwards
+      // Get current URL and extract from 'svg/' or 'map/' onwards (including hash)
       var fullUrl = window.location.href;
-      var mapIndex = fullUrl.indexOf('map/');
-      var linkToCopy = mapIndex !== -1 ? fullUrl.substring(mapIndex) : fullUrl;
+      var linkToCopy = null;
+      
+      try {
+        var u = new URL(fullUrl);
+        var path = u.pathname || '';
+        var hash = u.hash || '';
+        
+        // Helper to extract relative URL starting from keyword
+        function pickRelFromPath(p, keyword) {
+          var withSlash = '/' + keyword + '/';
+          var idx = p.lastIndexOf(withSlash);
+          if (idx >= 0) return p.substring(idx + 1) + (hash || ''); // drop leading '/'
+          var endMarker = '/' + keyword;
+          if (p.endsWith(endMarker)) return keyword + (hash || '');
+          return null;
+        }
+        
+        // Try both svg/ and map/
+        linkToCopy = pickRelFromPath(path, 'svg') || pickRelFromPath(path, 'map');
+      } catch(e) {
+        console.warn('Failed to parse URL:', e);
+      }
+      
+      // Fallback to simple extraction if URL parsing failed
+      if (!linkToCopy) {
+        var svgIndex = fullUrl.indexOf('svg/');
+        var mapIndex = fullUrl.indexOf('map/');
+        if (svgIndex !== -1 && (mapIndex === -1 || svgIndex < mapIndex)) {
+          linkToCopy = fullUrl.substring(svgIndex);
+        } else if (mapIndex !== -1) {
+          linkToCopy = fullUrl.substring(mapIndex);
+        } else {
+          linkToCopy = fullUrl;
+        }
+      }
       
       // Copy to clipboard
       navigator.clipboard.writeText(linkToCopy).then(function() {

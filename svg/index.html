@@ -541,9 +541,13 @@ function buildLayerList(){
     // If no key, fallback to direct toggle
   if (!key) { toggleLayerVisibility(el, cb.checked, { animate: true }); try { if (typeof autoAttachVideoOverlays === 'function') autoAttachVideoOverlays(); } catch(e){} try { if (window.overlayManager && typeof window.overlayManager.update === 'function') window.overlayManager.update(); } catch(e){} updateHashFromLayerList(); refreshLayerListCheckboxes(); return; }
 
-    // If the user checked the checkbox, just show the layer (remove ~token if present)
-    // Do NOT add to showExceptions - only the "Only" button creates +tokens
+    // If the user checked the checkbox, show the layer
     if (cb.checked === true) {
+      // If we're in "Only" mode (showExceptions has items), add this layer to showExceptions
+      if (showExceptions.size > 0) {
+        showExceptions.add(key);
+      }
+      
       // ensure ancestor chain is visible so this layer can be seen
       const parts = key.split('/');
       for (let i = 0; i < parts.length - 1; i++) {
@@ -1326,18 +1330,29 @@ function updateHashFromLayerList(){
   // read existing parsed hash to preserve params
   const parsed = parseHash();
   const vis = collectVisibilityFromList();
+  console.log('[updateHashFromLayerList] vis:', vis);
   const token = buildCompactHash(parsed.url || '', parsed.params || {}, vis);
+  console.log('[updateHashFromLayerList] token:', token, 'current hash:', location.hash);
   // we need to preserve original 6-field style when present; if not, just write #token
   // Debounce writing the hash so ongoing animations are not cancelled by an
   // immediate hashchange handler. We still mark the write as originating
   // locally so the next hashchange is ignored.
   try { if (__hashWriteTimeout) clearTimeout(__hashWriteTimeout); } catch(e){}
   __hashWriteTimeout = setTimeout(() => {
-  suppressHashFor(120);
-    // Write the new compact token directly
-    location.hash = '#'+token;
+    try {
+      suppressHashFor(150);
+      // Write the new compact token directly
+      if (location.hash !== '#'+token) {
+        console.log('[updateHashFromLayerList] Writing hash:', '#'+token);
+        location.hash = '#'+token;
+      } else {
+        console.log('[updateHashFromLayerList] Hash unchanged, not writing');
+      }
+    } catch(e) {
+      console.warn('Failed to update hash:', e);
+    }
     __hashWriteTimeout = null;
-  }, 260);
+  }, 100);
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{

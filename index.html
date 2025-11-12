@@ -283,6 +283,8 @@
                         // Enable edit mode (foreground only)
                         docElement.classList.remove('embedded');
                         foregroundFrame.classList.add('editing-mode');
+                        // Show the UI when enabling edit mode
+                        fgDoc.body.classList.remove('ui-hidden');
                         console.log('[ROOT] Foreground edit mode: ON');
                         // Foreground-only editing: disable mouse on background
                         try {
@@ -297,6 +299,8 @@
                         // Disable edit mode (foreground only)
                         docElement.classList.add('embedded');
                         foregroundFrame.classList.remove('editing-mode');
+                        // Hide the UI when disabling edit mode
+                        fgDoc.body.classList.add('ui-hidden');
                         console.log('[ROOT] Foreground edit mode: OFF');
                         // Re-enable background interactions when leaving foreground-only mode
                         try {
@@ -324,10 +328,14 @@
                     if (isEmbedded) {
                         docElement.classList.remove('embedded');
                         iframe.classList.add('editing-mode');
+                        // Show the UI when enabling edit mode
+                        iframeDoc.body.classList.remove('ui-hidden');
                         console.log('[ROOT] Edit mode: ON (single svg)');
                     } else {
                         docElement.classList.add('embedded');
                         iframe.classList.remove('editing-mode');
+                        // Hide the UI when disabling edit mode
+                        iframeDoc.body.classList.add('ui-hidden');
                         console.log('[ROOT] Edit mode: OFF (single svg)');
                     }
                     syncEditModeBodyClasses();
