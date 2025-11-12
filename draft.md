@@ -282,7 +282,7 @@ css: src/theme.css
 
 
 {.meta} 
-[](embed/#vimeo.com%2F1130635381%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop)
+[](img/#rafah_pre.jpeg)
 במקביל להוצאת צווי הפינוי, ישראל מגבירה את תקיפותיה ברפיח.
 
 
@@ -307,7 +307,7 @@ https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2024%3Anewsml_MT1NU
 
 
 {.testimony typewriter}
-[](embed/#vimeo.com%2F1130642937%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop "בתים מפח במחנה הפליטים אל-בורייג׳, יוני 2023. (רויטרס)")
+[](img/#bureij_pre.jpeg)
 
 החיים במחסן היו קצת יותר יציבים, אבל הרגשתי חצויה. מצד אחד שמחתי להיות עם בעלי והבת שלי, ומצד שני התגעגעתי למשפחה שלי והמרחק מהמשפחה ומהבית שלי גרם לי להרגיש בודדה ומנוכרת. 
 
@@ -393,12 +393,12 @@ https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2024%3Anewsml_MT1NU
 
 
 {.meta}
-ֿ[](embed/#vimeo.com%2F1133785144%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop "עקורים בח׳אן יונס, 31 בדצמבר 2024. (רויטרס)")
+[](img/#20241231_winter_gaza_Activestills_1.jpg)
 בנובמבר 2024, החודש בו ניבאל ומשפחתה מגיעים ל״אזור ההומניטרי״, עקורים רבים שחוסים במתחם מתארים חיים בצפיפות אדירה, עם מחסור אקוטי במים ובמזון, כשהם חשופים לחלוטין לקור ולגשמים העזים.
 
 
 {.meta}
-[](embed/#vimeo.com%2F1132412605%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop,cover "עקורים בדיר אל-בלח, 8 באוגוסט 2024. (רויטרס)")
+[](img/#wheelchair_pre.jpeg)
 ניבאל נאלצת להתחיל את תהליך ההחלמה שלה בתנאים בלתי-אנושיים באוהל באל-מוואסי.
 
 לצד ניבאל, עשרות אלפי פצועים, נכים ובעלי מוגבלויות, חלקם הגדול עקב המתקפה הישראלית, מתקשים לשרוד באוהלים במחנות העקורים.
@@ -460,7 +460,7 @@ https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2024%3Anewsml_MT1NU
 
 
 {.meta}
-[](embed/#vimeo.com%2F1130635162%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop "עקורים בדרכם לצפון רצועת עזה, 27 בינואר 2025. (רויטרס)")
+[](embed/#vimeo.com%2F1136076448%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop)
 אחרי כחודשיים של חיים באוהל באל-מוואסי, בינואר 2025 מתבשרים תושבי הרצועה, וניבאל ביניהם, על כניסתה לתוקף של הפסקת האש בין ישראל לחמאס. 
 
 בשבועות שלאחר מכן, כחצי מיליון עקורים מתחילים לשוב לבתיהם בצפון הרצועה. 
@@ -601,15 +601,11 @@ https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2024%3Anewsml_MT1NU
 
 
 {.meta thumb} 
-[](map/#31.43623,34.35063,10.79,0.0,39.0/+gaza-deir-al-balah(by-car):follow+,+s.gaza,+deir-al-balah,+cities,+villages,+idf-poly-outlines)
+[](embed/#vimeo.com%2F1136076786%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop)
 
 בסוף אוגוסט 2025 פותחת ישראל במתקפה קרקעית נוספת על העיר עזה. 
 
 צווי הפינוי שמוציא הצבא בתחילת ספטמבר, שבועות ספורים לאחר שמשפחתה של ניבאל מגיעה לעיר, מורים לכ-1.2 מיליון בני אדם לעקור שוב ממקום מושבם.
-
-המשפחה נעקרת שוב, הפעם דרומה, למתחם אוהלים בדיר אל-בלח. 
-
-׳סטילס ל-overlay נסיעה: https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2025%3Anewsml_MT1NURPHO000YTDPWA%3A733119034&share=true׳
 
 <a href="https://btselem.org/" target="blank" class="dontinflect">
     להרחבה, ראו:
@@ -617,6 +613,13 @@ https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2024%3Anewsml_MT1NU
     אוגוסט-ספטמבר 2025: הרס העיר עזה
     </strong>
 </a>
+
+
+{.meta} 
+[](map/#31.43623,34.35063,10.79,0.0,39.0/+gaza-deir-al-balah(by-car):follow+,+s.gaza,+deir-al-balah,+cities,+villages,+idf-poly-outlines)
+המשפחה נעקרת שוב, הפעם דרומה, למתחם אוהלים בדיר אל-בלח. 
+
+׳סטילס ל-overlay נסיעה: https://www.reutersconnect.com/detail?id=tag%3Areuters.com%2C2025%3Anewsml_MT1NURPHO000YTDPWA%3A733119034&share=true`
 
 
 {.testimony typewriter}
