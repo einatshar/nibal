@@ -1208,31 +1208,50 @@
                     }
                 } else {
                     // Route to foreground frame (default for cmp/, img/, vid/, etc.)
+                    
+                    // MOBILE VIDEO OPTIMIZATION: If fs-video-mobile body class is present,
+                    // on mobile devices, detect SVG links with @vimeo- flags and redirect
+                    // to /embed/ with the first video ID instead of loading the full SVG
+                    let finalHref = newHref;
+                    const hasFsVideoMobile = document.body.classList.contains('fs-video-mobile');
+                    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.matchMedia('(max-width: 768px)').matches;
+                    
+                    if (hasFsVideoMobile && isMobile && newPath.includes('/svg/')) {
+                        // Check if the hash contains @vimeo- flags
+                        const hashMatch = originalHash.match(/@vimeo-(\d+)/);
+                        if (hashMatch && hashMatch[1]) {
+                            const videoId = hashMatch[1];
+                            // Redirect to /embed/ instead of /svg/
+                            finalHref = `/embed/#vimeo.com%2F${videoId}/autoplay,loop,cover`;
+                            console.log('[setIframeIfPathChanged] MOBILE VIDEO REDIRECT: Detected @vimeo-' + videoId + ' in SVG link, redirecting to:', finalHref);
+                        }
+                    }
+                    
                     console.log('[setIframeIfPathChanged] Routing to FOREGROUND frame, newPath:', newPath, 'lastForegroundPath:', lastForegroundPath);
                     if (window.__inflectDebug) {
-                        console.log('[IFRAME] Setting foreground-frame src to:', newHref);
+                        console.log('[IFRAME] Setting foreground-frame src to:', finalHref);
                         console.log('[IFRAME] foregroundFrame element:', foregroundFrame);
                         console.log('[IFRAME] firstForegroundFrame:', firstForegroundFrame);
                     }
                     if (newPath !== lastForegroundPath) {
                         if (firstForegroundFrame) {
                             firstForegroundFrame = false;
-                            console.log('[setIframeIfPathChanged] Setting FIRST foreground frame src to:', newHref);
-                            foregroundFrame.src = newHref;
+                            console.log('[setIframeIfPathChanged] Setting FIRST foreground frame src to:', finalHref);
+                            foregroundFrame.src = finalHref;
                             if (window.__inflectDebug) {
                                 console.log('[IFRAME] FIRST foreground frame load, src set');
                             }
                         } else {
-                            console.log('[setIframeIfPathChanged] Updating foreground frame src to:', newHref);
-                            foregroundFrame.src = newHref;
+                            console.log('[setIframeIfPathChanged] Updating foreground frame src to:', finalHref);
+                            foregroundFrame.src = finalHref;
                             if (window.__inflectDebug) {
-                                console.log('[IFRAME] Foreground src updated to:', newHref);
+                                console.log('[IFRAME] Foreground src updated to:', finalHref);
                             }
                         }
                         lastForegroundPath = newPath;
                     } else {
-                        console.log('[setIframeIfPathChanged] Hash-only change, updating foreground frame src to:', newHref);
-                        foregroundFrame.src = newHref;
+                        console.log('[setIframeIfPathChanged] Hash-only change, updating foreground frame src to:', finalHref);
+                        foregroundFrame.src = finalHref;
                     }
                     // Ensure foreground is active
                     foregroundFrame.classList.remove('inactive');

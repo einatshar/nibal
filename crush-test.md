@@ -1,6 +1,6 @@
 ---
 dual-iframe: true
-body-class: snap
+body-class: snap, fs-video-mobile
 css: src/theme.css
 ---
 
@@ -10,7 +10,7 @@ css: src/theme.css
 
 
 [](map/#31.44057,34.36196,13.64,0.0,39.0/+jabalia-gaza(by-car),+gaza-nuseirat(by-foot),+nuseirat-rafah(2-by-foot):follow+99999,+family-home,+s.gaza,+cities,+villages,+idf-poly-outlines,+rafah,+nuseirat "אנימציית follow + וידאו 2")
-[](svg/#opening-new.svg/0.06,-0.23,1.66/@vimeo-1130641184,@vimeo-1130634353)
+[](svg/#opening-new.svg/0.06,-0.23,1.66/@vimeo-1130634353,@vimeo-1130641184)
 
 
 [](map/#31.44057,34.36196,13.64,0.0,39.0/+jabalia-gaza(by-car),+gaza-nuseirat(by-foot),+nuseirat-rafah(2-by-foot):follow+99999,+family-home,+s.gaza,+cities,+villages,+idf-poly-outlines,+rafah,+nuseirat "אנימציית follow + וידאו 3")
