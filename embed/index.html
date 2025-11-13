@@ -76,18 +76,35 @@
   function loadPlyrAndAdapter() {
     return new Promise((resolve, reject) => {
       if (window.Plyr && window.createAdapter) return resolve();
-      let loaded = 0;
-      function checkDone() { loaded++; if (loaded === 2) resolve(); }
+      // Load Plyr first, then adapter.js
       const plyrScript = document.createElement('script');
       plyrScript.src = 'https://cdn.plyr.io/3.7.8/plyr.js';
-      plyrScript.onload = checkDone;
+      plyrScript.onload = () => {
+        // Wait for Plyr to be available
+        (function waitForPlyr(retries=10) {
+          if (window.Plyr) {
+            // Now load adapter.js
+            const adapterScript = document.createElement('script');
+            adapterScript.src = '../src/players/adapter.js';
+            adapterScript.onload = () => {
+              // Wait for createAdapter to be available
+              (function waitForAdapter(retries2=10) {
+                if (window.createAdapter) return resolve();
+                if (retries2 <= 0) return reject(new Error('adapter.js did not define createAdapter'));
+                setTimeout(()=>waitForAdapter(retries2-1), 50);
+              })();
+            };
+            adapterScript.onerror = reject;
+            document.head.appendChild(adapterScript);
+          } else if (retries > 0) {
+            setTimeout(()=>waitForPlyr(retries-1), 50);
+          } else {
+            reject(new Error('Plyr.js did not load'));
+          }
+        })();
+      };
       plyrScript.onerror = reject;
       document.head.appendChild(plyrScript);
-      const adapterScript = document.createElement('script');
-      adapterScript.src = '../src/players/adapter.js';
-      adapterScript.onload = checkDone;
-      adapterScript.onerror = reject;
-      document.head.appendChild(adapterScript);
     });
   }
 
