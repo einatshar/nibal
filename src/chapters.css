@@ -210,6 +210,9 @@
     pointer-events: auto;
     background: transparent;
     z-index: 1; /* Ensure it's above dots */
+    /* Allow native vertical panning while rail is active */
+    touch-action: pan-y;
+    -ms-touch-action: pan-y;
   }
 
   /* Chapter headings: same flex-grow as sections, but with transparent border for gap */

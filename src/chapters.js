@@ -287,8 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const onStart = (ev) => {
           try { 
-            ev.preventDefault(); 
-            ev.stopPropagation();
+            // Do not block page scroll; just start hover mode
           } catch (e) {}
           isDragging = true;
           recomputeCenters();
@@ -299,8 +298,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const onMove = (ev) => {
           if (!isDragging) return;
           try { 
-            ev.preventDefault(); 
-            ev.stopPropagation();
+            // Allow native scrolling while updating hover
           } catch (e) {}
           const t = ev.touches && ev.touches[0] ? ev.touches[0] : ev;
           hoverNearest(t.clientY);
@@ -310,8 +308,7 @@ document.addEventListener('DOMContentLoaded', function () {
           if (!isDragging) return;
           isDragging = false;
           try { 
-            ev.preventDefault(); 
-            ev.stopPropagation();
+            // Let tap/click propagate normally
           } catch (e) {}
           activateHovered();
           // Keep the highlight briefly so the user sees what was chosen
@@ -323,13 +320,11 @@ document.addEventListener('DOMContentLoaded', function () {
           clearHover();
         };
 
-        // Attach to both rail and nav for maximum reliability
-        [rail, nav].forEach(el => {
-          el.addEventListener('touchstart', onStart, { passive: false });
-          el.addEventListener('touchmove', onMove, { passive: false });
-          el.addEventListener('touchend', onEnd, { passive: false });
-          el.addEventListener('touchcancel', onCancel, { passive: false });
-        });
+        // Attach only to the transparent rail; keep listeners passive to avoid blocking scroll
+        rail.addEventListener('touchstart', onStart, { passive: true });
+        rail.addEventListener('touchmove', onMove, { passive: true });
+        rail.addEventListener('touchend', onEnd, { passive: true });
+        rail.addEventListener('touchcancel', onCancel, { passive: true });
 
         // Also support mouse drag for small-screen simulators
         let mouseDown = false;
