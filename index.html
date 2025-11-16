@@ -688,6 +688,7 @@
                         try { if (scroller === document.scrollingElement || scroller === document.documentElement) window.scrollTo(0, to); else scroller.scrollTo({ top: to }); } catch(e){}
                         window.__chaptersAnimating = false;
                         window.__scrollAnimating = false;
+                        try { if (typeof window.__onSmoothScrollDone === 'function') window.__onSmoothScrollDone(); } catch(e){}
                     }
                 }
 
@@ -1458,6 +1459,50 @@
             });
         }, { threshold: 0.25 });
 
+        // Global: Track current section regardless of snap/fs-video-mobile
+        // Applies 'current' to body > main > section, but only when not animating
+        (function(){
+            function updateCurrentSection() {
+                if (window.__scrollAnimating) return;
+                try {
+                    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const viewportHeight = window.innerHeight;
+                    const viewportCenter = currentScrollTop + (viewportHeight / 2);
+                    const allSections = Array.from(document.querySelectorAll('main > section'))
+                        .filter(el => el && el.offsetParent !== null);
+                    if (!allSections.length) return;
+                    const sectionPositions = allSections.map(section => {
+                        const rect = section.getBoundingClientRect();
+                        return { element: section, top: rect.top + currentScrollTop };
+                    });
+                    let currentSection = null;
+                    let best = null;
+                    sectionPositions.forEach(pos => {
+                        if (pos.top <= viewportCenter) {
+                            if (!best || pos.top > best.top) best = pos;
+                        }
+                    });
+                    currentSection = best ? best.element : (sectionPositions[0] && sectionPositions[0].element);
+                    allSections.forEach(s => s.classList.remove('current'));
+                    if (currentSection) currentSection.classList.add('current');
+                } catch(e) { /* swallow */ }
+            }
+            let scheduled = false;
+            function scheduleUpdate() {
+                if (scheduled) return;
+                scheduled = true;
+                requestAnimationFrame(() => { scheduled = false; updateCurrentSection(); });
+            }
+            // Run once on load and on resize/scroll globally
+            window.addEventListener('load', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate, { passive: true });
+            document.addEventListener('scroll', scheduleUpdate, { passive: true });
+            // When programmatic smooth scroll ends, update immediately
+            window.__onSmoothScrollDone = () => { updateCurrentSection(); };
+            // Initial kick
+            scheduleUpdate();
+        })();
+
         // If the page requests `body.snap`, enable page-centering snap behavior.
         // This magnetizes sections to the center of the viewport and installs
         // wheel/keyboard handlers to flip between sections.
@@ -1529,72 +1574,7 @@
                 _secs.forEach(s => snapObserver.observe(s));
             } catch(e) { /* swallow */ }
 
-            // Track current section in view and add 'current' class
-            function updateCurrentSection() {
-                try {
-                    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    const viewportHeight = window.innerHeight;
-                    const viewportCenter = currentScrollTop + (viewportHeight / 2);
-                    
-                    const allSections = Array.from(document.querySelectorAll('main > section, main > .section'));
-                    if (!allSections.length) return;
-                    
-                    // Build position data for all sections
-                    const sectionPositions = [];
-                    allSections.forEach(section => {
-                        const rect = section.getBoundingClientRect();
-                        const sectionTop = rect.top + currentScrollTop;
-                        sectionPositions.push({
-                            element: section,
-                            top: sectionTop
-                        });
-                    });
-                    
-                    // Find the current section: the one whose top is at or just above viewport center
-                    let currentSection = null;
-                    let bestCandidate = null;
-                    
-                    sectionPositions.forEach(pos => {
-                        if (pos.top <= viewportCenter) {
-                            if (!bestCandidate || pos.top > bestCandidate.top) {
-                                bestCandidate = pos;
-                            }
-                        }
-                    });
-                    
-                    if (bestCandidate) {
-                        currentSection = bestCandidate.element;
-                    } else if (sectionPositions.length > 0) {
-                        currentSection = sectionPositions[0].element;
-                    }
-                    
-                    // Remove 'current' class from all sections and add to current one
-                    allSections.forEach(section => {
-                        section.classList.remove('current');
-                    });
-                    
-                    if (currentSection) {
-                        currentSection.classList.add('current');
-                    }
-                } catch(e) { /* swallow */ }
-            }
-            
-            // Setup scroll tracking
-            let currentSectionUpdateScheduled = false;
-            function scheduleCurrentSectionUpdate() {
-                if (currentSectionUpdateScheduled) return;
-                currentSectionUpdateScheduled = true;
-                requestAnimationFrame(() => {
-                    updateCurrentSection();
-                    currentSectionUpdateScheduled = false;
-                });
-            }
-            
-            // Update on scroll - attach to the scroller element, not window
-            scroller.addEventListener('scroll', scheduleCurrentSectionUpdate, { passive: true });
-            
-            // Initial update
-            scheduleCurrentSectionUpdate();
+            // (Current-section tracking is now global)
 
             // Non-passive wheel listener to intercept and flip pages — attach to scroller
             try {
@@ -1866,12 +1846,12 @@
                 }
             }
         } else {
-            // Single iframe mode: original behavior
+            // Single iframe mode: load first link immediately (avoid initial delay)
             const firstLink = document.querySelector('main a:not(.dontinflect)');
             if (firstLink) {
                 firstLink.classList.add('active');
                 const rawHref = firstLink.getAttribute('href');
-                try { const full = new URL(rawHref, window.location.href).href; setIframeNext(full); } catch(e){ setIframeNext(firstLink.href); }
+                try { const full = new URL(rawHref, window.location.href).href; setIframeIfPathChanged(full); } catch(e){ setIframeIfPathChanged(firstLink.href); }
                 try { if (window.__setInflectCaptionFromLink) window.__setInflectCaptionFromLink(firstLink); } catch(e){}
             }
         }

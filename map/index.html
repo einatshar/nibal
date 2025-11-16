@@ -33,6 +33,8 @@
     }
     #layer-controls.hidden {
       transform: translateX(-100%);
+      pointer-events: none;
+      visibility: hidden;
     }
     #layer-controls-header {
       padding: 15px;
@@ -427,7 +429,7 @@
 </head>
 <body>
 <div id="map"></div>
-<div id="layer-controls">
+<div id="layer-controls" class="hidden">
   <div id="layer-controls-header">
     <div class="title-row">
       <h3>Map Layers</h3>
@@ -471,14 +473,17 @@
 </div>
 <div id="distance-ticker"></div>
 <script>
-// Hide control panel if in an iframe, show by default otherwise
-if (window.self !== window.top) {
-  // In iframe - hide by default
-  document.addEventListener('DOMContentLoaded', function() {
-    var controls = document.getElementById('layer-controls');
-    if (controls) controls.classList.add('hidden');
-  });
-}
+// Panel is hidden by default; show it when NOT in an iframe
+document.addEventListener('DOMContentLoaded', function() {
+  var controls = document.getElementById('layer-controls');
+  if (!controls) return;
+  if (window.self === window.top) {
+    // Standalone page: slide panel in
+    controls.classList.remove('hidden');
+  } else {
+    // Embedded (iframe): keep it hidden by default
+  }
+});
 
 // Keyboard shortcut to toggle UI (E key)
 document.addEventListener('keydown', function(e) {
