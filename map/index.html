@@ -692,8 +692,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (layerType === 'geojson') {
       const raw = (geojsonInput.value || '').trim();
       if (!raw) { setError('Enter a local filename or URL.'); return; }
-      // Accept any input, not just predefined list - datalist provides suggestions only
-      if (!availableLocalLayerFiles.includes(raw)) { 
+      // Accept any input with or without extension - datalist provides suggestions only
+      // Files can be specified as 'pois', 'pois.csv', or 'safe-area.geojson'
+      if (!availableLocalLayerFiles.includes(raw) && !availableLocalLayerFiles.includes(raw.replace(/\.(geojson|json|csv)$/i, ''))) { 
         console.warn('[ADD LAYER] Custom file/URL not in predefined list:', raw);
         // Don't return error - allow custom files/URLs
       }
@@ -1093,10 +1094,11 @@ function parseHash() {
     const layerState = {};
     splitLayerTokens(layersStr).forEach(token => {
       // Support +id:follow, ~id:follow, +id(sourceHint,expr,expr):follow, +id:follow+offset, +wayback:YYYYMMDD, and +id#2 (auto-increment)
-      // token examples: +name, ~name, +name:follow, +name:follow+, +name:follow+0, +name:follow+15000, +name(source), +name(name=jabalia), +name(source,name=jabalia,type!=boundary), +gaza.geojson#2
+      // token examples: +name, ~name, +name:follow, +name:follow+, +name:follow+0, +name:follow+15000, +name(source), +name(name=jabalia), +name(source,name=jabalia,type!=boundary), +gaza.geojson#2, +pois.csv#2
       // Sanitize and trim token before regex parsing
       const safeToken = token.replace(/[<>"'`]/g, '').trim();
-      const match = safeToken.match(/^([+~])([^()#]+?)(?:#(\d+))?(?:\(([^)]*)\))?(?::follow(\+(\d*))?)?$/);
+      // Updated regex to allow extensions (.geojson, .json, .csv) in baseName before counter/parens
+      const match = safeToken.match(/^([+~])([^()]+?)(?:#(\d+))?(?:\(([^)]*)\))?(?::follow(\+(\d*))?)?$/);
       if (!match) {
         console.warn('[HASH] Failed to parse layer token:', token);
         return;
@@ -1192,14 +1194,16 @@ async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
   const counter = counterMatch ? (counterMatch[2] || '') : '';
   const extension = counterMatch ? (counterMatch[3] || '') : '';
   
-  // Reconstruct: baseFile is for loading (no counter), geojsonFile stays as-is for layer ID
-  const baseFile = baseName + extension;
+  // Reconstruct: baseFile is for loading (includes extension if provided), geojsonFile stays as-is for layer ID
+  // If extension was explicitly provided in hash, use it directly; otherwise try both .geojson and .csv
+  const baseFile = extension ? (baseName + extension) : baseName;
   
   // 1) Attempt to fetch and normalize into GeoJSON
   async function loadAsGeoJSONOrCSV(path) {
     const lower = path.toLowerCase();
     const isCSV = lower.endsWith('.csv');
     const isJSON = lower.endsWith('.geojson') || lower.endsWith('.json');
+    const hasExtension = isCSV || isJSON;
     const base = path.replace(/\.(geo)?json$/i, '').replace(/\.csv$/i, '');
     const nameOnly = base.split('/').pop();
     const sameDirGeo = `${base}.geojson`;
@@ -1207,7 +1211,7 @@ async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
     const dataDirCsv = `${base.substring(0, base.lastIndexOf('/')) !== '' ? base.substring(0, base.lastIndexOf('/')) + '/' : ''}data/${nameOnly}.csv`;
     const upDataDirCsv = `../data/${nameOnly}.csv`;
 
-    // Try explicit path first
+    // If explicit extension provided, try that first with fallbacks
     if (isJSON) {
       try {
         const r = await fetch(path);
@@ -1794,6 +1798,8 @@ function createLayerControls(map, visibleLayers) {
         showReset = false;
       }
       let label = layer.name || layer.id;
+      // Strip file extensions from label for cleaner display
+      label = label.replace(/\.(geojson|json|csv)$/i, '');
       // Append sourceHint if present in hash explicit state (parse from token map)
       // We'll parse the hash token for this specific layer to see if it has a (sourceHint)
       let sourceHintForLabel = null;

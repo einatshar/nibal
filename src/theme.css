@@ -97,6 +97,11 @@ section.subheader {
     justify-content: center;
 }
 
+/* hide empty paragraphs from chapter headers */
+section.subheader p { 
+    display: none;
+}
+
 section.meta p {
     background: #000;
     font-size: 1em;

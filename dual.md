@@ -21,7 +21,7 @@ css: src/theme.css
 
 {.meta}
 [](svg/#intro-pre.svg/-0.02,1.21,1.52/~nibal2023,~home,~displacement)
-[](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he,+idf-zones,+idf-poly-outlines "!!! מושון, לדעתי להוריד את הכחול של האיזור ההומניטרי. אדום: האזורים שנכללו תחת צווי הפינוי של הצבא בין אוקטובר 2023 לאוקטובר 2025.")
+[](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he,+idf-zones,+idf-poly-outlines "אדום: האזורים שנכללו תחת צווי הפינוי של הצבא בין אוקטובר 2023 לאוקטובר 2025.")
 לרוב, היא עשתה זאת באמצעות צווי הפינוי שהוציא הצבא הישראלי.
 
 
@@ -41,8 +41,6 @@ css: src/theme.css
 [](svg/#intro-pre.svg/0.34,0.36,1.81/+displacement)
 [](map/#31.49997,34.25627,10.18,37.6,0.0/+unosat-damage-231015 " תושבי העיר עזה נמלטים לאחר שהצבא הישראלי הורה להם להתפנות דרומה, 15 בספטמבר 2025. (רויטרס / מחמוד עיסא)")
 לאורך כל אורכה, המתקפה הישראלית מנעה מהעקורים למצוא מחסה בטוח עם גישה למזון, מים ושירותים בסיסיים.
-
-`להחליף תמונה לאיכות מלאה: 2025-09-15T104525Z_1338861793_RC27SGAW5IGD_RTRMADP_3_ISRAEL-PALESTINIANS-GAZA.JPG`
 
 
 {.meta}
@@ -125,14 +123,13 @@ css: src/theme.css
 {.subheader}
 [](svg/#intro-pre.svg/-0.08,-2.31,0.54/+vimeo-1130634480)
 [](map/#31.38551,34.37811,10.31,-10.4,42.0/~labels_he)
-
 ## 7 באוקטובר 2023 
 
 
 {.meta showdate}
 ### Oct 23
 [](fg:blank)
-[](map/#31.38551,34.37811,10.31,-10.4,42.0/~labels_he,+oct7-hamas(label-focused),+oct7-hamas#2(bubbles))
+[](map/#31.38551,34.37811,10.31,-10.4,42.0/~labels_he,+oct7-hamas#2(bubbles))
 ב-7 באוקטובר 2023 ביצעו ארגון חמאס ופלגים חמושים פלסטינים נוספים מרצועת עזה את המתקפה הקטלנית ביותר שתועדה אי פעם נגד אזרחים ישראלים.
 
 
@@ -160,7 +157,7 @@ css: src/theme.css
 
 {.meta} 
 [](fg:blank)
-[](map/#31.63011,34.71983,8.57,24.0,41.5/+unosat-damage-231015,~labels_he "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר השבוע הראשון למתקפה. מקור: UNOSAT")
+[](map/#31.63011,34.71983,8.57,24.0,41.5/+unosat-damage-231015,~labels_he,+pois.csv(poi,id=home) "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר השבוע הראשון למתקפה. מקור: UNOSAT")
 ניבאל המבוהלת החליטה לעבור עם ריתא לבית הוריה הסמוך.
 
 
@@ -170,11 +167,6 @@ css: src/theme.css
 בימים שאחרי 7 באוקטובר, ישראל שללה את כלל היתרי העבודה של עשרות אלפי העובדים הפלסטינים מרצועת עזה, בשעה שחלקם שוהים בשטח ישראל ולא יכולים לשוב לביתם. 
 
 אחמד ואלפי עובדים אחרים הפכו באחת ל״שוהים בלתי-חוקיים״.
-
-
-{.meta} 
-[](svg/#oct7.svg/0.25,0.25,1.36/+detainies-1,+detainies-2  "פלסטינים שנעצרו בידי הצבא הישראלי לאחר ששוחררו לרפיח, 28 בדצמבר 2023. (רויטרס / באסם מסעוד")
-[](map/#31.63011,34.71983,8.57,24.0,41.5/+unosat-damage-231015,~labels_he)
 
 
 {.meta} 
@@ -194,9 +186,6 @@ css: src/theme.css
 [](map/#31.55473,34.29414,9.48,-48.8,0.0/+north,+arrow)
 אלו הורו לכמיליון תושבי צפון הרצועה לעזוב את בתיהם ולעקור לדרום הרצועה תוך 24 שעות.
 
-`להוסיף תמונה ב-overlay: 
-2023-10-13T121420Z_1856789291_MT1ANADL000M4V8KU_RTRMADP_3_ANADOLUPIC.JPG`
-
 <a href="https://btselem.org/" target="blank" class="dontinflect">
     להרחבה, ראו:
     <strong>
@@ -207,31 +196,31 @@ css: src/theme.css
 
 {.meta} 
 [](svg/#oct7.svg/0.12,-0.17,1.28/+IDF_order_north,@vimeo-1136099759 "נסיעה על כביש סלאח א-דין, 14 באוקטובר 2023. (מוחמד זענון)")
-[](map/#31.40633,34.49935,10.78,40.8,1.0/+north,+arrow,+unosat-damage-231015,+pois(poi,id=home))
+[](map/#31.40633,34.49935,10.78,40.8,1.0/+north,+arrow,+unosat-damage-231015,+pois.csv(poi,id=home))
 תחת ההפצצות הכבדות, נאלצו מאות אלפי בני אדם להחליט במהירות לאן להימלט, מבלי לדעת אם ומתי יוכלו לשוב לבתיהם.
 
 
 {.meta} 
 [](fg:blank)
-[](map/#31.52287,34.46534,12.90,-3.2,39.0/+north,+arrow,+unosat-damage-231015,+pois(poi,id=home) "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר השבוע הראשון למתקפה. מקור: UNOSAT")
+[](map/#31.52287,34.46534,12.90,-3.2,39.0/+north,+arrow,+unosat-damage-231015,+pois.csv(poi,id=home) "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר השבוע הראשון למתקפה. מקור: UNOSAT")
 ניבאל, שחששה מיציאה למסע הקשה לדרום הרצועה לבדה עם בתה בת החודש, מחליטה להישאר בבית הוריה בג׳אבליא. 
 
 
 {.testimony typewriter}
 [](fg:blank)
-[](map/#31.53103,34.47759,13.51,38.4,0.0/+north,+arrow,+unosat-damage-231015,+pois(poi,id=home) "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר השבוע הראשון למתקפה. מקור: UNOSAT")
+[](map/#31.53103,34.47759,13.51,38.4,0.0/+north,+arrow,+unosat-damage-231015,+pois.csv(poi,id=home) "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר השבוע הראשון למתקפה. מקור: UNOSAT")
 נשארנו למרות ההפצצות, הרעב והפחד. סבלתי מאוד בתקופה הזאת. אחמד חסר לי מאוד ולא יכולתי לדמיין את העקירה לבד עם ריתא, בלעדיו ובלי התמיכה של המשפחה שלי.
 
 
 {.testimony typewriter}
 [](fg:blank)
-[](map/#31.52965,34.48083,14.83,38.4,0.0/+north,+arrow,+unosat-damage-231015,+pois(poi,id=home) "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר השבוע הראשון למתקפה. מקור: UNOSAT")
+[](map/#31.52965,34.48083,14.83,38.4,0.0/+north,+arrow,+unosat-damage-231015,+pois.csv(poi,id=home) "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר השבוע הראשון למתקפה. מקור: UNOSAT")
 פחדתי על ריתא מאוד.
 
 
 {.meta} 
 [](svg/#oct7.svg/-0.01,-0.05,1.12/+ruined_jabalia)
-[](map/#31.50989,34.46989,12.68,39.2,0.5/+unosat-damage-231015,+unosat-damage-240107,+pois(poi,id=home) "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר החודש הראשון למתקפה. מקור: UNOSAT")
+[](map/#31.50989,34.46989,12.68,39.2,0.5/+unosat-damage-231015,+unosat-damage-240107,+pois.csv(poi,id=home) "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר החודש הראשון למתקפה. מקור: UNOSAT")
 תוך חודשים ספורים, המתקפה הישראלית שינתה לבלי היכר את פני צפון הרצועה.
 
 
@@ -243,7 +232,7 @@ css: src/theme.css
 
 {.meta} 
 [](fg:blank)
-[](map/#31.39624,34.33155,10.06,-0.8,0.0/+pois(poi,id=home),+pois#2(pois,id=khan-yunis),+arrow,+unosat-damage-231015,+unosat-damage-240107)
+[](map/#31.39624,34.33155,10.06,-0.8,0.0/+pois.csv(poi,id=home),+pois.csv#2(pois,id=khan-yunis),+arrow,+unosat-damage-231015,+unosat-damage-240107)
 בפברואר 2024 שיחרר הצבא הישראלי את אחמד, והוא הגיע לח'אן יונס שבדרום הרצועה.  
 
 למרות התנגדותם הנחרצת של הוריה, ניבאל החליטה לצאת דרומה, בתקווה להתאחד עם בעלה.
@@ -251,62 +240,62 @@ css: src/theme.css
 
 {.subheader}
 [](fg:blank)
-[](map/#31.39624,34.33155,10.06,-0.8,0.0/+pois(poi,id=home),+pois#2(pois,id=khan-yunis),+arrow,~labels_he,~Gaza_border_dash,~Gaza_border_base)
+[](map/#31.39624,34.33155,10.06,-0.8,0.0/+pois.csv(poi,id=home),+pois.csv#2(pois,id=khan-yunis),+arrow,~labels_he,~Gaza_border_dash,~Gaza_border_base)
 ## המסע דרומה  
 
 
 {.meta} 
 [](fg:blank)
-[](map/#31.50634,34.45154,12.96,0.0,39.0/+jabalia-gaza(by-car):follow+,+pois(poi,id=home),+pois#2(pois,id=gaza-2403),+idf-poly-outlines)
+[](map/#31.50634,34.45154,12.96,0.0,39.0/+jabalia-gaza(by-car):follow+,+pois.csv(poi,id=home),+pois.csv#2(pois,id=gaza-2403),+idf-poly-outlines)
 את תחילת הדרך עושה ניבאל עם אביה, שמסיע אותה ואת ריתא מביתם בג'אבליא לפאתי העיר עזה.
 
 
 {.meta}
-[](svg/#south.svg/-0.25,0.33,1.09/@vimeo-1133751988 "מתוך חשבון האינסטגרם של ניבאל")
-[](map/#31.50634,34.45154,12.96,0.0,39.0/+jabalia-gaza(by-car):follow+,+pois(poi,id=home),+pois#2(pois,id=gaza-2403),+idf-poly-outlines)
+[](svg/#south.svg/-0.25,0.33,1.09/+@vimeo-1133751988 "מתוך חשבון האינסטגרם של ניבאל")
+[](map/#31.50634,34.45154,12.96,0.0,39.0/+jabalia-gaza(by-car):follow+,+pois.csv(poi,id=home),+pois.csv#2(pois,id=gaza-2403),+idf-poly-outlines)
 בעדותה תיארה ניבאל נסיעה רוויית אימה, במהלכה ראתה מבעד לחלון המכונית את ההפצצות הכבדות של הצבא הישראלי.
 
 
 {.meta} 
 [](fg:blank)
-[](map/#31.47949,34.42091,12.96,0.0,39.0/+jabalia-gaza(by-car),+gaza-nuseirat(by-foot):follow+10100,+family-home,+pois(poi,id=home),+pois#2(pois,id=gaza-2403),+pois#3(pois,id=nuseirat),+idf-poly-outlines)
+[](map/#31.47949,34.42091,12.96,0.0,39.0/+jabalia-gaza(by-car),+gaza-nuseirat(by-foot):follow+10100,+family-home,+pois.csv(poi,id=home),+pois.csv#2(pois,id=gaza-2403),+pois.csv#3(pois,id=nuseirat),+idf-poly-outlines)
 מהעיר עזה ניבאל המשיכה לדרום הרצועה ברגל, כשהיא נושאת בחיקה את ריתא בת החצי שנה.
 
 
 {.meta}
 [](fg:blank)
-[](map/#31.41663,34.36232,12,0.0,39.0/+jabalia-gaza(by-car),+gaza-nuseirat(by-foot),+nuseirat-rafah(2-by-foot):follow+16900,+family-home,+pois(poi,id=home),+pois#2(pois,id=gaza-2403),+pois#3(pois,id=nuseirat),+pois#4(pois,id=rafah),+idf-poly-outlines)
+[](map/#31.41663,34.36232,12,0.0,39.0/+jabalia-gaza(by-car),+gaza-nuseirat(by-foot),+nuseirat-rafah(2-by-foot):follow+16900,+family-home,+pois.csv(poi,id=home),+pois.csv#2(pois,id=gaza-2403),+pois.csv#3(pois,id=nuseirat),+pois.csv#4(pois,id=rafah),+idf-poly-outlines)
 באזור א-נוסייראת הן התאחדו עם אחמד, אותו לא ראו מזה כחצי שנה.
 
 
 {.meta}
 [](fg:blank)
-[](map/#31.26998,34.25242,14.63,0.0,39.0/+nuseirat-rafah(2-by-foot),+family-home,+idf-poly-outlines,+pois(poi,id=rafah)) 
+[](map/#31.26998,34.25242,14.63,0.0,39.0/+nuseirat-rafah(2-by-foot),+family-home,+idf-poly-outlines,+pois.csv(poi,id=rafah)) 
 משם, המשיכו שלושתם אל האוהל של אחמד ברפיח.
 
 
 {.testimony typewriter}
 [](fg:blank)
-[](map/#31.26878,34.25305,15.23,0.0,39.0/+idf-poly-outlines,+pois(poi,id=rafah)) 
+[](map/#31.26878,34.25305,15.23,0.0,39.0/+idf-poly-outlines,+pois.csv(poi,id=rafah)) 
 
 התרגשתי מאוד לראות את אחמד. הוא חיבק ונישק את ריתא בלי הפסקה. 
 
 
 {.testimony typewriter}
 [](fg:blank)
-[](map/#31.26859,34.25352,16.36,0.0,39.0/+idf-poly-outlines,+pois(poi,id=rafah)) 
+[](map/#31.26859,34.25352,16.36,0.0,39.0/+idf-poly-outlines,+pois.csv(poi,id=rafah)) 
 אבל המפגש איתו היה גם מזעזע. הוא ירד המון במשקל, ונראה שהוא איבד את ניצוץ החיים שלו. 
 
 
 {.meta} 
 [](svg/#south.svg/0.73,0.65,2.87/+ahmed_detained "פלסטינים שנעצרו בידי הצבא הישראלי לאחר ששוחררו לרפיח, 28 בדצמבר 2023. (רויטרס / בסאם מסעוד)")
-[](map/#31.27110,34.25408,16.36,0.0,39.0/+idf-poly-outlines,+pois(poi,id=rafah)) 
+[](map/#31.27110,34.25408,16.36,0.0,39.0/+idf-poly-outlines,+pois.csv(poi,id=rafah)) 
 ניבאל וריתא פגשו את אחמד לאחר שהוחזק באחד ממתקני הכליאה הישראליים ללא משפט במשך חודשים. 
 
 
 {.meta} 
 [](svg/#south.svg/-0.02,0.65,2.87/+ahmed_detained "פלסטינים שנעצרו בידי הצבא הישראלי לאחר ששוחררו לרפיח, 28 בדצמבר 2023. (רויטרס / בסאם מסעוד)")
-[](map/#31.27110,34.25408,16.36,0.0,39.0/+idf-poly-outlines,+pois(poi,id=rafah)) 
+[](map/#31.27110,34.25408,16.36,0.0,39.0/+idf-poly-outlines,+pois.csv(poi,id=rafah)) 
 בצלם וארגוני זכויות אדם נוספים תיעדו כיצד מאז 7 באוקטובר 2023 ישראל הנהיגה כלפי כלואים פלסטינים מדיניות מערכתית של אלימות תכופה, קשה ושרירותית, הרעבה ומניעת טיפול רפואי, שכבר הובילה לעשרות מקרי מוות.
 
 מאז ועד היום ישראל שוללת מרובם זכויות יסוד, בהן הזכות להליך משפטי הוגן, ומחזיקה בהם במתקני כליאה המתנהלים כרשת של מחנות עינויים.
@@ -314,19 +303,19 @@ css: src/theme.css
 
 {.meta} 
 [](svg/#south.svg/-0.82,2.16,7.52/+ahmed_detained "פלסטינים שנעצרו בידי הצבא הישראלי לאחר ששוחררו לרפיח, 28 בדצמבר 2023. (רויטרס / בסאם מסעוד)")
-[](map/#31.27110,34.25408,16.36,0.0,39.0/+idf-poly-outlines,+pois(poi,id=rafah)) 
+[](map/#31.27110,34.25408,16.36,0.0,39.0/+idf-poly-outlines,+pois.csv(poi,id=rafah)) 
 חלק מתושבי עזה שנעצרו בתוך ישראל בימים שלאחר ה-7 באוקטובר מוחזקים עד היום במתקני הכליאה הישראליים.  
 
 
 {.meta}
 [](svg/#south.svg/-0.1,-0.1,2.94/+tent_rafah "עקורים במחנה אוהלים בח׳אן יונס, 11 בדצמבר 2023. (רויטרס / איברהים אבו מוסטפא)")
-[](map/#31.27110,34.25408,16.36,0.0,39.0/+idf-poly-outlines,+pois(poi,id=rafah)) 
+[](map/#31.27110,34.25408,16.36,0.0,39.0/+idf-poly-outlines,+pois.csv(poi,id=rafah)) 
 על אף שמחת האיחוד עם אחמד, ניבאל התקשתה להסתגל לחיים באוהל ברפיח. 
 
 
 {.meta thumb}
 [](svg/#south.svg/-1.03,-0.14,9.49/+@vimeo-1137390641,+tent_rafah "עקורים במחנה אוהלים בח׳אן יונס, 11 בדצמבר 2023. (רויטרס / איברהים אבו מוסטפא)")
-[](map/#31.27110,34.25408,16.36,0.0,39.0/+idf-poly-outlines,+pois(poi,id=rafah)) 
+[](map/#31.27110,34.25408,16.36,0.0,39.0/+idf-poly-outlines,+pois.csv(poi,id=rafah)) 
 
 הצפיפות, המחסור במים ובמזון, תנאי הסניטציה הירודים והיעדר הפרטיות, הפכו את החיים במחנות העקורים לבלתי נסבלים, במיוחד עבור נשים ונערות.
 
@@ -338,7 +327,7 @@ css: src/theme.css
 
 {.testimony typewriter}
 [](svg/#south.svg/-0.16,-0.74,2.76/+rita_tent1,+tent_rafah "ריתא במחנה העקורים ברפיח")
-[](map/#31.46257,34.35490,9.89,35.0,2.5/+idf-poly-outlines,+pois(poi,id=rafah))    
+[](map/#31.46257,34.35490,9.89,35.0,2.5/+idf-poly-outlines,+pois.csv(poi,id=rafah))    
 זה היה עינוי מתמשך, ככל הנראה מהתקופות הקשות בחיי.
 
 
@@ -370,13 +359,8 @@ css: src/theme.css
 
 {.meta} 
 [](fg:blank)
-[](map/#31.35894,34.31925,10.36,0.0,39.0/+rafah-bureij(2-by-foot):follow+,+pois(poi)[name=rafah],+pois(poi)[name=bureij],+cities,+villages,+idf-poly-outlines,+IDF_zone_060524-110524_NEW(idf-poly) "תושבי אל-בוריג׳ צועדים בין מבנים שנהרסו בהפצצות ישראליות, 24 ביוני 2024. (NurPhoto / מג׳די פאתחי)")
+[](map/#31.35894,34.31925,10.36,0.0,39.0/+rafah-bureij(2-by-foot):follow+,+pois.csv(poi)[name=rafah],+pois.csv(poi)[name=bureij],+cities,+villages,+idf-poly-outlines,+IDF_zone_060524-110524_NEW(idf-poly) "תושבי אל-בוריג׳ צועדים בין מבנים שנהרסו בהפצצות ישראליות, 24 ביוני 2024. (NurPhoto / מג׳די פאתחי)")
 ניבאל, אחמד וריתא נאלצו להימלט מרפיח יחד עם כמיליון תושבים אחרים, רובם המוחלט עקורים שהגיעו לעיר בחודשים שלפני כן בהוראת הצבא הישראלי.
-
-`שם תמונה ל-overlay:
-2024-06-23T000000Z_116671089_MT1NURPHO000S49GI0_RTRMADP_3_DAILY-LIFE-PALESTINE.JPG`
-שם תמונת צו הפינוי:
-IDF_order_rafah_11_may_24.jpeg`
 
 
 {.meta} 
@@ -415,38 +399,46 @@ IDF_order_rafah_11_may_24.jpeg`
 
 
 {.testimony typewriter}
-
+[](fg:blank)
+[](bg:blank)
 אבל אז הכול השתנה.
 
 
 {.meta}
-[](about:blank "!!! אני בעד שהחלק הזה יהיה היחיד בלי מפה ורק עם מסך שחור, אם אפשר")
+[](fg:blank)
+[](bg:blank)
 באותו בוקר הפגיז הצבא הישראלי את אל-בוריג׳. ניבאל תיארה רעש בלתי פוסק של הפגזות. 
 
 בזמן שבעלה יצא לבדוק איפה נפלו הפגזים, היא וריתא נותרו לבדן במחסן הקטן. ניבאל התקשרה לבני משפחתה ושוחחה איתם בניסיון להפיג מעט מהפחד שאחז בה. 
 
 
 {.meta}
+[](fg:blank)
+[](bg:blank)
 בזמן השיחה שלהם, פגז פגע במחסן.
 
 
 {.meta}
-[](about:blank "!!! אני בעד שהחלק הזה יהיה היחיד בלי מפה ורק עם מסך שחור, אם אפשר")
+[](svg/#warehouse_bureij2.svg/-25.59,22.33,63.19/+nibal_xray)
+[](bg:blank)
 ניבאל נפצעת קשה, אבל מצליחה להעזיק עזרה מתוך המחסן ההרוס. היא מפונה לבית החולים, בזמן שהשכנים לוקחים את ריתא לביתם.
 
 
+{.testimony typewriter}
+[](svg/#warehouse_bureij2.svg/-3.4,3.03,8.63/+nibal_xray)
+[](bg:blank)
+התעוררתי בבית החולים וראיתי שנכרתו לי הידיים. 
+
+
 {.meta}
+[](svg/#warehouse_bureij2.svg/-3.84,3.41,9.8/+nibal_xray)
+[](bg:blank)
 כתוצאה מפגיעת הפגז, ידיה של ניבאל נקטעו מתחת למרפק והיא נכוותה קשות. בית החולים בו היא אושפזה היה שרוי בעומס אדיר של פצועים, והרופאים טיפלו בה בתנאים קשים.
 
 
 {.testimony typewriter}
-[](about:blank)
-[](svg/#warehouse_bureij2.svg/-1.75,1.01,3.19/~leaving_to_mawasi_triple_comp.jpg,~winter_triple_comp.jpg,~wheelchaor_triple_comp.jpg,~vimeo-1129846713,~rita_tent1)
-
-התעוררתי בבית החולים וראיתי שנכרתו לי הידיים. 
-
-
-{.testimony typewriter}
+[](svg/#warehouse_bureij2.svg/-3.96,3.51,10.1/+nibal_xray)
+[](bg:blank)
 הייתי בהלם. הרגשתי כאילו הידיים שלי עדיין קיימות, או כאילו יום אחד הן יחזרו לצמוח.
 
 שאלתי מה עם ריתא, וענו לי שהיא בריאה ושלמה. זה מה שהחזיק אותי. זה, וזה שאחמד היה לצדי.
