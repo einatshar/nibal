@@ -559,7 +559,7 @@ IDF_order_rafah_11_may_24.jpeg`
 
 
 {.testimony typewriter}
-[](svg/#ceasefire_hope.svg/-0.51,-0.29,1.22/+@vimeo-1129854927,+nibal_rita_happy.jpg,+nibal_rita_home.jpg "מתוך חשבון הטיקטוק של ניבאל")
+[](svg/#ceasefire_hope.svg/-0.74,-0.33,1.45/+nibal_rita_home.jpg,+nibal_rita_happy.jpg,+@vimeo-1129854927 "מתוך חשבון הטיקטוק של ניבאל")
 
 המשפחה קיבלה אותי בבית בחיבוקים, שירים ובכי. בלילות נפגשנו כל האחים בבית ההורים שלי.
 
@@ -618,7 +618,7 @@ IDF_order_rafah_11_may_24.jpeg`
 
 
 {.meta}
-[](embed/#vimeo.com%2F1129860275%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop "תיעוד של בית אחותה של ניבאל לאחר ההפצצה, לצד תמונות של ילדיה שנהרגו")
+[](svg/#back_home.svg/-0.73,0.57,2.67/~vimeo-1137391856,~vimeo-1137392312,~nibal_ruined_home1.jpg,~jabalia_april_25.JPG,~nibal_home_smile3.heic "תיעוד של בית אחותה של ניבאל לאחר ההפצצה, לצד תמונות של ילדיה שנהרגו")
 באפריל 2025 הפציץ הצבא הישראלי את ביתה של אחותה של ניבאל בג׳אבליא. כתוצאה מההפצצה נהרגו שלושת ילדיה של אלאא, אחותה: וסים, בן 10, מוהנד, בן 8, וח'וולה, בת 5. 
 
 
@@ -633,7 +633,7 @@ IDF_order_rafah_11_may_24.jpeg`
 
 
 {.meta}
-[](img/#jabalia_april_25_full.JPG "תושבים בסמוך לגופות הרוגים באתר תקיפה ישראלית על בית בג'באליא, 18 באפריל 2025. (סאהר אל־ע'ורה / ZUMA Press Wire)")
+[](svg/#back_home.svg/-0.16,-0.11,1.43/~vimeo-1137391856,~vimeo-1137392312,~nibal_ruined_home1.jpg,~nibal_home_smile3.heic "תושבים בסמוך לגופות הרוגים באתר תקיפה ישראלית על בית בג'באליא, 18 באפריל 2025. (סאהר אל־ע'ורה / ZUMA Press Wire)")
 בתחילת יוני 2025, כמה חודשים לאחר שחזרה לגור עם אחמד, ניבאל החליטה לחזור שוב עם ריתא לבית הוריה.
  
 
@@ -642,7 +642,7 @@ IDF_order_rafah_11_may_24.jpeg`
 
 
 {.testimony typewriter}
-[](img/#nibal_home_smile3.heic)
+[](svg/#back_home.svg/-1.01,-0.36,1.86/~vimeo-1137391856,~vimeo-1137392312,~nibal_ruined_home1.jpg,~vimeo-1129860275)
 
 הייתי מתוסכלת מאוד כי לא יכולתי לעשות כלום בעצמי והתקשיתי לטפל בריתא. 
 
@@ -650,7 +650,7 @@ IDF_order_rafah_11_may_24.jpeg`
 
 
 {.testimony typewriter}
-[](embed/#vimeo.com%2F1130637017%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop,cover)
+[](svg/#back_home.svg/-0.84,0.19,1.59/~nibal_ruined_home1.jpg,~vimeo-1129860275,~jabalia_april_25.JPG)
 
 ההפצצות באזור שלנו נמשכו כל הזמן והרבה אנשים עקרו. אבל המשפחה המורחבת שלי גדולה מאוד ולא היה לנו לאן ללכת בלי שנצטרך להתפצל.
 
@@ -668,7 +668,7 @@ IDF_order_rafah_11_may_24.jpeg`
 
 
 {.testimony typewriter}
-[](embed/#vimeo.com%2F1129867099%3Fshare%3Dcopy%26fl%3Dsv%26fe%3Dci/autoplay,loop,cover "תושבים נעקרים משכונת א-נזלה בג׳אבליא ביום ההפצצה")
+[](svg/#back_home.svg/-0.31,0.03,1.59/~vimeo-1129860275,~jabalia_april_25.JPG,~nibal_home_smile3.heic,~vimeo-1137391856 "תושבים נעקרים משכונת א-נזלה בג׳אבליא ביום ההפצצה")
 
 שמענו פיצוץ עז, ואז המון צעקות מבחוץ. ראינו אנשים רצים. אמרו לנו שהצבא הישראלי ציווה לפנות את האזור תוך רבע שעה. 
 
@@ -680,7 +680,7 @@ IDF_order_rafah_11_may_24.jpeg`
 
 
 {.meta}
-[](img/#nibal_ruined_home1.jpg "אזור ביתה של ניבאל לאחר ההפצצה")
+[](svg/#back_home.svg/0.02,-0.1,1.59/~vimeo-1129860275,~jabalia_april_25.JPG,~nibal_home_smile3.heic,~vimeo-1137391856,~vimeo-1137392312 "אזור ביתה של ניבאל לאחר ההפצצה")
 בהמשך, נודע לניבאל כי הבניין בו גרה רוב חייה לצד משפחתה המורחבת נהרס כליל בהפצצות הכבדות על ג׳אבליא.
 
 
