@@ -1861,12 +1861,19 @@
         };
     })();
     window.scheduleRenderMarkdown(0);
-        // Load external typewriter script (handles its own initialization)
+        // Load Typed.js library from CDN
         (function(){
-            const s = document.createElement('script');
-            s.src = 'src/typewriter.js';
-            s.defer = true;
-            document.head.appendChild(s);
+            const script = document.createElement('script');
+            script.src = 'https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js';
+            script.defer = true;
+            script.onload = function() {
+                // Load our optimized typewriter wrapper after Typed.js loads
+                const wrapper = document.createElement('script');
+                wrapper.src = 'src/typewriter-typed.js';
+                wrapper.defer = true;
+                document.head.appendChild(wrapper);
+            };
+            document.head.appendChild(script);
         })();
 </script>
 </body>
