@@ -1206,11 +1206,12 @@ async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
     const isCSV = lower.endsWith('.csv');
     const isJSON = lower.endsWith('.geojson') || lower.endsWith('.json');
     const hasExtension = isCSV || isJSON;
-    // Remove extension only if present, otherwise use path as-is
-    const base = hasExtension ? path.replace(/\.(geo)?json$/i, '').replace(/\.csv$/i, '') : path;
+    // Remove extension to get base name
+    const base = path.replace(/\.(geo)?json$/i, '').replace(/\.csv$/i, '');
     const nameOnly = base.split('/').pop();
-    const sameDirGeo = hasExtension ? path : `${base}.geojson`;
-    const sameDirCsv = hasExtension ? path : `${base}.csv`;
+    // Build paths: if file already has extension, use base for alternate formats
+    const sameDirGeo = `${base}.geojson`;
+    const sameDirCsv = `${base}.csv`;
     const dataDirCsv = `${base.substring(0, base.lastIndexOf('/')) !== '' ? base.substring(0, base.lastIndexOf('/')) + '/' : ''}data/${nameOnly}.csv`;
     const upDataDirCsv = `../data/${nameOnly}.csv`;
 
