@@ -1450,7 +1450,7 @@ async function loadAndAddOrReplaceGeoJSON(geojsonFile, toLayer) {
     
     // Mark as external layer
     externalLayers.add(layerId);
-    console.log(`[LOAD] Added external layer: ${layerId}, filter:`, filter);
+
     // Store the default filter for external layer: never inherit style layer filters.
     // External GeoJSON layers start with no filter unless one is explicitly provided in the hash.
     styleDefaultFilter[layerId] = null;
@@ -2924,7 +2924,7 @@ window.addEventListener('hashchange', () => {
           if (externalLayers.has(id)) {
             // External layers not in hash should be removed entirely
             if (!explicitState[id]) {
-              console.log(`[HASHCHANGE] Removing external layer ${id} (not in explicitState):`, Object.keys(explicitState));
+
               if (map.getLayer(id)) map.removeLayer(id);
               if (map.getSource(id)) map.removeSource(id);
               const idx = allStyleLayers.findIndex(l => l.id === id);

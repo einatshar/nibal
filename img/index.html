@@ -1020,7 +1020,7 @@
       } else {
         // Fallback single image
         if (image && image.width && image.height) {
-          console.debug('[render] drawing single image, imageRotationDeg=', imageRotationDeg, 'image.width=', image.width, 'image.height=', image.height);
+
           ctx.save();
           ctx.globalAlpha = imageOpacity;
           drawImageWithRotation(ctx, image, imageRotationDeg);
@@ -1417,7 +1417,7 @@
         ctx.drawImage(img, 0, 0);
         return;
       }
-      console.debug('[drawImageWithRotation] rotating draw, deg=', deg);
+
       const rad = (deg * Math.PI) / 180;
       const cx = img.width / 2;
       const cy = img.height / 2;
@@ -1691,7 +1691,7 @@
 
   // Increment token to cancel any old animations
   animationCancelToken++;
-  console.debug('[hashchange] handler start, location.hash=', location.hash);
+
 
   const parsed = parseHash();
   if (!parsed) return;

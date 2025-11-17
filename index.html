@@ -100,10 +100,8 @@
                             if (isHidden) {
                                 backgroundFrame.classList.add('editing-mode');
                                 mapEditEnabled = true;
-                                console.log('[ROOT] Edit mode: ON (background map)');
                             } else {
                                 backgroundFrame.classList.remove('editing-mode');
-                                console.log('[ROOT] Edit mode: OFF (background map)');
                             }
                         }
                     } catch(err) {
@@ -122,11 +120,9 @@
                             docElement.classList.remove('embedded');
                             foregroundFrame.classList.add('editing-mode');
                             svgEditEnabled = true;
-                            console.log('[ROOT] Edit mode: ON (foreground svg)');
                         } else {
                             docElement.classList.add('embedded');
                             foregroundFrame.classList.remove('editing-mode');
-                            console.log('[ROOT] Edit mode: OFF (foreground svg)');
                         }
                     } catch(err) {
                         console.warn('[ROOT] Cannot access foreground-frame:', err);
@@ -163,12 +159,10 @@
                                 // Enable edit mode
                                 iframe.classList.add('editing-mode');
                                 document.body.classList.add('editing-mode', 'bg-edit');
-                                console.log('[ROOT] Edit mode: ON (map)');
                             } else {
                                 // Disable edit mode
                                 iframe.classList.remove('editing-mode');
                                 document.body.classList.remove('editing-mode', 'bg-edit', 'fg-edit');
-                                console.log('[ROOT] Edit mode: OFF');
                             }
                         }
                     } else if (type === 'svg') {
@@ -181,13 +175,11 @@
                             docElement.classList.remove('embedded');
                             iframe.classList.add('editing-mode');
                             document.body.classList.add('editing-mode', 'fg-edit');
-                            console.log('[ROOT] Edit mode: ON (svg)');
                         } else {
                             // Disable edit mode
                             docElement.classList.add('embedded');
                             iframe.classList.remove('editing-mode');
                             document.body.classList.remove('editing-mode', 'bg-edit', 'fg-edit');
-                            console.log('[ROOT] Edit mode: OFF');
                         }
                     }
                 } catch(err) {
@@ -268,7 +260,6 @@
                         if (layerControls && !layerControls.classList.contains('hidden')) {
                             layerControls.classList.add('hidden');
                             backgroundFrame.classList.remove('editing-mode');
-                            console.log('[ROOT] Background edit mode: OFF (switching to foreground)');
                         }
                     } catch(err) {
                         console.warn('[ROOT] Cannot access background-frame:', err);
@@ -285,7 +276,6 @@
                         foregroundFrame.classList.add('editing-mode');
                         // Show the UI when enabling edit mode
                         fgDoc.body.classList.remove('ui-hidden');
-                        console.log('[ROOT] Foreground edit mode: ON');
                         // Foreground-only editing: disable mouse on background
                         try {
                             if (backgroundFrame) {
@@ -301,7 +291,6 @@
                         foregroundFrame.classList.remove('editing-mode');
                         // Hide the UI when disabling edit mode
                         fgDoc.body.classList.add('ui-hidden');
-                        console.log('[ROOT] Foreground edit mode: OFF');
                         // Re-enable background interactions when leaving foreground-only mode
                         try {
                             if (backgroundFrame) {
@@ -330,13 +319,11 @@
                         iframe.classList.add('editing-mode');
                         // Show the UI when enabling edit mode
                         iframeDoc.body.classList.remove('ui-hidden');
-                        console.log('[ROOT] Edit mode: ON (single svg)');
                     } else {
                         docElement.classList.add('embedded');
                         iframe.classList.remove('editing-mode');
                         // Hide the UI when disabling edit mode
                         iframeDoc.body.classList.add('ui-hidden');
-                        console.log('[ROOT] Edit mode: OFF (single svg)');
                     }
                     syncEditModeBodyClasses();
                 } catch(err) {
@@ -373,7 +360,6 @@
                         layerControls.classList.toggle('hidden');
                         if (isHidden) {
                             backgroundFrame.classList.add('editing-mode');
-                            console.log('[ROOT] Background edit mode: ON');
                             // Background-only editing: disable mouse on foreground
                             try {
                                 if (foregroundFrame) {
@@ -385,7 +371,6 @@
                             } catch(e){}
                         } else {
                             backgroundFrame.classList.remove('editing-mode');
-                            console.log('[ROOT] Background edit mode: OFF');
                             // Re-enable foreground interactions when leaving background-only mode
                             try {
                                 if (foregroundFrame) {
@@ -414,10 +399,8 @@
                         layerControls.classList.toggle('hidden');
                         if (isHidden) {
                             iframe.classList.add('editing-mode');
-                            console.log('[ROOT] Edit mode: ON (single map)');
                         } else {
                             iframe.classList.remove('editing-mode');
-                            console.log('[ROOT] Edit mode: OFF (single map)');
                         }
                         syncEditModeBodyClasses();
                     }
@@ -517,7 +500,6 @@
             try {
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     await navigator.clipboard.writeText(text);
-                    console.info('[ROOT] Copied to clipboard:', text);
                     return true;
                 }
             } catch (e) {
@@ -534,7 +516,6 @@
                 ta.select();
                 const ok = document.execCommand('copy');
                 document.body.removeChild(ta);
-                if (ok) console.info('[ROOT] Copied to clipboard (fallback):', text);
                 return !!ok;
             } catch (e) {
                 console.warn('Clipboard copy failed:', e);
@@ -600,10 +581,8 @@
                             document.body.classList.add('editing-mode');
                             if (e.data.type === 'fg-edit-mode') {
                                 document.body.classList.add('fg-edit');
-                                console.log('[ROOT] Edit mode enabled via message (svg) in dual mode');
                             } else {
                                 document.body.classList.add('bg-edit');
-                                console.log('[ROOT] Edit mode enabled via message (map) in dual mode');
                             }
                         } else {
                             sourceFrame.classList.remove('editing-mode');
@@ -613,7 +592,6 @@
                             if (!otherInEditMode) {
                                 document.body.classList.remove('editing-mode', 'bg-edit', 'fg-edit');
                             }
-                            console.log('[ROOT] Edit mode disabled via message in dual mode');
                         }
                     }
                 } else {
@@ -624,23 +602,17 @@
                             iframe.classList.add('editing-mode');
                             if (e.data.type === 'fg-edit-mode') {
                                 document.body.classList.add('editing-mode', 'fg-edit');
-                                console.log('[ROOT] Edit mode enabled via message (svg)');
                             } else {
                                 document.body.classList.add('editing-mode', 'bg-edit');
-                                console.log('[ROOT] Edit mode enabled via message (map)');
                             }
                         } else {
                             iframe.classList.remove('editing-mode');
                             document.body.classList.remove('editing-mode', 'bg-edit', 'fg-edit');
-                            console.log('[ROOT] Edit mode disabled via message');
                         }
                     }
                 }
             }
         });
-        
-        // Enable verbose debug logs during this investigation
-        try { window.__inflectDebug = true; console.info('inflect: __inflectDebug = true'); } catch(e){}
         
         // Initialize typewriter suppression flag (prevents typewriter from starting before iframe updates)
         window.__typewriterSuppressed = false;
@@ -727,7 +699,6 @@
         // Prevent concurrent or re-entrant runs which can lead to duplicate
         // fetches and noisy logs (observed on some hosts / redirects).
         if (window.__renderMarkdownRunning) {
-            console.debug('renderMarkdown: already running, skipping');
             return;
         }
         // Short suppression window: if we rendered successfully very recently,
@@ -735,7 +706,6 @@
         try {
             const now = Date.now();
             if (window.__lastRenderSuccessAt && (now - window.__lastRenderSuccessAt) < 2000) {
-                console.debug('renderMarkdown: suppressed because successful render occurred within last 2s');
                 return;
             }
         } catch(e){}
@@ -812,7 +782,6 @@
                 if (window.__lastRenderSuccessAt && (now - window.__lastRenderSuccessAt) < 2000 && window.__lastRenderSuccessCandidate) {
                     const last = window.__lastRenderSuccessCandidate;
                     if (candidatePaths.indexOf(last) !== -1) {
-                        console.debug('renderMarkdown: skipping because recent successful render of', last);
                         try { window.__renderMarkdownRunning = false; } catch(e){}
                         return;
                     }
@@ -823,23 +792,18 @@
             let successPath = null;
             for (const p of candidatePaths) {
                 try {
-                    if (window && window.__inflectDebug) console.debug('renderMarkdown: trying', p);
                     response = await fetch(p, {cache: 'no-store'});
                     if (response && response.ok) {
                         text = await response.text();
-                        if (window && window.__inflectDebug) console.debug('renderMarkdown: fetched', p);
                         successPath = p;
                         break;
                     } else {
-                        if (window && window.__inflectDebug) console.debug('renderMarkdown: not ok', p, response && response.status);
                     }
                 } catch (e) {
-                    if (window && window.__inflectDebug) console.debug('renderMarkdown: fetch error', p, e && e.message);
                     // ignore and try next
                 }
             }
             if (!text) {
-                if (window && window.__inflectDebug) console.debug('renderMarkdown: no candidate succeeded');
             }
 
             if (!text) {
@@ -1003,7 +967,6 @@
             if (document.URL!="https://uclab.fh-potsdam.de/inflect/") html = html + "\n<footer>a story made with <strong><a class='dontinflect' href='https://uclab.fh-potsdam.de/inflect/'>!nflect</a></strong></footer>";
 
                         document.querySelector('main').innerHTML = html;
-                        try { console.info('renderMarkdown: rendered', successPath || '(inferred)', 'body-class=', pageBodyClasses || '(none)'); } catch(e){}
 
                         // Record successful render so immediate duplicate invocations can be skipped
                         try { window.__lastRenderSuccessAt = Date.now(); window.__lastRenderSuccessCandidate = successPath || null; } catch(e){}
@@ -1028,7 +991,6 @@
                         try {
                             if (dualIframeMode) {
                                 document.body.classList.add('dual-iframe');
-                                console.info('renderMarkdown: dual-iframe mode enabled');
                             } else {
                                 document.body.classList.remove('dual-iframe');
                             }
@@ -1106,7 +1068,6 @@
                 } catch(e) { /* swallow */ }
             })();
 
-            try { console.info('initializeObservers: about to run'); } catch(e){}
             initializeObservers();
 
                 // Pin behavior removed: no automatic scroll-to-`.pin` is performed.
@@ -1128,8 +1089,6 @@
     // Update markdown when hash changes
         // Fade in new content only on path change
         function setIframeIfPathChanged(newHref) {
-            console.log('[setIframeIfPathChanged] Called with:', newHref);
-            
             // Check if we're in dual-iframe mode
             const isDualMode = document.body.classList.contains('dual-iframe');
             
@@ -1144,19 +1103,16 @@
                         if (pattern === 'fg:blank' || pattern === 'foreground:blank') {
                             foregroundFrame.src = 'about:blank';
                             foregroundFrame.classList.add('inactive');
-                            console.log('[setIframeIfPathChanged] Cleared foreground frame');
                             return;
                         }
                         if (pattern === 'bg:blank' || pattern === 'background:blank') {
                             backgroundFrame.src = 'about:blank';
-                            console.log('[setIframeIfPathChanged] Cleared background frame');
                             return;
                         }
                         if (pattern === 'both:blank' || pattern === 'clear:all') {
                             backgroundFrame.src = 'about:blank';
                             foregroundFrame.src = 'about:blank';
                             foregroundFrame.classList.add('inactive');
-                            console.log('[setIframeIfPathChanged] Cleared both frames');
                             return;
                         }
                     }
@@ -1169,12 +1125,6 @@
             const pathOnly = new URL(parsedURL.href);
             pathOnly.hash = '';
             const newPath = pathOnly.href;
-            
-            console.log('[setIframeIfPathChanged] isDualMode:', isDualMode, 'newPath:', newPath);
-            
-            if (window.__inflectDebug) {
-                console.log('[IFRAME] setIframeIfPathChanged:', newPath, 'isDualMode:', isDualMode);
-            }
             
             if (!isDualMode) {
                 // Single iframe mode (original behavior)
@@ -1194,46 +1144,19 @@
                 // map/ → background-frame, everything else (cmp/, img/, vid/, etc.) → foreground-frame
                 const isMapLink = newPath.includes('/map/') || newPath.includes('/map#') || newPath.match(/\/map$/);
                 
-                if (window.__inflectDebug) {
-                    console.log('[IFRAME] Full href:', newHref);
-                    console.log('[IFRAME] Path only:', newPath);
-                    console.log('[IFRAME] Routing:', isMapLink ? 'BACKGROUND (map)' : 'FOREGROUND (other)');
-                }
-                
                 if (isMapLink) {
                     // Route to background frame
-                    console.log('[setIframeIfPathChanged] Routing to BACKGROUND frame, newPath:', newPath, 'lastBackgroundPath:', lastBackgroundPath);
-                    if (window.__inflectDebug) {
-                        console.log('[IFRAME] Setting background-frame src to:', newHref);
-                        console.log('[IFRAME] backgroundFrame element:', backgroundFrame);
-                        console.log('[IFRAME] firstBackgroundFrame:', firstBackgroundFrame);
-                        console.log('[IFRAME] lastBackgroundPath:', lastBackgroundPath);
-                        console.log('[IFRAME] newPath:', newPath);
-                        console.log('[IFRAME] Path changed?', newPath !== lastBackgroundPath);
-                    }
                     if (newPath !== lastBackgroundPath) {
                         if (firstBackgroundFrame) {
                             firstBackgroundFrame = false;
-                            console.log('[setIframeIfPathChanged] Setting FIRST background frame src to:', newHref);
                             backgroundFrame.src = newHref;
-                            if (window.__inflectDebug) {
-                                console.log('[IFRAME] FIRST background frame load, src set');
-                            }
                         } else {
-                            console.log('[setIframeIfPathChanged] Updating background frame src to:', newHref);
                             backgroundFrame.src = newHref;
-                            if (window.__inflectDebug) {
-                                console.log('[IFRAME] Background src updated to:', newHref);
-                            }
                         }
                         lastBackgroundPath = newPath;
                     } else {
                         // Hash-only change - update src immediately
-                        console.log('[setIframeIfPathChanged] Hash-only change, updating background frame src to:', newHref);
                         backgroundFrame.src = newHref;
-                        if (window.__inflectDebug) {
-                            console.log('[IFRAME] Background hash-only change, src updated to:', newHref);
-                        }
                     }
                     // Make foreground inactive if no content
                     if (!lastForegroundPath) {
@@ -1256,34 +1179,18 @@
                             const videoId = hashMatch[1];
                             // Redirect to embed/ instead of /svg/
                             finalHref = `embed/#vimeo.com%2F${videoId}/autoplay,loop,cover`;
-                            console.log('[setIframeIfPathChanged] MOBILE VIDEO REDIRECT: Detected @vimeo-' + videoId + ' in SVG link, redirecting to:', finalHref);
                         }
                     }
                     
-                    console.log('[setIframeIfPathChanged] Routing to FOREGROUND frame, newPath:', newPath, 'lastForegroundPath:', lastForegroundPath);
-                    if (window.__inflectDebug) {
-                        console.log('[IFRAME] Setting foreground-frame src to:', finalHref);
-                        console.log('[IFRAME] foregroundFrame element:', foregroundFrame);
-                        console.log('[IFRAME] firstForegroundFrame:', firstForegroundFrame);
-                    }
                     if (newPath !== lastForegroundPath) {
                         if (firstForegroundFrame) {
                             firstForegroundFrame = false;
-                            console.log('[setIframeIfPathChanged] Setting FIRST foreground frame src to:', finalHref);
                             foregroundFrame.src = finalHref;
-                            if (window.__inflectDebug) {
-                                console.log('[IFRAME] FIRST foreground frame load, src set');
-                            }
                         } else {
-                            console.log('[setIframeIfPathChanged] Updating foreground frame src to:', finalHref);
                             foregroundFrame.src = finalHref;
-                            if (window.__inflectDebug) {
-                                console.log('[IFRAME] Foreground src updated to:', finalHref);
-                            }
                         }
                         lastForegroundPath = newPath;
                     } else {
-                        console.log('[setIframeIfPathChanged] Hash-only change, updating foreground frame src to:', finalHref);
                         foregroundFrame.src = finalHref;
                     }
                     // Ensure foreground is active
@@ -1295,14 +1202,8 @@
         // Schedule iframe updates slightly later to allow DOM mutations (e.g. typewriter)
         let __iframeNextTimeout = null;
         function setIframeNext(href, delay = 60, waitForSection = true){
-            if (window.__inflectDebug) {
-                console.log('[setIframeNext] Called with href:', href, 'delay:', delay, 'waitForSection:', waitForSection);
-            }
             try { if (__iframeNextTimeout) clearTimeout(__iframeNextTimeout); } catch(e){}
             __iframeNextTimeout = setTimeout(() => {
-                if (window.__inflectDebug) {
-                    console.log('[setIframeNext] Timeout fired for:', href);
-                }
                 // Try to find the anchor in the document and its containing section
                 try {
                 } catch(e) { /* swallow */ }
@@ -1331,12 +1232,10 @@
 
     // with IntersectionObserver we can check what is visible    
     function initializeObservers() {
-        console.log('[initializeObservers] Creating observers...');
         const isMobilePortrait = window.matchMedia("(max-width: 1000px) and (orientation: portrait)").matches;
         const observer = new IntersectionObserver((entries) => {            
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    console.log('[LINK OBSERVER] Link entered viewport:', entry.target, 'href:', entry.target.getAttribute('href'));
                     // Add active class only to the visible link
                     const visibleLink = entry.target;
                         if (!visibleLink.classList.contains("dontinflect") && visibleLink.getAttribute("href") != "") {
@@ -1344,7 +1243,6 @@
                         // Use the raw href attribute to avoid races where scripts
                         // (e.g. the typewriter) mutate link textContent or href.
                         const rawHref = visibleLink.getAttribute('href');
-                        console.log('[LINK OBSERVER] Calling setIframeIfPathChanged for href:', rawHref);
                         // In dual-iframe mode, call setIframeIfPathChanged directly to avoid timeout issues
                         const isDualMode = document.body.classList.contains('dual-iframe');
                         if (isDualMode) {
@@ -1376,8 +1274,6 @@
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(en => {
                 if (en.isIntersecting) {
-                    console.log('[SECTION OBSERVER] Section entered view:', en.target);
-                    
                     // Signal to typewriter that section change is in progress
                     // This prevents typewriter from starting until iframes are updated
                     window.__typewriterSuppressed = true;
@@ -1386,7 +1282,6 @@
                         const sec = en.target;
                         const a = sec.querySelector('a:not(.dontinflect)');
                         if (!a) {
-                            console.log('[SECTION OBSERVER] No inflection link found in section');
                             return;
                         }
                         const raw = a.getAttribute('href') || '';
@@ -1432,11 +1327,9 @@
 
                         // In dual-iframe mode, load links sequentially with small delays to avoid blocking typewriter
                         const isDualMode = document.body.classList.contains('dual-iframe');
-                        console.log('[SECTION OBSERVER] isDualMode:', isDualMode);
                         if (isDualMode) {
                             // Find all inflection links in this section
                             const allLinks = Array.from(sec.querySelectorAll('a:not(.dontinflect)'));
-                            console.log('[SECTION OBSERVER] Found', allLinks.length, 'inflection links in section');
                             
                             // Calculate total time needed for all iframe updates
                             const lastLinkDelay = allLinks.length > 0 ? (allLinks.length - 1) * 50 : 0;
@@ -1446,12 +1339,10 @@
                             // Load links sequentially with small delays
                             allLinks.forEach((link, index) => {
                                 const linkHref = link.getAttribute('href');
-                                console.log('[SECTION OBSERVER] Link', index, 'href:', linkHref);
                                 if (linkHref) {
                                     // Stagger iframe loads: first immediately, then with small delays
                                     const delay = index === 0 ? 0 : index * 50; // 50ms between each subsequent load
                                     setTimeout(() => {
-                                        console.log('[SECTION OBSERVER] Calling setIframeIfPathChanged for link', index, ':', linkHref);
                                         try { 
                                             const full = new URL(linkHref, window.location.href).href; 
                                             setIframeIfPathChanged(full); 
@@ -1469,7 +1360,6 @@
                             
                             // Release typewriter suppression after all iframe updates have been dispatched
                             setTimeout(() => {
-                                console.log('[SECTION OBSERVER] Releasing typewriter suppression, signaling section ready:', sec);
                                 window.__typewriterSuppressed = false;
                                 // Dispatch custom event that typewriter can listen for
                                 sec.dispatchEvent(new CustomEvent('inflection-ready', { bubbles: true }));
@@ -1481,7 +1371,6 @@
                             
                             // Release typewriter suppression after a short delay
                             setTimeout(() => {
-                                console.log('[SECTION OBSERVER] Releasing typewriter suppression (single mode), signaling section ready:', sec);
                                 window.__typewriterSuppressed = false;
                                 sec.dispatchEvent(new CustomEvent('inflection-ready', { bubbles: true }));
                             }, 100);
@@ -1549,7 +1438,6 @@
                 return (document.scrollingElement || document.documentElement);
             }
             const scroller = chooseScroller();
-            try { console.info('snap: attached to scroller ->', scroller && (scroller.tagName || scroller.nodeName)); } catch(e){}
 
             // Helper to compute the index of the section closest to scroller center
             function _snapCurrentIndex() {
@@ -1647,7 +1535,6 @@
                             const idx = _snapCurrentIndex();
                             const nextIdx = delta > 0 ? Math.min(secs.length - 1, idx + 1) : Math.max(0, idx - 1);
                             if (nextIdx !== idx) _snapToSection(secs[nextIdx], true);
-                            try { console.info('snap: immediate wheel snap to', nextIdx); } catch(e){}
                             // clear any in-progress accumulator state
                             __gestureAccumulator = 0; __gestureLastDir = 0; if (__gestureTimer) { clearTimeout(__gestureTimer); __gestureTimer = null; }
                             return;
@@ -1671,7 +1558,6 @@
                                     const nextIdx = __gestureLastDir > 0 ? Math.min(secs.length - 1, idx + 1) : Math.max(0, idx - 1);
                                     if (nextIdx !== idx) {
                                         window.__snapSuppressUntil = Date.now() + 700;
-                                        try { console.info('snap: accumulated immediate snap to', nextIdx, 'acc=', __gestureAccumulator); } catch(e){}
                                         _snapToSection(secs[nextIdx], true);
                                     }
                                 }
@@ -1691,7 +1577,6 @@
                                             const nextIdx = __gestureLastDir > 0 ? Math.min(secs.length - 1, idx + 1) : Math.max(0, idx - 1);
                                             if (nextIdx !== idx) {
                                                 window.__snapSuppressUntil = Date.now() + 700;
-                                                try { console.info('snap: accumulated snap to', nextIdx, 'acc=', __gestureAccumulator); } catch(e){}
                                                 _snapToSection(secs[nextIdx], true);
                                             }
                                         }
@@ -1732,7 +1617,6 @@
                             const idx = _snapCurrentIndex();
                             const nextIdx = delta > 0 ? Math.min(secs.length - 1, idx + 1) : Math.max(0, idx - 1);
                             if (nextIdx !== idx) {
-                                try { console.info('snap: window immediate wheel snap to', nextIdx); } catch(e){}
                                 _snapToSection(secs[nextIdx], true);
                             }
                             __w_acc = 0; __w_dir = 0; if (__w_timer) { clearTimeout(__w_timer); __w_timer = null; }
@@ -1751,7 +1635,6 @@
                                     const idx = _snapCurrentIndex();
                                     const nextIdx = __w_dir > 0 ? Math.min(secs.length - 1, idx + 1) : Math.max(0, idx - 1);
                                     if (nextIdx !== idx) {
-                                        try { console.info('snap: window accumulated immediate snap to', nextIdx, 'acc=', __w_acc); } catch(e){}
                                         window.__snapSuppressUntil = Date.now() + 700;
                                         _snapToSection(secs[nextIdx], true);
                                     }
@@ -1769,7 +1652,6 @@
                                             const idx = _snapCurrentIndex();
                                             const nextIdx = __w_dir > 0 ? Math.min(secs.length - 1, idx + 1) : Math.max(0, idx - 1);
                                             if (nextIdx !== idx) {
-                                                try { console.info('snap: window accumulated snap to', nextIdx, 'acc=', __w_acc); } catch(e){}
                                                 window.__snapSuppressUntil = Date.now() + 700;
                                                 _snapToSection(secs[nextIdx], true);
                                             }
@@ -1809,13 +1691,9 @@
 
         // Add observer to all links and attach click handlers to inflection links
         const inflectLinks = document.querySelectorAll('a');
-        console.log('[initializeObservers] Found', inflectLinks.length, 'links to observe');
         inflectLinks.forEach(link => {
             observer.observe(link);
             const hrefAttr = (link.getAttribute('href') || '').trim();
-            if (hrefAttr && (hrefAttr.includes('/map/') || hrefAttr.includes('/svg/'))) {
-                console.log('[initializeObservers] Observing inflection link:', hrefAttr, 'text:', link.textContent.substring(0, 20));
-            }
             // Treat any non-empty href as an inflection-link candidate. This allows
             // external URLs as well as local paths to be handled by the iframe
             // forwarding logic. Skip empty hrefs or javascript/mailto pseudo-links.
@@ -1850,19 +1728,10 @@
             const firstSection = document.querySelector('main section');
             if (firstSection) {
                 const allLinks = Array.from(firstSection.querySelectorAll('a:not(.dontinflect)'));
-                if (window.__inflectDebug) {
-                    console.log('[INITIAL LOAD] Found', allLinks.length, 'links in first section');
-                    allLinks.forEach((link, i) => {
-                        console.log(`[INITIAL LOAD] Link ${i}:`, link.getAttribute('href'), link.textContent.trim() || '(empty)');
-                    });
-                }
                 allLinks.forEach((link, index) => {
                     if (index === 0) link.classList.add('active');
                     const rawHref = link.getAttribute('href');
                     if (rawHref) {
-                        if (window.__inflectDebug) {
-                            console.log('[INITIAL LOAD] Processing link', index, ':', rawHref);
-                        }
                         // In dual-iframe mode, load all links immediately without timeout
                         // (setIframeNext uses a single global timeout that gets cancelled by subsequent calls)
                         try { 
@@ -1889,15 +1758,12 @@
         }
 
         // Register section observer for sections with inflection links
-        console.log('[initializeObservers] Registering section observer...');
         try {
             const secs = Array.from(document.querySelectorAll('main section'));
-            console.log('[initializeObservers] Found', secs.length, 'sections');
             secs.forEach((s, index) => {
                 try { 
                     if (s.querySelector('a:not(.dontinflect)')) {
                         sectionObserver.observe(s);
-                        console.log('[initializeObservers] Observing section', index);
                     }
                 } catch(e){
                     console.warn('[initializeObservers] Error observing section', index, e);
