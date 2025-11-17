@@ -347,7 +347,7 @@ css: src/theme.css
 
 {.meta thumb} 
 [](svg/#south.svg/0.24,-1.2,2.76/+IDF_order_rafah)
-[](map/#31.46042,34.35000,10.36,-48.0,25.0/+IDF_zone_060524-110524(idf-poly),~oct23-IDF_heatmap,+idf-poly-outlines,+IDF_zone_060524-110524_NEW(idf-poly))
+[](map/#31.45870,34.34010,10.35,-49.6,24.5/+IDF_zone_060524-110524(idf-poly),~oct23-IDF_heatmap,+idf-poly-outlines,+IDF_zone_060524-110524_NEW(idf-poly))
 ב-6 במאי 2024, פחות מחודשיים לאחר הגעתם של ניבאל, אחמד וריתא לעיר, הפיץ הצבא הישראלי צווי פינוי חדשים שדרשו מתושבי רפיח ומהעקורים השוהים בה להתפנות.  
 
 <a href="https://btselem.org/" target="blank" class="dontinflect">
@@ -359,7 +359,7 @@ css: src/theme.css
 
 
 {.meta} 
-[](svg/#south.svg/-0.01,-3.19,7.27/+rafah_pre "תושב רפיח צופה בעשן מיתמר בזמן שכוחות ישראליים מנהלים מתקפה אווירית וקרקעית במזרח רפיח, 7 במאי 2024. (רויטרס / חאתם חאלד)")
+[](svg/#south.svg/-0.01,-3.65,8.67/+rafah_bomb_comp.jpg "תושב רפיח צופה בעשן מיתמר בזמן שכוחות ישראליים מנהלים מתקפה אווירית וקרקעית במזרח רפיח, 7 במאי 2024. (רויטרס / חאתם חאלד)")
 במקביל להוצאת צווי הפינוי, ישראל הגבירה את תקיפותיה ברפיח.
 
 
@@ -459,7 +459,7 @@ css: src/theme.css
 
 
 {.meta} 
-[](svg/#warehouse_bureij2.svg/-0.46,-0.19,0.88/~nibal_xray,~vimeo-1129846713,~rita_tent1)
+[](fg:blank)
 [](map/#31.35465,34.26392,15.27,40.0,1.2/~unosat-damage-231015,~unosat-damage,+wayback:20231101 "תצלום לוויין של חלקו הצפוני של ״האזור ההומניטרי״ באל-מוואסי, מאי 2023. מקור: ESRI Wayback")
 כבר בתחילת המתקפה הגדירה ישראל שטח באזור העיירה אל-מוואסי כ״אזור הומניטרי״.
 
@@ -467,7 +467,7 @@ css: src/theme.css
 
 
 {.meta thumb} 
-[](svg/#warehouse_bureij2.svg/-0.46,-0.19,0.88/~nibal_xray,~vimeo-1129846713,~rita_tent1)
+[](fg:blank))
 [](map/#31.35465,34.26392,15.27,40.0,1.2/~unosat-damage-231015,~unosat-damage,+wayback:20251023 "תצלום לוויין של חלקו הצפוני של ״האזור ההומניטרי״ באל-מוואסי, ינואר 2025. מקור: ESRI Wayback")
 
 תוך מספר חודשים, ״האזור ההומניטרי״ התמלא עד אפס מקום באוהלים, בהם נאלצו לחיות מעל למיליון בני אדם שנעקרו מכל רחבי הרצועה.
@@ -499,7 +499,7 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij2.svg/0.49,0.76,2.62/+rita_tent1,~vimeo-1129846713 "ריתא במחנה העקורים באל-מוואסי")
+[](svg/#warehouse_bureij2.svg/1.27,1.18,4.1/+rita_tent1 "ריתא במחנה העקורים באל-מוואסי")
 
 הבת של השכנים מהאוהל לידינו, נערה חכמה ורגישה, ריחמה עליי והגיעה בכל יום לעזור לי ולטפל בי ובריתא.
 
@@ -557,7 +557,7 @@ css: src/theme.css
 
 
 {.meta}
-[](svg/#ceasefire_hope.svg/-0.63,0.1,0.62/~vimeo-1137391158,~vimeo-1129871187,~nibal_rita_home.jpg,~nibal_rita_happy.jpg,~vimeo-1129854927,+@vimeo-1136076448)
+[](svg/#ceasefire_hope.svg/-0.09,-0.34,1.93/+@vimeo-1136076448)
 [](map/#31.43623,34.35063,10.79,0.0,39.0/+al-mawasi-jabalia(by-car):follow+,+al-mawasi,+family-home,+cities,+villages,+idf-poly-outlines)
 
 גם ניבאל ואחמד יצאו צפונה עם ריתא בת השנה וארבעה חודשים. 
