@@ -36,13 +36,26 @@
       if (!el || el.dataset._tw_started) return;
       el.dataset._tw_started = '1';
       
-      // Get original text content
+      // Get original text content, excluding empty inflection links
       const text = el.textContent || '';
       if (!text.trim()) return;
       
-      // Store original text and clear element
-      el.dataset._tw_orig = text;
-      el.textContent = '';
+      // Store original HTML to preserve empty links for inflection
+      el.dataset._tw_orig = el.innerHTML;
+      
+      // Extract and preserve empty links (inflection links)
+      const emptyLinks = Array.from(el.querySelectorAll('a:not([class*="dontinflect"])')).filter(a => !a.textContent.trim());
+      
+      // Clear only the text content, keep empty links
+      const textNodes = [];
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+      let node;
+      while (node = walker.nextNode()) {
+        if (node.textContent.trim()) {
+          textNodes.push(node);
+        }
+      }
+      textNodes.forEach(n => n.textContent = '');
       
       // Create a paragraph element to wrap the typed text
       const p = document.createElement('p');
