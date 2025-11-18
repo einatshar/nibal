@@ -408,6 +408,7 @@ css: src/theme.css
 {.testimony typewriter}
 [](fg:blank)
 [](bg:blank)
+
 אבל אז הכול השתנה.
 
 
