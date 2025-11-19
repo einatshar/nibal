@@ -582,4 +582,8 @@ iframe {
     section.thumb > a{
         font-size: 0.8em;
     }
+
+    section:first-of-type h1{
+        margin: 0 0 40px;
+    }
 }
