@@ -380,15 +380,13 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij1.svg/-0.25,-0.19,1.15/+warehouse_comp-compressed.jpg "!!!מחנה הפליטים א-שאטי בעיר עזה, 15 ביולי 2025. (REUTERS/מחמוד עיסא)")
+[](svg/#warehouse_bureij1.svg/-0.25,-0.19,1.15/+warehouse_new-compressed.jpg "מחנה הפליטים א-שאטי בעיר עזה, 15 ביולי 2025. (REUTERS/מחמוד עיסא)")
 [](map/#31.44772,34.39655,13.00,0.0,39.0/+pois.csv(poi,id=bureij))
 
 החיים במחסן היו קצת יותר יציבים מאשר החיים באוהל, אבל הרגשתי חצויה. מצד אחד שמחתי להיות עם בעלי והבת שלי, ומצד שני התגעגעתי למשפחה שלי. המרחק מהמשפחה ומהבית שלי גרם לי להרגיש בודדה ומנוכרת.
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij1.svg/-0.25,-0.19,1.15/+warehouse_comp-compressed.jpg "מחנה הפליטים אל־בוריג', 2 באוקטובר 2024. (Anadolu / מועיז סאלחי)")
-[](map/#31.44772,34.39655,13.00,0.0,39.0/+pois.csv(poi,id=bureij))
 
 בכל הזדמנות, התעדכנתי בטלפון לגבי המצב של המשפחה בג׳אבליא.
 
