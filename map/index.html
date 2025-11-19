@@ -2962,29 +2962,28 @@ window.addEventListener('hashchange', () => {
     // Mapbox style layers maintain their default filters and cannot be modified via hash
     try {
       // Check if style is loaded before applying filters
-      if (!map.isStyleLoaded()) {
-        console.warn('[HASHCHANGE] Style not loaded yet, skipping filter application');
-        return;
-      }
-      
-      const allMapLayers = map.getStyle().layers || [];
-      allMapLayers.forEach(l => {
-        const id = l.id;
-        if (!layerSupportsFilter(id)) return;
-        
-        // Only apply filter modifications to external layers
-        if (externalLayers.has(id)) {
-          const filterForLayer = filterState[id];
-          if (typeof filterForLayer !== 'undefined') {
-            try { map.setFilter(id, filterForLayer); } catch(e) { /* ignore unsupported */ }
-          } else {
-            // Restore default for external layer
-            const def = (id in styleDefaultFilter) ? styleDefaultFilter[id] : null;
-            try { map.setFilter(id, def); } catch(e) { /* ignore unsupported */ }
+      if (map.isStyleLoaded()) {
+        const allMapLayers = map.getStyle().layers || [];
+        allMapLayers.forEach(l => {
+          const id = l.id;
+          if (!layerSupportsFilter(id)) return;
+          
+          // Only apply filter modifications to external layers
+          if (externalLayers.has(id)) {
+            const filterForLayer = filterState[id];
+            if (typeof filterForLayer !== 'undefined') {
+              try { map.setFilter(id, filterForLayer); } catch(e) { /* ignore unsupported */ }
+            } else {
+              // Restore default for external layer
+              const def = (id in styleDefaultFilter) ? styleDefaultFilter[id] : null;
+              try { map.setFilter(id, def); } catch(e) { /* ignore unsupported */ }
+            }
           }
-        }
-        // Style layers always maintain their default filter (no hash modification)
-      });
+          // Style layers always maintain their default filter (no hash modification)
+        });
+      } else {
+        console.warn('[HASHCHANGE] Style not loaded yet, skipping filter application');
+      }
     } catch(e) { console.warn('[HASHCHANGE] Filter application error', e); }
   } else {
     // No layers specified in hash - restore all layers to their style defaults
