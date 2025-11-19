@@ -737,7 +737,7 @@ css: src/theme.css
 
 {.meta}
 [](svg/#permanent_impermanence.svg/0.16,0.34,2.41/+leaving_gaza_city_comp.jpg,@vimeo-1136076786)
-[](map/#31.43623,34.35063,10.79,0.0,39.0/+gaza-deir-al-balah(by-car):follow+,+pois.csv(poi,id=home),+pois.csv#2(poi,id=gaza-2509),+idf-poly-outlines "עקורים נמלטים מצפון רצועת עזה, 1 בספטמבר 2025. (NurPhoto / מג׳די פאתחי)")
+[](map/#31.43623,34.35063,10.79,0.0,39.0/+gaza-deir-al-balah(by-car):follow+,+pois.csv(poi,id=gaza-2509),+idf-poly-outlines "עקורים נמלטים מצפון רצועת עזה, 1 בספטמבר 2025. (NurPhoto / מג׳די פאתחי)")
 המשפחה נעקרה שוב, הפעם דרומה, למתחם אוהלים בדיר אל-בלח. 
 
 
@@ -753,7 +753,7 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](fg:blank)
+[](map/#31.41150,34.38598,9.96,38.4,0.0/+pois.csv(poi,id=deir-al-balah))
 [](svg/#permanent_impermanence.svg/0.8,-0.49,3.32/+@vimeo-1132487425 "ניבאל ואביה באוהל בדיר אל-בלח")
 
 כל דבר בחיים שלי כרוך בסבל עכשיו. החום באוהל נורא, ואני מזיעה אבל לא יכולה להתרחץ לבד. אני סובלת מאוד מעקיצות, כי אני לא יכולה אפילו להתגרד. 
@@ -767,7 +767,7 @@ css: src/theme.css
 ### Oct 25
 
 [](map/#31.41150,34.38598,9.96,38.4,0.0/+pois.csv(poi,id=deir-al-balah))
-[](svg/#permanent_impermanence.svg/1.43,-1.84,7.26/+vimeo-1130690065 "ריתא במחנה העקורים בדיר אל-בלח")
+[](svg/#permanent_impermanence.svg/1.43,-1.84,7.26/+@vimeo-1130690065 "ריתא במחנה העקורים בדיר אל-בלח")
 ב-10 לאוקטובר 2025 נכנסה לתוקף הפסקת האש בין ישראל לחמאס. 
 
 בשבועות שלאחר מכן ישראל המשיכה את תקיפותיה ברצועה בעוצמות משתנות.
