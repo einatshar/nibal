@@ -1065,22 +1065,72 @@
                         document.body.appendChild(el);
                     }
 
-                    function setCaptionFromLink(a){
+                    // Track captions from both layers (background and foreground)
+                    let bgCaption = '';
+                    let fgCaption = '';
+
+                    function updateCombinedCaption() {
                         try {
-                            if (!a) { el.style.display = 'none'; el.textContent = ''; el.classList.remove('note-caption'); return; }
-                            const title = (a.getAttribute('title') || a.getAttribute('data-caption') || a.textContent || '').trim();
-                            if (!title) { el.style.display = 'none'; el.textContent = ''; el.classList.remove('note-caption'); return; }
+                            // Combine both captions with a separator if both exist
+                            const parts = [bgCaption, fgCaption].filter(c => c.trim().length > 0);
+                            const combined = parts.join(' • ');
                             
-                            // Check if title starts with !!! for note styling
-                            if (title.startsWith('!!!')) {
+                            if (!combined) {
+                                el.style.display = 'none';
+                                el.textContent = '';
+                                el.classList.remove('note-caption');
+                                return;
+                            }
+                            
+                            // Check if combined caption starts with !!! for note styling
+                            if (combined.startsWith('!!!')) {
                                 el.classList.add('note-caption');
-                                el.textContent = title.substring(3).trim(); // Remove !!! prefix
+                                el.textContent = combined.substring(3).trim(); // Remove !!! prefix
                             } else {
                                 el.classList.remove('note-caption');
-                                el.textContent = title;
+                                el.textContent = combined;
                             }
                             
                             el.style.display = '';
+                        } catch(e){ /* swallow */ }
+                    }
+
+                    function setCaptionFromLink(a){
+                        try {
+                            const isDualMode = document.body.classList.contains('dual-iframe');
+                            
+                            if (!a) {
+                                // Clear both captions
+                                bgCaption = '';
+                                fgCaption = '';
+                                updateCombinedCaption();
+                                return;
+                            }
+                            
+                            const title = (a.getAttribute('title') || a.getAttribute('data-caption') || a.textContent || '').trim();
+                            const rawHref = a.getAttribute('href') || '';
+                            
+                            // Determine if this link targets background (map) or foreground
+                            if (isDualMode) {
+                                const isMapLink = rawHref.includes('/map/') || rawHref.includes('/map#') || rawHref.match(/\/map$/);
+                                if (isMapLink) {
+                                    // Only update background caption if title exists
+                                    if (title) {
+                                        bgCaption = title;
+                                    }
+                                } else {
+                                    // Only update foreground caption if title exists
+                                    if (title) {
+                                        fgCaption = title;
+                                    }
+                                }
+                                updateCombinedCaption();
+                            } else {
+                                // Single iframe mode - use original behavior
+                                bgCaption = title;
+                                fgCaption = '';
+                                updateCombinedCaption();
+                            }
                         } catch(e){ /* swallow */ }
                     }
 
@@ -1496,9 +1546,15 @@
                                 }
                             });
                             
-                            // Set caption from first link
+                            // Set captions from all links in dual-iframe mode
                             if (allLinks.length > 0) {
-                                try { if (window.__setInflectCaptionFromLink) window.__setInflectCaptionFromLink(allLinks[0]); } catch(e){}
+                                try { 
+                                    if (window.__setInflectCaptionFromLink) {
+                                        // Clear captions first, then process all links to build combined caption
+                                        window.__setInflectCaptionFromLink(null);
+                                        allLinks.forEach(link => window.__setInflectCaptionFromLink(link));
+                                    }
+                                } catch(e){}
                             }
                             
                             // Guaranteed completion after reasonable timeout
@@ -1896,7 +1952,13 @@
                     }
                 });
                 if (allLinks.length > 0) {
-                    try { if (window.__setInflectCaptionFromLink) window.__setInflectCaptionFromLink(allLinks[0]); } catch(e){}
+                    try { 
+                        if (window.__setInflectCaptionFromLink) {
+                            // Clear captions first, then process all links to build combined caption
+                            window.__setInflectCaptionFromLink(null);
+                            allLinks.forEach(link => window.__setInflectCaptionFromLink(link));
+                        }
+                    } catch(e){}
                 }
             }
         } else {
