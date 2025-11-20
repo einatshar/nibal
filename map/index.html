@@ -477,12 +477,14 @@
 document.addEventListener('DOMContentLoaded', function() {
   var controls = document.getElementById('layer-controls');
   if (!controls) return;
-  if (window.self === window.top) {
-    // Standalone page: slide panel in
+  // Detect show-ui / mapui flag in hash (case-insensitive)
+  const hashLower = (location.hash || '').toLowerCase();
+  const hasShowUIFlag = hashLower.includes('/show-ui') || hashLower.includes('/mapui');
+  // If show-ui flag present we always keep layer sidebar hidden (only want zoom panel)
+  if (!hasShowUIFlag && window.self === window.top) {
+    // Standalone page without show-ui flag: show layer sidebar
     controls.classList.remove('hidden');
-  } else {
-    // Embedded (iframe): keep it hidden by default
-  }
+  } // else keep hidden
 });
 
 // Keyboard shortcut to toggle UI (E key)
