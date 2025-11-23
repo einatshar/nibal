@@ -477,12 +477,12 @@
 document.addEventListener('DOMContentLoaded', function() {
   var controls = document.getElementById('layer-controls');
   if (!controls) return;
-  // Detect show-ui / mapui flag in hash (case-insensitive)
+  // Detect embed-ui / mapui flag in hash (case-insensitive)
   const hashLower = (location.hash || '').toLowerCase();
-  const hasShowUIFlag = hashLower.includes('/show-ui') || hashLower.includes('/mapui');
-  // If show-ui flag present we always keep layer sidebar hidden (only want zoom panel)
+  const hasShowUIFlag = hashLower.includes('/embed-ui') || hashLower.includes('/mapui');
+  // If embed-ui flag present we always keep layer sidebar hidden (only want zoom panel)
   if (!hasShowUIFlag && window.self === window.top) {
-    // Standalone page without show-ui flag: show layer sidebar
+    // Standalone page without embed-ui flag: show layer sidebar
     controls.classList.remove('hidden');
   } // else keep hidden
 });
@@ -1083,11 +1083,11 @@ function parseHash() {
     layersStr = cameraStr;
     cameraStr = '';
   }
-  // Detect optional flags in any additional segments (e.g., /mapui, /show-ui, /static)
+  // Detect optional flags in any additional segments (e.g., /mapui, /embed-ui, /static)
   const extraSegments = parts.slice(2);
   showMapUI = extraSegments.some(seg => {
     const lower = seg.toLowerCase();
-    return lower === 'mapui' || lower === 'show-ui';
+    return lower === 'mapui' || lower === 'embed-ui';
   });
   const isStatic = extraSegments.some(seg => seg.toLowerCase() === 'static');
   const cameraParts = cameraStr ? cameraStr.split(',').map(Number) : [];
