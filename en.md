@@ -6,7 +6,7 @@ css: src/theme.css, src/ltr.css
 
 
 # _The Displacement Journey of_ Nibal Al-Hissi
-[](map/#31.30336,34.29179,9.53,37.6,0.0/~labels_he)
+[](map/#31.30336,34.29179,9.53,37.6,0.0/~labels_en)
 [](svg/#intro-pre.svg/-0.01,0.45,1.52/+nibal2023,+home,+displacement)
 
 <div id="logo">
@@ -24,37 +24,37 @@ css: src/theme.css, src/ltr.css
 
 {.meta}
 [](svg/#intro-pre.svg/-0.02,1.21,1.52/+nibal2023,~home,~displacement)
-[](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he)
+[](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_en)
 For two years, Israel has forced Palestinians throughout the Gaza Strip to flee from place to place.
 
 
 {.meta}
 [](svg/#intro-pre.svg/0.34,0.36,1.81/~all)
-[](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he,+idf-zones,+idf-poly-outlines "In red: Places included in military evacuation orders, Oct. 2023 - Oct. 2025")
+[](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_en,+idf-zones,+idf-poly-outlines "In red: Places included in military evacuation orders, Oct. 2023 - Oct. 2025")
 In most cases, they were ordered to evacuate by the Israeli military.
 
 
 {.meta}
 [](svg/#intro-pre.svg/0.34,0.36,1.81/~all)
-[](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he,+idf-zones "In red: Places included in military evacuation orders, Oct. 2023 - Oct. 2025")
+[](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_en,+idf-zones "In red: Places included in military evacuation orders, Oct. 2023 - Oct. 2025")
 Yet the evacuation orders were often misleading or issued after an attack began – leaving residents panicked, confused and in extreme danger.
 
 
 {.meta}
 [](svg/#intro-pre.svg/0.34,0.36,1.81/~all)
-[](map/#31.43664,34.34673,10.18,37.6,0.0/~labels_he,+unosat-damage-231015 "Assessed density of damage to buildings in the Gaza Strip after the first week of the offensive. Source: UNOSAT")
+[](map/#31.43664,34.34673,10.18,37.6,0.0/~labels_en,+unosat-damage-231015 "Assessed density of damage to buildings in the Gaza Strip after the first week of the offensive. Source: UNOSAT")
 People also fled of their own accord, escaping the frequent airstrikes that rained down death and destruction throughout the Strip.
 
 
 {.meta}
 [](svg/#intro-pre.svg/0.34,0.36,1.81/+displacement "Residents of Gaza City flee after the Israeli military ordered them to evacuate south, 15 Sept. 2025. (Reuters / Mahmoud Issa)")
-[](map/#31.49997,34.25627,10.18,37.6,0.0/~labels_he,+unosat-damage-231015)
+[](map/#31.49997,34.25627,10.18,37.6,0.0/~labels_en,+unosat-damage-231015)
 Throughout the offensive, Israel prevented the Internally Displaced Persons (IDPs) from finding safe shelter with food, water and basic services.
 
 
 {.meta}
 [](svg/#intro-pre.svg/-0.01,0.27,1.02/+displacement,+nibal2023)
-[](map/#31.40864,34.38832,9.39,37.6,0.0/~labels_he)
+[](map/#31.40864,34.38832,9.39,37.6,0.0/~labels_en)
 Among the IDPs is 25-year-old Nibal al-Hisi, who has been repeatedly displaced with her baby daughter.
 
 
@@ -64,7 +64,7 @@ This is her story.
 
 {.subheader}
 [](svg/#intro-pre.svg/-0.28,1.05,1/+nibal2023)
-[](map/#31.53332,34.48215,14.18,37.6,0.0/~labels_he,+Gaza_border_dash,+Gaza_border_base)
+[](map/#31.53332,34.48215,14.18,37.6,0.0/~labels_en,+Gaza_border_dash,+Gaza_border_base)
 ## Life Before
 
 
@@ -141,7 +141,7 @@ On 7 October 2023, Hamas and other armed Palestinian groups carried out the dead
 
 {.meta} 
 [](fg:blank)
-[](map/#31.38551,34.37811,10.31,-10.4,42.0/~labels_en,+oct7-hamas(label-focused),+oct7-hamas-en#2(bubbles))
+[](map/#31.38551,34.37811,10.31,-10.4,42.0/~labels_en,+oct7-hamas-en(label-focused),+oct7-hamas-en#2(bubbles))
 The assailants killed 1,220 people, including women, elderly people and children. 
 
 Tens of thousands were injured, and 252 people, living and dead, were taken to Gaza.
@@ -155,7 +155,7 @@ That same day, Israel launched a massive wave of strikes across Gaza.
 
 {.meta} 
 [](svg/#intro-pre.svg/-0.02,0.02,0.5/+vimeo-1138452992)
-[](map/#31.72716,34.76485,8.57,0.0,35.0/+unosat-damage-231015,~labels_he,+pois(label-main,id=couple-home))
+[](map/#31.72716,34.76485,8.57,0.0,35.0/+unosat-damage-231015,~labels_en,+pois(label-main,id=couple-home))
 Nibal was at home in Jabalya with one-month-old Rita.
 
 Ahmad was working in Israel. 
@@ -163,7 +163,7 @@ Ahmad was working in Israel.
 
 {.meta} 
 [](fg:blank)
-[](map/#31.72716,34.76485,8.57,0.0,35.0/+unosat-damage-231015,~labels_he,+pois.csv(poi,id=home),+pois(label-main,id=home),+pois#2(label-main,id=couple-home))
+[](map/#31.72716,34.76485,8.57,0.0,35.0/+unosat-damage-231015,~labels_en,+pois.csv(poi,id=home),+pois(label-main,id=home),+pois#2(label-main,id=couple-home))
 Terrified, Nibal moved with Rita to her parents’ home nearby. 
 
 
@@ -584,13 +584,13 @@ Nibal’s relatives met them at the Netzarim checkpoint, dropped Ahmad off at th
 {.testimony typewriter}
 [](svg/#ceasefire_hope.svg/-0.77,-0.44,1.93/+nibal_rita_home.jpg,+nibal_rita_happy.jpg,+@vimeo-1129854927 "From Nibal’s TikTok account")
 
-My family welcomed me with hugs, songs and tears. Every night, my brothers and sisters gathered at my parents’ house. * My sisters were always by my side. 
+My family welcomed me with hugs, songs and tears. Every night, my brothers and sisters gathered at my parents’ house.
 
 
 {.testimony typewriter}
 [](svg/#ceasefire_hope.svg/-0.39,-0.4,1.93/+nibal_rita_home.jpg,+nibal_rita_happy.jpg,@vimeo-1129854927)
 
-They helped me with everything: showering, getting dressed, eating, caring for Rita. 
+My sisters were always by my side. They helped me with everything: showering, getting dressed, eating, caring for Rita. 
 
 
 {.testimony typewriter}
@@ -608,226 +608,220 @@ Despite her parents’ concerns, she went back to their apartment with Rita, and
 {.meta}
 [](svg/#ceasefire_hope.svg/-0.12,0.29,1.48/+@vimeo-1129871187,+vimeo-1137391158,~prisoners_2-comp.jpg)
 [](map/#31.43623,34.35063,10.79,0.0,39.0/+IDF_zone_21_25_03_25(idf-poly),+idf-poly-outlines "באדום: צווי הפינוי שהפציץ הצבא הישראלי לתושבי עזה בשבוע שלאחר הפרת הפסקת האש במרץ 2025")
-אבל אז התחדשה המלחמה ביתר שאת. 
+But then the war resumed. 
 
-תחת ההפצצות והמצור, מערכת היחסים של ניבאל ואחמד נקלעה למשבר.
-
-
-{.meta}
-אחמד התמודד באותה תקופה עם החותם שהותירה בו השהות במתקני הכליאה הישראליים.
-
-
-{.testimony typewriter}
-מאז שאחמד חזר אלינו מישראל הוא נראה לי מוטרד ולחוץ. משהו בו השתנה.
-
-במובן מסוים, הרגשתי, הוא איבד שם חלק מעצמו.
+Under the pressure of bombardments and blockade, tensions in the marriage resurfaced. 
 
 
 {.meta}
-[](svg/#ceasefire_hope.svg/0.25,0.39,1.74/+@vimeo-1137391158,+prisoners_2-comp.jpg  "מתוך חשבון הטיקטוק של ניבאל")
-בעדותה, סיפרה ניבאל על הכאב הנפשי שחווה אחמד, שהחמיר תחת הקושי של שלושתם לשרוד בתנאי המצור ההדוק שהטילה שוב ישראל.  
+Ahmad was struggling with the repercussions of his time in Israeli detention. 
 
 
 {.testimony typewriter}
-בהתחלה הוא מאוד תמך בי. אבל עם הזמן, הרגשתי שהוא נאלץ לטפל בי מתוך רחמים.
+After he was released and came back from Israel, he seemed troubled and anxious. Something in him had changed. 
+In some ways, I felt like he had lost a part of himself there. 
+
+
+{.meta}
+[](svg/#ceasefire_hope.svg/0.25,0.39,1.74/+@vimeo-1137391158,+prisoners_2-comp.jpg  "From Nibal’s TikTok account")
+Nibal described the psychological pain he was experiencing, which intensified as all three struggled to survive under the blockade. 
 
 
 {.testimony typewriter}
-בתוך כל הקשיים, ניסיתי להתמקד בריתא. היא הייתה הדבר החשוב ביותר בשבילי, ועשיתי מה שיכולתי כדי להתגבר על המתיחות ביני לבין אחמד ולטפל בה.
+At first he was very supportive. But over time, I felt he was only taking care of me out of pity.
+
+
+{.testimony typewriter}
+Through everything, I tried to focus on Rita. She was the most important thing in my life. I did everything I could to overcome the tension with Ahmad and care for her.
 
 
 {.subheader}
 [](fg:blank)
 [](bg:blank)
-## בחזרה הביתה 
+## Back Home 
 
 
 {.meta}
-[](svg/#back_home.svg/-0.73,0.57,2.67/+@vimeo-1129860275 "תיעוד של בית אחותה של ניבאל לאחר ההפצצה, לצד תמונות של ילדיה שנהרגו")
+[](svg/#back_home.svg/-0.73,0.57,2.67/+@vimeo-1129860275 "The home of Nibal’s sister after it was bombed, and photos of her children who were killed")
 [](map/#31.53551,34.47021,14.64,38.4,0.0/+pois.csv(poi,id=alaa-home),+pois(label-main,id=alaa-home),+pois#2(label-main,id=couple-home))
 
-באפריל 2025 הפציץ הצבא הישראלי את ביתה של אחותה של ניבאל בג׳אבליא. כתוצאה מההפצצה נהרגו שלושת ילדיה של אלאא, אחותה: וסים, בן 10, מוהנד, בן 8, וח'וולה, בת 5. 
+In April 2025, Israel bombed the home of Nibal’s sister ‘Alaa in Jabalya, killing all three of her children: Wasim, 10, Muhannad, 8, and Khawlah, 5. 
 
 
 {.meta}
-ניבאל קיבלה את הבשורה המרה על מות אחייניה בשעה שהמתיחות בינה לבין לאחמד הגיעה לשיא.
+Nibal received the devastating news while tensions between her and Ahmad were at their peak. 
 
 
 {.testimony typewriter}
-באותו זמן הרגשתי שהוא כבר לא מסוגל לדאוג לי ולריתא. הקושי לטפל בנו ולדאוג לנו למים ולאוכל עשה אותו עצבני, ולרגעים אפילו חששתי ממנו.
+I felt he couldn’t take care of Rita and me anymore. The strain of looking after us and getting us food and water made him irritable, and sometimes I was even afraid of him. 
 
-בשלב מסוים, הוא דרש שאחזור לבית הוריי.
+At some point, he demanded that I go back to my parents.
 
 
 {.meta}
-[](svg/#back_home.svg/-0.16,-0.11,1.43/~vimeo-1137391856,~vimeo-1137392312,~nibal_ruined_home1.jpg,~nibal_home_smile3.heic "תושבים בסמוך לגופות הרוגים באתר תקיפה ישראלית על בית בג'באליא, 18 באפריל 2025. (סאהר אל־ע'ורה / ZUMA Press Wire)")
+[](svg/#back_home.svg/-0.16,-0.11,1.43/~vimeo-1137391856,~vimeo-1137392312,~nibal_ruined_home1.jpg,~nibal_home_smile3.heic "Residents next to bodies of people killed in an Israeli attack on a home in Jabalya, 18 April 2025. (ZUMA Press Wire/Saher Alghorra")
 [](map/#31.53551,34.47021,14.64,38.4,0.0/+pois.csv(poi,id=home),+pois.csv#2(poi,id=couple-home),+pois(label-main,id=home),+pois#2(label-main,id=couple-home))
 
-בתחילת יוני 2025, החליטה ניבאל לחזור עם ריתא לבית הוריה הסמוך.
- 
+In early June 2025, several months after returning to their apartment, Nibal decided to move back to her parents with Rita. 
+
 
 {.testimony typewriter}
-המשפחה שוב קיבלה את פנינו באהבה, אבל בבית שרר עצב כבד. אני ואחותי, שאיבדה את שלושת ילדיה, ניסינו לנחם אחת את השנייה.
+My family welcomed us with love again, but the house was full of grief. My sister, who had lost her three children, and I tried to comfort each other. 
 
 
 {.testimony typewriter}
 [](svg/#back_home.svg/-1.01,-0.36,1.86/~vimeo-1137391856,~vimeo-1137392312,~nibal_ruined_home1.jpg,~vimeo-1129860275)
 [](map/#31.53551,34.47021,14.64,38.4,0.0/+pois.csv(poi,id=home),+pois(label-main,id=home))
 
-הייתי מתוסכלת מאוד כי לא יכולתי לעשות כלום בעצמי והתקשיתי לטפל בריתא. 
+I was frustrated because I couldn’t do anything on my own, and I struggled to care for Rita. 
 
-למרות כל התמיכה שקיבלתי מההורים שלי, הרגשתי שהפכתי לנטל גם עליהם.
+Even with all the support from my parents, I felt like I’d become a burden for them, too. 
 
 
 {.testimony typewriter}
-[](svg/#back_home.svg/-0.82,0.28,1.98/+@vimeo-1137391856,+vimeo-1137392312,+nibal_ruined_home1.jpg "הפצצות בשכונת א-נזלה בג׳אבליא, אוגוסט 2025")
+[](svg/#back_home.svg/-0.82,0.28,1.98/+@vimeo-1137391856,+vimeo-1137392312,+nibal_ruined_home1.jpg "Bombing in a-Nazlah neighborhood in Jabalya, August 2025")
 [](map/#31.52909,34.48128,15.23,38.4,0.0/+pois.csv(poi,id=home))
 
-ההפצצות באזור שלנו נמשכו כל הזמן והרבה אנשים עקרו. אבל המשפחה המורחבת שלי גדולה מאוד ולא היה לנו לאן ללכת בלי שנצטרך להתפצל.
+The bombings in our area never stopped. Many people were being displaced again. But my extended family is huge, and we had nowhere to go without splitting up. 
 
 
 {.meta}
 [](map/#31.53196,34.47651,15.28,38.4,0.0/+pois.csv(poi,id=home))
-בסוף אוגוסט 2025, כוחות הצבא הישראלי נכנסו לג'באליא והתקדמו אל עבר השכונה של ניבאל. 
-
-ההפגזות הלכו והתקרבו לביתה.  
+At the end of August 2025, Israeli forces entered Jabalya and advanced toward the family’s neighborhood.
 
 
 {.meta}
-בשלב מסוים, אחד מהפגזים פגע בבית של דוד שלה, הסמוך לבית הוריה. 
+The shelling grew closer. 
 
-בת דודתה של ניבאל נהרגה בהפצצה, וכמה מבני משפחתה האחרים נפצעו.
-
-
-{.testimony typewriter}
-[](svg/#back_home.svg/-0.19,0.08,2/+@vimeo-1137392312,+nibal_ruined_home1.jpg "תושבים נעקרים משכונת א-נזלה בג׳אבליא ביום ההפצצה")
-
-שמענו פיצוץ עז, ואז המון צעקות מבחוץ. ראינו אנשים רצים. אמרו לנו שהצבא הישראלי ציווה לפנות את האזור תוך רבע שעה. 
-
-יצאנו מהבית מבוהלים בלי לקחת איתנו כמעט כלום. שכחתי בבית את התעודות שלנו, הבגדים שלנו, הכול. אבל הצלחנו להימלט בזמן.
+One shell hit her aunt’s house, next to her parents’ home, killing Niba’s cousin and injuring several family members. 
 
 
 {.testimony typewriter}
-הלכנו ברגל ברחובות, מפוחדים.
+[](svg/#back_home.svg/-0.19,0.08,2/+@vimeo-1137392312,+nibal_ruined_home1.jpg "Residents displaced from a-Nazlah neighborhood in Jabalya on the day of the bombing")
+
+We heard a huge explosion and screams outside. People were running. They told us the Israeli army had ordered everyone to evacuate the area within 15 minutes. 
+
+We ran outside terrified, almost empty-handed. I left behind our documents, our clothes, everything. But we managed to escape in time.  
+
+
+{.testimony typewriter}
+We walked the streets, terrified.
 
 
 {.meta}
-[](svg/#back_home.svg/0.53,-0.13,2.39/+nibal_ruined_home1.jpg "אזור ביתה של ניבאל לאחר ההפצצה")
-בהמשך, נודע לניבאל כי הבניין בו גרה רוב חייה לצד משפחתה המורחבת נהרס כליל בהפצצות הכבדות על ג׳אבליא.
+[](svg/#back_home.svg/0.53,-0.13,2.39/+nibal_ruined_home1.jpg "The area of Nibal’s home after the bombing")
+Later, Nibal learned that the building she had lived in most of her life with her extended family had been completely destroyed in the bombing of Jabalya.
 
 
 {.subheader}
 [](fg:blank)
 [](bg:blank)
-## ארעיות קבועה 
+## Permanently displaced 
 
 
 {.meta}
-[](svg/#permanent_impermanence.svg/-0.83,0.97,2.66/+nibal_ruined_home2.jpg "אזור ביתה של ניבאל לאחר ההפצצה")
+[](svg/#permanent_impermanence.svg/-0.83,0.97,2.66/+nibal_ruined_home2.jpg "The area of Nibal’s home after the bombing")
 [](map/#31.53196,34.47651,15.28,38.4,0.0/+pois.csv(poi,id=home),+pois(label-main,id=home))
-ניבאל, ריתא וכ-50 מבני משפחתן המורחבת - הוריה של ניבאל, אחיה, בני זוגם וילדיהם - צעדו ברגל מג׳אבליא לעיר עזה בחיפוש אחר מקום בטוח. 
+Nibal walked with Rita and about 50 relatives – her parents, her siblings and their spouses and children – from Jabalya to Gaza City, searching for safety. 
 
-הם התמקמו במסעדה נטושה של חברים, ואחר-כך עברו לדירה קטנה וצפופה בעיר עזה.
+They stayed in an abandoned restaurant belonging to friends, and later in a cramped apartment in Gaza City. 
 
 
 {.meta} 
 [](map/#31.50774,34.46034,14.51,38.4,0.0/+pois.csv(poi,id=home),+pois.csv#2(poi,id=gaza-2509),+pois(label-main,id=home),+pois#2(label-main,id=gaza-2509))
-[](svg/#permanent_impermanence.svg/-0.59,0.39,2.29/+IDF_order_gaza_city-comp.jpg,+leaving_gaza_city_comp.jpg,+@vimeo-1136076786 "תושבים נעקרים ממחנה א-שאטי הסמוך לעיר עזה, 19 בספטמבר 2025. (Activestills / יוסף זענון)")
+[](svg/#permanent_impermanence.svg/-0.59,0.39,2.29/+IDF_order_gaza_city-comp.jpg,+leaving_gaza_city_comp.jpg,+@vimeo-1136076786 "Residents displaced from a-Shati R.C. near Gaza City, 19 Sept. 2025 (Activestills/Yousef Zaanoun)")
 
-שבועות ספורים לאחר שמשפחתה של ניבאל הגיעה אליה, פתחה ישראל במתקפה קרקעית נוספת על העיר עזה. 
-
+Throughout those weeks, Israel launched another ground invasion into Gaza City. 
 
 {.meta thumb} 
-[](svg/#permanent_impermanence.svg/0.12,0.54,2.43/+IDF_order_gaza_city-comp.jpg,+leaving_gaza_city_comp.jpg,@vimeo-1136076786 "תושב העיר עזה מחזיק בצו פינוי שהוטל ממטוס ישראלי, 9 בספטמבר 2025. (רויטרס / דאווד אבו אלקאס)")
+[](svg/#permanent_impermanence.svg/0.12,0.54,2.43/+IDF_order_gaza_city-comp.jpg,+leaving_gaza_city_comp.jpg,@vimeo-1136076786 "A man in Gaza City holds an evacuation order dropped by an Israeli plane, 9 Sept. 2025. (Reuters/Dawoud Abu Alkas)")
 [](map/#31.50774,34.46034,14.51,38.4,0.0/+IDF_zone_090925_NEW(idf-poly),+pois.csv(poi,id=gaza-2509))
-צווי הפינוי שהוציא הצבא בתחילת ספטמבר 2025 לתושבי צפון הרצועה הורו לכ-1.2 מיליון בני אדם לעקור שוב ממקום מושבם.
+In early September 2025, just weeks after Nibal arrived in Gaza City, Israel issued evacuation orders for about 1.2 million people to leave the city.
 
 <a href="https://btselem.org/" target="blank" class="dontinflect">
-    להרחבה, ראו:
+    For more information, see:
     <strong>
-    אוגוסט-ספטמבר 2025: הרס העיר עזה
+    August-September 2025: Destruction of Gaza City
     </strong>
 </a>
 
 
 {.meta}
 [](svg/#permanent_impermanence.svg/0.16,0.34,2.41/+leaving_gaza_city_comp.jpg,@vimeo-1136076786)
-[](map/#31.43623,34.35063,10.79,0.0,39.0/+gaza-deir-al-balah(by-car):follow+,+pois.csv(poi,id=gaza-2509),+IDF_zone_090925_NEW(idf-poly),+idf-poly-outlines "עקורים נמלטים מצפון רצועת עזה, 1 בספטמבר 2025. (NurPhoto / מג׳די פאתחי)")
-המשפחה נעקרה שוב, הפעם דרומה, למתחם אוהלים בדיר אל-בלח. 
+[](map/#31.43623,34.35063,10.79,0.0,39.0/+gaza-deir-al-balah(by-car):follow+,+pois.csv(poi,id=gaza-2509),+IDF_zone_090925_NEW(idf-poly),+idf-poly-outlines "IDPs flee the northern Gaza Strip, 1 Sept. 2025 (NurPhoto/Majdi Fathi)")
+The family fled south again, this time to a tent camp in Deir al-Balah.  
 
 
 {.testimony typewriter}
-[](svg/#permanent_impermanence.svg/0.41,-0.91,4.05/+@vimeo-1129867912,@vimeo-1136076786 "מתוך חשבון הטיקטוק של ניבאל. בטקסט שצירפה לסרטון כתבה: ״בין ההריסות, ״אנשים נושאים את מה שנשאר מחייהם, כאילו גוררים שרידי מולדת על משאית״")
-אני מותשת מהעקירה החוזרת ונשנית, וחוששת שריתא ואני לא נצליח להסתגל שוב לחיים באוהל.
+[](svg/#permanent_impermanence.svg/0.41,-0.91,4.05/+@vimeo-1129867912,@vimeo-1136076786 "From Nibal’s TikTok account. Along with the video, she wrote: ״Amid the rubble, people depart carrying what remains of their lives, as if hauling the remnants of a homeland on a truck״")
+I’m exhausted from being displaced over and over. I’m afraid Rita and I won’t be able to adjust to a tent again. 
 
-הצבא הישראלי מפזר כל הזמן כרוזים שמורים לנו להתפנות, ואנחנו חיים בחוסר אונים ובפחד. 
-
-
-{.testimony typewriter}
-החיים שלנו נהרסו, הם הפכו למוות מתמשך. חיי השפלה ועלבון, בלי בית, בלי טיפת יציבות.
+The Israeli army keeps dropping leaflets ordering us to evacuate. We are living in helplessness and fear. 
 
 
 {.testimony typewriter}
-[](svg/#permanent_impermanence.svg/0.8,-0.49,3.32/+@vimeo-1132487425 "ניבאל ואביה באוהל בדיר אל-בלח")
+Our lives have been destroyed and now feel like a slow death. Lives of humiliation and indignity, without a home or any sense of stability. 
+
+
+{.testimony typewriter}
+[](svg/#permanent_impermanence.svg/0.8,-0.49,3.32/+@vimeo-1132487425 "Nibal and her father in a tent in Deir al-Balah")
 [](map/#31.41150,34.38598,9.96,38.4,0.0/+pois.csv(poi,id=deir-al-balah))
 
-כל דבר בחיים שלי כרוך בסבל עכשיו. החום באוהל נורא, ואני מזיעה אבל לא יכולה להתרחץ לבד. אני סובלת מאוד מעקיצות, כי אני לא יכולה אפילו להתגרד. 
+Every part of my life is now filled with suffering.  The heat in the tent is unbearable. I sweat but can’t shower alone. I suffer from insect bites because I can’t even scratch myself. 
 
-אני מביטה סביבי ורואה את נשות האחים שלי עסוקות עם המשפחות שלהן, ואני מתביישת לבקש עזרה.
+I look around and see my brothers’ wives caring for their families, and I’m ashamed to ask for help.
 
 
 {.meta no-h}
 [](fg:blank)
-[](map/#31.41505,34.39181,9.91,38.4,0.0/+IDF_zone_191025(idf-poly) "באדום: השטח שנותר בשליטת ישראל לפי השלב הראשון בהסכם הפסקת האש ")
+[](map/#31.41505,34.39181,9.91,38.4,0.0/+IDF_zone_191025(idf-poly) "In red: The area remaining under Israeli control according to the first phase of the ceasefire agreement")
 ### Oct 25
-ב-10 לאוקטובר 2025 נכנסה לתוקף הפסקת האש בין ישראל לחמאס. 
+On 10 October 2025, another ceasefire between Israel and Hamas took effect. 
 
-בשבועות שלאחר מכן ישראל המשיכה את תקיפותיה ברצועה בעוצמות משתנות.
+In the weeks that followed, Israel continued to carry out strikes of varying intensity in Gaza. 
 
 
 {.meta}
-[](svg/#permanent_impermanence.svg/1.77,-1.95,5.68/+@vimeo-1139274686 "מתוך האינסטגרם של ניבאל")
+[](svg/#permanent_impermanence.svg/1.77,-1.95,5.68/+@vimeo-1139274686 "From Nibal’s Instagram account")
 [](map/#31.54931,34.18377,9.91,38.4,0.0/+pois.csv(poi,id=deir-al-balah),+IDF_zone_191025(idf-poly))
-גם עם שוך ההפצצות, ניבאל, ריתא ובני משפחתן עדיין חשופים לסכנת חיים יומיומית. 
+Despite the ceasefire, Nibal and her family remain in constant danger. 
 
 
 {.meta}
-החיים במחנה האוהלים, יחד עם ההתמודדות עם האובדן של בני משפחתה, הרס הבית והנכות הקשה ממשיכים להותיר משקעים בנפשה ובגופה של ניבאל.
+Trying to survive again in a tent, while mourning the loss of her relatives and home and her own severe disability, is taking a heavy toll on Nibal’s body and mind. 
 
 
 {.meta}
-היא מתקשה לדמיין עתיד טוב יותר עבורה ועבור ריתא.
+She is struggling to imagine a better future for herself and for Rita. 
 
 
 {.meta}
-[](svg/#permanent_impermanence.svg/0.4,-1.2,3.23/+@vimeo-1139274686,+refugees_end-comp.jpg "תושבי העיר עזה נמלטים לאחר שהצבא הישראלי הורה להם להתפנות דרומה, 15 בספטמבר 2025. (רויטרס / מחמוד עיסא)")
-סיפורה של ניבאל הוא רק אחד מבין שני מיליון סיפורים של תושבי עזה שחוו אובדן, רעב ועקירה מתמשכים.
+[](svg/#permanent_impermanence.svg/0.4,-1.2,3.23/+@vimeo-1139274686,+refugees_end-comp.jpg "Residents of Gaza City flee after the Israeli military ordered them to evacuate south, 15 Sept. 2025. (Reuters / Mahmoud Issa)")
+Nibal is one of nearly two million Gaza residents who have endured loss, hunger and prolonged displacement. 
 
 
 {.meta}
-[](map/#31.54931,34.18377,9.91,38.4,0.0/~labels_he,+idf-zones,+idf-poly-outlines "באדום: האזורים שנכללו תחת צווי הפינוי של הצבא בין אוקטובר 2023 לאוקטובר 2025")
-הסיפור שלהם הוא הסיפור של חורבן עזה עצמה. 
+[](map/#31.54931,34.18377,9.91,38.4,0.0/~labels_en,+idf-zones,+idf-poly-outlines "In red: Places included in military evacuation orders, Oct. 2023-Oct.2025")
+Their story is the story of how the Gaza Strip was destroyed.
 
 
 {.meta thumb gofundme}
-במהלך החודשים האחרונים, סיפורה של ניבאל פורסם בעיתונות וברשתות החברתיות. 
-היא מקווה שבעזרת הפרסום תצליח לגייס כסף כדי לצאת מהרצועה ולעבור השתלה של גפיים תותבות, שיעזרו לה להחזיר לעצמה מעט מהעצמאות שאיבדה.
+In recent months, Nibal has shared her story with the media and on social networks. She hopes the publicity will help her raise enough money to get prosthetic limb surgery outside Gaza, so she can regain some of her independence.
 
 <a href="https://www.gofundme.com/f/help-nebal-and-her-family-survive-in-gaza?attribution_id=sl%3Ac8f825db-4dc9-4cf2-aeea-40e4e79fb7ef&utm_campaign=natman_sharesheet_dash&utm_content=amp13_c&utm_medium=customer&utm_source=whatsapp&fbclid=PAb21jcAN4JUJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAadzjiJkT7H9BLMjCNGSUD5VvOkcMtgK2I4dNb9OkV-9HZq4k7IwSljiCJ-xNw_aem_RLk6gsE3EAadchTzhrw3Gg`" target="blank">
-    הצטרפו לקמפיין:
+    Join the campaign:
     <strong>
-    להושיט יד לניבאל
+    Reach out to Nibal
     </strong>
 </a>
 
 
-
 {.meta thumb closing}
 [](fg:blank)
-[](map/#31.42216,34.36628,9.79,40.0,0.0/~labels_he)
-**המסע של ניבאל וריתא טרם נגמר.**  
+[](map/#31.42216,34.36628,9.79,40.0,0.0/~labels_en)
+**Nibal and Rita’s ordeal is not over.**  
 
-בצלם ימשיך לשמור על קשר עם ניבאל. אם יחול שינוי במצבה — נעדכן עליו בניוזלטר שלנו:
+B’Tselem will continue to follow their story and share any developments in our newsletter:
 
 <div id="mc_embed_shell">
       <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
@@ -859,27 +853,31 @@ Despite her parents’ concerns, she went back to their apartment with Rita, and
 
 
 {.meta thumb closing}
-## מתודולוגיה ומקורות
+## Methodology and sources
 
 <a href="https://btselem.org/" target="blank" class="dontinflect">
-לפרסום המלא על עקירה ברצועת עזה, 2023-2025
+For the full publication on displacement in the Gaza Strip, 2023–2025:
     <strong>
-    אין מקום בטוח
+    No Place Under the Sky
     </strong>
 </a>
 
 ### Photos and Video
-- Courtesy of Nibal Al-Hissi
+- Courtesy of Nibal Al-Hisi
 - Activestills
 - REUTERS
-- IDF Spokesperson
+- IDF Spokesperson's Unit
 
-### Geographic Information
+### Geographic data
 - Mapbox.com
 - ESRI Wayback
 - Gazamap.com
 
 ## Credits
+Mushon Zer-Aviv, Shual Studio
+Made with !nflect
+
+<img width="468" height="59" alt="image" src="https://github.com/user-attachments/assets/8eef2b08-b2da-4907-8bae-7702389d7486" />
 
 ### Product Design and Development
 - <a href="http://mushon.com" target="blank" class="dontinflect">Mushon Zer-Aviv</a>, Studio Fox
