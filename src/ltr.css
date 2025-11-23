@@ -11,6 +11,23 @@
     border-left: 8px solid #FA5F5F;
 }
 
+.ltr section.thumb > a{
+    border-right: none;
+    border-left: #FA5F5F 8px solid;
+    padding: 48px 220px 0 16px;
+}
+
+.ltr section.thumb.gofundme p{
+    border-right: none;
+    border-left: #02A85C 8px solid;
+}
+
+.ltr section.thumb.gofundme > a{
+    border-right: none;
+    border-left: #02A85C 8px solid;
+    padding: 48px 220px 0 16px;
+}
+
 .ltr #mc_embed_signup {
     border-right: 0;
     border-left: 8px solid #FA5F5F;
