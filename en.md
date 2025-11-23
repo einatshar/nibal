@@ -195,7 +195,7 @@ At the same time, the military began issuing evacuation orders in Gaza.
 The first mass orders, issued on 13 October, ordered about 1 million people in northern Gaza to leave home and go south within 24 hours.
 
 <a href="https://btselem.org/" target="blank" class="dontinflect">
-For more information, see:
+    For more information, see:
     <strong>
     Evacuation orders and “safe corridors”
     </strong>
