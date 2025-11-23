@@ -411,49 +411,51 @@ css: src/theme.css
 
 {.meta no-h}
 ### Oct 24
-[](svg/#warehouse_bureij2.svg/-55.25,60.89,157.92/+nibal_xray)
+[](svg/#warehouse_bureij2.svg/-14.13,6.94,49.62/+nibal_xray)
 [](bg:blank)
 באותו בוקר הפגיז הצבא הישראלי את אל-בוריג׳. ניבאל תיארה רעש בלתי פוסק של הפגזות. 
 
 
 {.meta}
-[](svg/#warehouse_bureij2.svg/-53.46,60.06,157.92/+nibal_xray)
+[](svg/#warehouse_bureij2.svg/-22.36,12.45,88.4/+nibal_xray)
 [](bg:blank)
 בזמן שבעלה יצא לבדוק איפה נפלו הפגזים, היא וריתא נותרו לבדן במחסן הקטן. ניבאל התקשרה לבני משפחתה ושוחחה איתם בניסיון להפיג מעט מהפחד שאחז בה. 
 
 
 {.meta}
-[](svg/#warehouse_bureij2.svg/-144.6,126.9,351.69/+nibal_xray)
+[](svg/#warehouse_bureij2.svg/-9.29,5.24,31.47/+nibal_xray)
 [](bg:blank)
 בזמן השיחה שלהם, פגז פגע במחסן.
 
 
 {.meta}
-[](svg/#warehouse_bureij2.svg/-25.59,22.33,63.19/+nibal_xray)
+[](svg/#warehouse_bureij2.svg/-14.33,5.34,54.39/+nibal_xray)
 [](bg:blank)
 ניבאל נפצעה קשה, אבל הצליחה להעזיק עזרה מתוך המחסן ההרוס. היא פונתה לבית החולים, בזמן שהשכנים שלה לקחו את ריתא לביתם.
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij2.svg/-3.4,3.03,8.63/+nibal_xray)
+[](svg/#warehouse_bureij2.svg/-2.54,1.18,8.59/+nibal_xray)
 [](bg:blank)
 
 התעוררתי בבית החולים וראיתי שנכרתו לי הידיים. 
 
 
 {.meta}
-[](svg/#warehouse_bureij2.svg/-3.84,3.41,9.8/+nibal_xray)
+[](svg/#warehouse_bureij2.svg/-1.59,0.55,5.23/+nibal_xray)
 [](bg:blank)
 כתוצאה מפגיעת הפגז, ידיה של ניבאל נקטעו מתחת למרפק והיא נכוותה קשות. בית החולים בו היא אושפזה היה שרוי בעומס אדיר של פצועים, והרופאים טיפלו בה בתנאים קשים.
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij2.svg/-3.96,3.51,10.1/+nibal_xray)
+[](svg/#warehouse_bureij2.svg/-1.17,0.86,3.93/+nibal_xray,+nibal_after_amputation)
 [](bg:blank)
 הייתי בהלם. הרגשתי כאילו הידיים שלי עדיין קיימות, או כאילו יום אחד הן יחזרו לצמוח.
 
 
 {.testimony typewriter}
+[](svg/#warehouse_bureij2.svg/-2.82,1.79,12.66/+nibal_xray,+nibal_after_amputation,+rita_tent1)
+[](bg:blank)
 שאלתי מה עם ריתא, וענו לי שהיא בריאה ושלמה. זה מה שהחזיק אותי. 
 זה, וזה שאחמד היה לצדי.
 
@@ -505,13 +507,13 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij2.svg/0.28,0.79,2.62/+@vimeo-1129846713,+rita_tent1  "מתוך חשבון הטיקטוק של ניבאל")
+[](svg/#warehouse_bureij2.svg/0.28,0.79,2.62/+@vimeo-1129846713  "מתוך חשבון הטיקטוק של ניבאל")
 
 לחזור לחיות שוב באוהל אחרי הפציעה היה קשה מאוד. לא יכולתי להשתמש בשירותים באופן עצמאי, והביך אותי כל-כך לבקש בכל פעם עזרה. 
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij2.svg/1.27,1.18,4.1/+rita_tent1 "ריתא במחנה העקורים באל-מוואסי")
+[](svg/#warehouse_bureij2.svg/-0.99,0.57,4.1/+rita_tent1 "ריתא במחנה העקורים באל-מוואסי")
 
 הבת של השכנים מהאוהל לידינו, נערה חכמה ורגישה, ריחמה עליי והגיעה בכל יום לעזור לי ולטפל בי ובריתא.
 
