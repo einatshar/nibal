@@ -1,11 +1,11 @@
-<img width="468" height="52" alt="image" src="https://github.com/user-attachments/assets/24bf54ec-851c-49d1-bcc1-4bcb0b15d30a" /><img width="468" height="52" alt="image" src="https://github.com/user-attachments/assets/593e1ed6-19e7-43af-9135-5c3a52b851bb" />---
+---
 dual-iframe: true
 body-class: snap, fs-video-mobile, ar
 css: src/theme.css, src/ar.css
 ---
 
 
-# _The Displacement Journey of_ Nibal Al-Hisi
+# _رحلة نزوح_ نِبال الهسي
 [](map/#31.30336,34.29179,9.53,37.6,0.0/~labels_he)
 [](svg/#intro-pre.svg/-0.01,0.45,1.52/+nibal2023,+home,+displacement)
 
@@ -27,25 +27,25 @@ css: src/theme.css, src/ar.css
 {.meta}
 [](svg/#intro-pre.svg/-0.02,1.21,1.52/+nibal2023,~home,~displacement)
 [](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he)
-For two years, Israel has forced Palestinians throughout the Gaza Strip to flee from place to place.
+على مدى عامين، أجبرت إسرائيل سكان قطاع غزة على النزوح من أماكنهم، مرارًا وتكرارًا.
 
 
 {.meta}
 [](svg/#intro-pre.svg/0.34,0.36,1.81/~all)
 [](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he,+idf-zones,+idf-poly-outlines "أحمر: المناطق التي شملتها أوامر الإخلاء التي أصدرها الجيش بين تشرين الأول 2023 وتشرين الأول 2025")
-In most cases, they were ordered to evacuate by the Israeli military.
+وقد فعلت ذلك، في معظم الأحيان، من خلال أوامر الإخلاء التي كان يصدرها الجيش الإسرائيلي. 
 
 
 {.meta}
 [](svg/#intro-pre.svg/0.34,0.36,1.81/~all)
 [](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he,+idf-zones "أحمر: المناطق التي شملتها أوامر الإخلاء التي أصدرها الجيش بين تشرين الأول 2023 وتشرين الأول 2025")
-Yet the evacuation orders were often misleading or issued after an attack began – leaving residents panicked, confused and in extreme danger.
+في حالات عديدة، كانت تلك الأوامر غير واضحة، مُضلِّلة، أو أنها صدرت فقط بعد أن بدأت هجمات الجيش على مناطق الإخلاء، مما زاد القلق وأثار الارتباك وشكّل خطرًا حقيقيًا على حياة المُهجَّرين. 
 
 
 {.meta}
 [](svg/#intro-pre.svg/0.34,0.36,1.81/~all)
 [](map/#31.43664,34.34673,10.18,37.6,0.0/~labels_he,+unosat-damage-231015 "Assessed density of damage to buildings in the Gaza Strip after the first week of the offensive. Source: UNOSAT")
-People also fled of their own accord, escaping the frequent airstrikes that rained down death and destruction throughout the Strip.
+بموازاة النزوح بسبب أوامر الإخلاء، اضطر سكان قطاع غزة إلى النزوح أيضًا بسبب عمليات القصف المتكررة التي شنها الجيش الإسرائيلي في جميع أنحاء قطاع غزة، والتي خلّفت دمارًا وموتًا على نطاق هائل.
 
 
 {.meta}
@@ -61,13 +61,13 @@ Throughout the offensive, Israel prevented the Internally Displaced Persons (IDP
 
 
 {.meta}
-This is her story.
+هذه قصتها.
 
 
 {.subheader}
 [](svg/#intro-pre.svg/-0.28,1.05,1/+nibal2023)
 [](map/#31.53332,34.48215,14.18,37.6,0.0/~labels_he,+Gaza_border_dash,+Gaza_border_base)
-## Life Before
+## الحياة من قبل
 
 
 {.testimony typewriter}
@@ -79,7 +79,7 @@ This is her story.
 {.testimony typewriter}
 [](svg/#intro-pre.svg/-0.67,0.25,2.4/,+nibal2023)
 
-I’m the youngest of nine brothers and three sisters.
+أنا الأصغر بين تسعة إخوة وثلاث أخوات.
 
 
 {.testimony typewriter}
@@ -91,29 +91,29 @@ I’m the youngest of nine brothers and three sisters.
 {.testimony typewriter}
 [](svg/#intro-pre.svg/-0.39,-0.21,2.4/+vimeo-1137390294,+parents-w-baby,+@vimeo-1137392053 "من حساب نبال على تيك توك")
 
-After high-school, I started studying English and Translation at Al-Azhar University in Gaza City.
+بعد المدرسة الثانوية، واصلت دراسة اللغة الإنجليزية والترجمة في جامعة الأزهر في مدينة غزة.
 
 
 {.testimony typewriter}
 [](svg/#intro-pre.svg/-0.07,-0.36,2.4/+vimeo-1137390294,+vimeo-1137392053,+@vimeo-1137391389 "من حساب نبال على تيك توك")
 
-In my final year, I met Ahmad. I felt we were alike, that he understood me.
+في سنتي الأخيرة في الجامعة، تعرفت على أحمد. شعرت بأنه يشبهني وأنه يفهمني. 
 
-I married him despite my parents’ objections. I knew we wouldn’t live in luxury, but I felt he was my treasure.
+تزوجت منه رغم معارضة أهلي. كنت أعرف أننا لن نعيش حياة رغيدة، لكنني شعرت أنه ذهَبي.
 
 
 {.testimony typewriter}
 [](svg/#intro-pre.svg/0.26,-0.41,2.4/+vimeo-1137392053,+vimeo-1137391389,+@vimeo-1137393585 "من حساب نبال على تيك توك")
 
-In September 2022, we moved into our own apartment in his family’s building in Jabalya, not far from my parents. 
+في أيلول 2022، انتقلنا للعيش في شقة خاصة بنا في بناية خاصة بعائلة أحمد، في جباليا، ليس بعيدًا عن والديّ.
 
 
 {.testimony typewriter}
-We had a happy life, surrounded by the love and warmth of our families.
+كانت حياتنا سعيدة، مليئة بالحب ومحاطة بدفء العائلة.
 
 
 {.testimony typewriter}
-We were unemployed and hard up, but we survived with our families’ help.
+كنا عاطلين عن العمل ولم يكن وضعنا الاقتصادي بسيطًا، لكننا صمدنا بفضل دعم عائلتينا.
 
 
 {.meta}
