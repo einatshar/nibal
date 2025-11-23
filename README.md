@@ -870,7 +870,6 @@ css: src/theme.css
 - ESRI Wayback
 - Gazamap.com
 
-## קרדיטים
 
 ### עיצוב ופיתוח מוצר
 - <a href="http://mushon.com" target="blank" class="dontinflect">מושון זר-אביב</a>, סטודיו שועל
