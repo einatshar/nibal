@@ -280,7 +280,7 @@ css: src/theme.css, src/ar.css
 [](fg:blank)
 [](map/#31.26878,34.25305,15.23,0.0,39.0/+pois.csv(poi,id=rafah),~labels_he,+labels_ar) 
 
-تأثرتُ كثيرًا برؤية أحمد. كان يعانق ويقبل ريتا ويقبّلها بلا توقف.
+تأثرتُ كثيرًا برؤية أحمد. كان يعانق ريتا ويقبّلها بلا توقف.
 
 
 {.testimony typewriter}
