@@ -1,4 +1,4 @@
-<img width="468" height="25" alt="image" src="https://github.com/user-attachments/assets/27bbad9e-c8eb-4407-a9d2-243e06b3eae6" /><img width="468" height="25" alt="image" src="https://github.com/user-attachments/assets/2b60ac70-6d7f-413c-a6eb-2a88faa89c0a" />---
+---
 dual-iframe: true
 body-class: snap, fs-video-mobile, ltr
 css: src/theme.css, src/ltr.css
