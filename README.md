@@ -162,7 +162,7 @@ css: src/theme.css
 
 {.meta} 
 [](svg/#intro-pre.svg/-0.02,0.02,0.5/+vimeo-1138452992)
-[](map/#31.72716,34.76485,8.57,0.0,35.0/+unosat-damage-231015,~labels_he,+pois-he(label-main,id=couple-home))
+[](map/#31.72716,34.76485,8.57,0.0,35.0/+unosat-damage-231015,~labels_he)
 ניבאל הייתה אז בביתה בג׳באליא עם בתה ריתא, אז בת חודש בלבד. 
 
 אחמד, בעלה, היה באותה עת בעבודתו בבניין בתוך ישראל.
@@ -170,7 +170,7 @@ css: src/theme.css
 
 {.meta} 
 [](fg:blank)
-[](map/#31.72716,34.76485,8.57,0.0,35.0/+unosat-damage-231015,~labels_he,+pois.csv(poi,id=home),+pois-he(label-main,id=home),+pois-he#2(label-main,id=couple-home))
+[](map/#31.72716,34.76485,8.57,0.0,35.0/+unosat-damage-231015,~labels_he,+pois.csv(poi,id=home))
 ניבאל המבוהלת החליטה לעבור עם ריתא לבית הוריה הסמוך.
 
 
@@ -246,7 +246,7 @@ css: src/theme.css
 
 {.meta} 
 [](fg:blank)
-[](map/#31.41524,34.36943,10.06,-0.8,0.0/+pois.csv2(poi,id=khan-yunis),+arrow,+unosat-damage-240107,+pois-he(label-main,id=khan-yunis),+pois-he#2(label-main,id=couple-home) "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר שלושה חודשי מתקפה. מקור: UNOSAT")
+[](map/#31.41524,34.36943,10.06,-0.8,0.0/+pois.csv2(poi,id=khan-yunis),+arrow,+unosat-damage-240107,+pois-he(label-main,id=khan-yunis),+pois-he#2(label-main,id=family-home) "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר שלושה חודשי מתקפה. מקור: UNOSAT")
 בפברואר 2024 שיחרר הצבא הישראלי את אחמד, והוא הגיע לח'אן יונס שבדרום הרצועה.  
 
 למרות התנגדותם הנחרצת של הוריה, ניבאל החליטה לצאת דרומה, בתקווה להתאחד עם בעלה.
@@ -377,7 +377,7 @@ css: src/theme.css
 {.meta} 
 [](fg:blank)
 [](map/#31.44772,34.39655,13.00,0.0,39.0/+rafah-bureij(2-by-foot),+pois.csv(poi,id=bureij),+pois-he(label-main,id=bureij))
-ניבאל ומשפחתה המצומצמת הגיעו למחנה הפליטים אל-בוריג׳ שבמרכז הרצועה, שם שכרו מחסן קטן מחברים.
+הם הגיעו למחנה הפליטים אל-בוריג׳ שבמרכז הרצועה, שם שכרו מחסן קטן מחברים.
 
 
 {.subheader}
@@ -450,8 +450,6 @@ css: src/theme.css
 
 
 {.meta}
-[](svg/#warehouse_bureij2.svg/-1.59,0.55,5.23/+nibal_xray)
-[](bg:blank)
 כתוצאה מפגיעת הפגז, ידיה של ניבאל נקטעו מתחת למרפק והיא נכוותה קשות. בית החולים בו היא אושפזה היה שרוי בעומס אדיר של פצועים, והרופאים טיפלו בה בתנאים קשים.
 
 
@@ -580,7 +578,7 @@ css: src/theme.css
 
 
 {.meta}
-[](svg/#ceasefire_hope.svg/-0.54,-0.16,0.87/+@vimeo-1136076448,~prisoners_2-comp.jpg)
+[](fg:blank)
 [](map/#31.43623,34.35063,10.79,0.0,39.0/+al-mawasi-jabalia(by-car):follow+,+al-mawasi,+family-home,+cities,+villages,+idf-poly-outlines,+pois-he(label-main,id=jabalia),+pois-he#2(label-main,id=al-mawasi))
 
 גם ניבאל ואחמד יצאו צפונה עם ריתא בת השנה וארבעה חודשים. 
