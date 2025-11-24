@@ -609,7 +609,7 @@ Despite her parents’ concerns, she went back to their apartment with Rita, and
 
 {.meta}
 [](svg/#ceasefire_hope.svg/-0.12,0.29,1.48/+@vimeo-1129871187,+vimeo-1137391158,~prisoners_2-comp.jpg)
-[](map/#31.43623,34.35063,10.79,0.0,39.0/+IDF_zone_21_25_03_25(idf-poly),+idf-poly-outlines,~labels_he,+villages,+cities "In red: Places included in military evacuation orders issued in the week after israel broke the ceasefire in March 2025")
+[](map/#31.43623,34.35063,10.79,0.0,39.0/+IDF_zone_21_25_03_25(idf-poly),+idf-poly-outlines,~labels_he,+villages,+cities "In red: Places included in evacuation orders issued the week after Israel violated the ceasefire in March 2025")
 But then the war resumed. 
 
 Under the pressure of bombardments and blockade, tensions in the marriage resurfaced. 
