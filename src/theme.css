@@ -632,6 +632,10 @@ input#mce-EMAIL{
         min-width: 400px;
     }
 
+    section:first-of-type > a.thumb{
+        margin: 40px auto 180px;
+    }
+
     section:first-of-type > div#lang{
         margin: 80px 0 320px;
     }
