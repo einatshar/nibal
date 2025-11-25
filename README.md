@@ -13,9 +13,9 @@ css: src/theme.css
 </div>
 
 <div id="lang">
-    <a href="#" target="blank" class="dontinflect">עברית</a>
-    <a href="#en" target="blank" class="dontinflect">English</a>
-    <a href="#ar" target="blank" class="dontinflect">عربي</a>
+    <a href="index.html" target="blank" class="dontinflect">עברית</a>
+    <a href="index.html#en" target="blank" class="dontinflect">English</a>
+    <a href="index.html#ar" target="blank" class="dontinflect">عربي</a>
 </div>
 
 <a href="https://www.btselem.org/hebrew/202511_no_place_under_heaven_forced_displacement_in_the_gaza_strip_2023_2025" target="blank" class="dontinflect thumb">
@@ -369,7 +369,7 @@ css: src/theme.css
 
 {.meta} 
 [](fg:blank)
-[](map/#31.35894,34.31925,10.36,0.0,39.0/+rafah-bureij(2-by-foot):follow+,+pois.csv(poi)[name=rafah],+pois.csv(poi)[name=bureij],+cities,+villages,+idf-poly-outlines,+IDF_zone_060524-110524_NEW(idf-poly),+pois-he(label-main,id=rafah),+pois-he#2(label-main,id=bureij))
+[](map/#31.35894,34.31925,10.36,0.0,39.0/+rafah-bureij(2-by-foot):follow+,+pois.csv(poi)[name=rafah],+pois.csv(poi)[name=bureij],+idf-poly-outlines,+IDF_zone_060524-110524_NEW(idf-poly),+pois-he(label-main,id=rafah),+pois-he#2(label-main,id=bureij))
 
 ניבאל, אחמד וריתא נאלצו להימלט מרפיח יחד עם כמיליון איש נוספים, רובם המוחלט עקורים להם הורה הצבא הישראלי להתרכז בעיר בחודשים שלפני כן.
 
@@ -465,7 +465,7 @@ css: src/theme.css
 
 {.meta}
 [](fg:blank)
-[](map/#31.38437,34.30257,11.63,0.0,39.0/+al-zawaida-al-mawasi(2-by-foot):follow+,+al-zawaida,+al-mawasi,+cities,+villages,+idf-poly-outlines,+pois-he(label-main,id=al-zawaida),+pois-he#2(label-main,id=al-mawasi))
+[](map/#31.38437,34.30257,11.63,0.0,39.0/+al-zawaida-al-mawasi(2-by-foot):follow+,+al-zawaida,+al-mawasi,+idf-poly-outlines,+pois-he(label-main,id=al-zawaida),+pois-he#2(label-main,id=al-mawasi))
 ניבאל השתחררה מבית החולים לאחר 40 יום. בשלב זה, היא, אחמד וריתא נאלצו לעקור שוב.
 
 הם הגיעו ל״אזור ההומניטרי״ באל-מוואסי, שם הם חיו שוב באוהל.
@@ -576,7 +576,7 @@ css: src/theme.css
 
 {.meta}
 [](fg:blank)
-[](map/#31.43623,34.35063,10.79,0.0,39.0/+al-mawasi-jabalia(by-car):follow+,+al-mawasi,+family-home,+cities,+villages,+idf-poly-outlines,+pois-he(label-main,id=jabalia),+pois-he#2(label-main,id=al-mawasi))
+[](map/#31.43623,34.35063,10.79,0.0,39.0/+al-mawasi-jabalia(by-car):follow+,+al-mawasi,+family-home,+idf-poly-outlines,+pois-he(label-main,id=jabalia),+pois-he#2(label-main,id=al-mawasi))
 
 גם ניבאל ואחמד יצאו צפונה עם ריתא בת השנה וארבעה חודשים. 
 
