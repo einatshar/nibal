@@ -618,9 +618,9 @@ Living under the pressure of the Israeli blockade and airstrikes, tensions in th
 
 
 {.meta}
-[](svg/#ceasefire_hope.svg/-0.12,0.29,1.48/+@vimeo-1129871187,+vimeo-1137391158,~prisoners_2-comp.jpg)
+[](svg/#ceasefire_hope.svg/0.3,0.51,2.15/+@vimeo-1129871187,+vimeo-1137391158 "From Nibal’s TikTok account")
 [](bg:blank)
-Ahmad was struggling with the consequences  of his time in Israeli detention.
+Ahmad was struggling with the consequences of his time in Israeli detention.
 
 
 {.testimony typewriter}
@@ -630,7 +630,7 @@ In a way, it felt like he’d lost a part of himself there.
 
 
 {.meta}
-[](svg/#ceasefire_hope.svg/0.25,0.39,1.74/+@vimeo-1137391158,+prisoners_2-comp.jpg  "From Nibal’s TikTok account")
+[](svg/#ceasefire_hope.svg/0.72,0.42,2.15/+@vimeo-1137391158  "From Nibal’s TikTok account")
 Nibal described Ahmad’s psychological challenges, which worsened as the small family struggled to survive under blockade.
 
 
@@ -680,8 +680,8 @@ My family welcomed us again with love, but the house was full of grief. My siste
 
 
 {.testimony typewriter}
-[](svg/#back_home.svg/-1.01,-0.36,1.86/~vimeo-1137391856,~vimeo-1137392312,~nibal_ruined_home1.jpg,~vimeo-1129860275)
-[](map/#31.53551,34.47021,14.64,38.4,0.0/+pois.csv(poi,id=home),+pois(label-main,id=home),~labels_he,+villages,+cities)
+[](svg/#back_home.svg/-0.95,-0.47,2.45/+nibal_home_smile3.heic)
+[](map/#31.53433,34.47235,14.64,38.4,0.0/+pois.csv(poi,id=home),+pois(label-main,id=home))
 
 I was frustrated because I couldn’t do anything on my own, and I struggled to care for Rita. 
 
@@ -690,7 +690,7 @@ Even with all the support from my parents, I felt like a burden for them, too.
 
 {.testimony typewriter}
 [](svg/#back_home.svg/-0.82,0.28,1.98/+@vimeo-1137391856,+vimeo-1137392312,+nibal_ruined_home1.jpg "An airstrike in the family’s neighborhood, August 2025")
-[](map/#31.52909,34.48128,15.23,38.4,0.0/+pois.csv(poi,id=home),~labels_he,+villages,+cities)
+[](map/#31.53433,34.47235,14.64,38.4,0.0/+pois.csv(poi,id=home),~labels_he,+villages,+cities)
 
 There were airstrikes in our area all the time. Many people were displaced again. But my extended family is huge, and we had nowhere to go without splitting up.
 
@@ -728,7 +728,7 @@ Later, Nibal learned that the building she had lived in most of her life with he
 
 
 {.meta}
-[](svg/#permanent_impermanence.svg/-0.83,0.97,2.66/+nibal_ruined_home2.jpg "The area of Nibal’s home after the bombing")
+[](svg/#permanent_impermanence.svg/-0.66,1.26,3.27/+nibal_ruined_home2.jpg "The area of Nibal’s home after the bombing")
 [](map/#31.53196,34.47651,15.28,38.4,0.0/+pois.csv(poi,id=home),+pois(label-main,id=home),~labels_he,+villages,+cities)
 Nibal walked with Rita and about 50 people from her family to Gaza City, in search of safety.
 
@@ -742,7 +742,7 @@ They sheltered in an abandoned restaurant belonging to friends, and later in a c
 During those weeks, Israel launched another ground invasion into Gaza City.
 
 {.meta thumb} 
-[](svg/#permanent_impermanence.svg/0.12,0.54,2.43/+IDF_order_gaza_city-comp.jpg,+leaving_gaza_city_comp.jpg,@vimeo-1136076786 "A leaflet ordering evacuation dropped by an Israeli plane in Gaza City, 9 Sept. 2025 (Reuters/Dawoud Abu Alkas)")
+[](svg/#permanent_impermanence.svg/0.55,0.69,2.43/+IDF_order_gaza_city-comp.jpg "A leaflet ordering evacuation dropped by an Israeli plane in Gaza City, 9 Sept. 2025 (Reuters/Dawoud Abu Alkas)")
 [](map/#31.50774,34.46034,14.51,38.4,0.0/+IDF_zone_090925_NEW(idf-poly),+pois.csv(poi,id=gaza-2509),~labels_he,+villages,+cities)
 In early September 2025, just weeks after Nibal arrived in Gaza City, Israel ordered about 1.2 million people to evacuate the city.
 
@@ -755,8 +755,8 @@ In early September 2025, just weeks after Nibal arrived in Gaza City, Israel ord
 
 
 {.meta}
-[](svg/#permanent_impermanence.svg/0.16,0.34,2.41/+leaving_gaza_city_comp.jpg,@vimeo-1136076786)
-[](map/#31.43623,34.35063,10.79,0.0,39.0/+gaza-deir-al-balah(by-car):follow+,+pois.csv(poi,id=gaza-2509),+IDF_zone_090925_NEW(idf-poly),+idf-poly-outlines,~labels_he,+villages,+cities "IDPs flee the northern Gaza Strip, 1 Sept. 2025 (NurPhoto/Majdi Fathi)")
+[](fg:blank)
+[](map/#31.43623,34.35063,10.79,0.0,39.0/+gaza-deir-al-balah(by-car):follow+,+pois.csv(poi,id=gaza-2509),+IDF_zone_090925_NEW(idf-poly),+idf-poly-outlines,~labels_he,+villages,+cities)
 The family fled south again, this time to a tent camp in Deir al-Balah.  
 
 
@@ -782,7 +782,7 @@ I look around and see my brothers’ wives caring for their families, and I’m 
 
 {.meta no-h}
 [](fg:blank)
-[](map/#31.41505,34.39181,9.91,38.4,0.0/+IDF_zone_191025(idf-poly),~labels_he,+villages,+cities "In red: The area remaining under Israeli control according to the first phase of the Oct. 2025 ceasefire deal")
+[](map/#31.41505,34.39181,9.91,38.4,0.0/+IDF_zone_191025(idf-poly),+pois-he(label-main,id=deir-al-balah),~labels_he,+villages,+cities "In red: The area remaining under Israeli control according to the first phase of the Oct. 2025 ceasefire deal")
 ### Oct 25
 On 10 October 2025, another ceasefire between Israel and Hamas took effect. 
 
@@ -790,8 +790,8 @@ Israel continued to bomb the Gaza Strip in the weeks that followed.
 
 
 {.meta}
-[](svg/#permanent_impermanence.svg/1.77,-1.95,5.68/+@vimeo-1139274686 "From Nibal’s Instagram account")
-[](map/#31.54931,34.18377,9.91,38.4,0.0/+pois.csv(poi,id=deir-al-balah),+IDF_zone_191025(idf-poly),~labels_he,+villages,+cities)
+[](svg/#permanent_impermanence.svg/2.02,-1.82,5.68/+@vimeo-1139274686 "From Nibal’s Instagram account")
+[](bg:blank)
 Despite the ceasefire, Nibal and her family are still in constant danger.
 
 
@@ -804,12 +804,12 @@ She is fighting to imagine a better future for herself and for Rita.
 
 
 {.meta}
-[](svg/#permanent_impermanence.svg/0.4,-1.2,3.23/+@vimeo-1139274686,+refugees_end-comp.jpg "Residents flee Gaza City following military orders to go south, 15 Sept. 2025 (Reuters / Mahmoud Issa)")
+[](svg/#permanent_impermanence.svg/0.76,-1.17,3.23/+@vimeo-1139274686,+refugees_end-comp.jpg "Residents flee Gaza City following military orders to go south, 15 Sept. 2025 (Reuters / Mahmoud Issa)")
 Nibal is one of nearly 2 million people in Gaza enduring loss, hunger and prolonged displacement.
 
 
 {.meta}
-[](map/#31.54931,34.18377,9.91,38.4,0.0/~labels_he,+idf-zones,+idf-poly-outlines "In red: Places included in military evacuation orders, Oct. 2023-Oct.2025")
+[](map/#31.40796,34.38347,9.91,38.4,0.0/~labels_he,+idf-zones,+idf-poly-outlines "In red: Places included in military evacuation orders, Oct. 2023-Oct.2025")
 Their story is the story of how the Gaza Strip was destroyed.
 
 
