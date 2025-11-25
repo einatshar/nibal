@@ -1,6 +1,6 @@
 ---
 dual-iframe: true
-body-class: snap, fs-video-mobile, ar
+body-class: snap, ar, fs-video-mobile
 css: src/theme.css, src/ar.css
 ---
 
