@@ -192,13 +192,13 @@ css: src/theme.css
 
 {.meta} 
 [](fg:blank)
-[](map/#31.37771,34.43288,10.00,37.6,0.0/+IDF_zone_081023(idf-poly) "באדום: האיזורים הנכללים בצווי הפינוי שהפיץ הצבא הישראלי לתושבי עזה ב-8 באוקטובר 2023")
+[](map/#31.41869,34.37279,10.00,37.6,0.0/+IDF_zone_081023(idf-poly) "באדום: האיזורים הנכללים בצווי הפינוי שהפיץ הצבא הישראלי לתושבי עזה ב-8 באוקטובר 2023")
 במקביל, הצבא הישראלי החל להפיץ צווי פינוי לתושבי עזה.
 
 
 {.meta} 
 [](svg/#oct7.svg/0.04,-0.06,1.77/+IDF_order_north)
-[](map/#31.56174,34.26564,9.50,-45.3,0.0/+north,+arrow "תושב העיר עזה מחזיק בצו פינוי שהוטל ממטוס ישראלי, המזהיר מפני ״מתקפה קרובה״ על רצועת עזה וקורא לתושבים לעבור דרומה, 13 באוקטובר 2023. (Anadolu / דועאא אל-באז)")
+[](map/#31.54982,34.25067,9.50,-48.5,0.0/+north,+arrow "תושב העיר עזה מחזיק בצו פינוי שהוטל ממטוס ישראלי, המזהיר מפני ״מתקפה קרובה״ על רצועת עזה וקורא לתושבים לעבור דרומה, 13 באוקטובר 2023. (Anadolu / דועאא אל-באז)")
 צווי הפינוי ההמוניים הראשונים, שהוצאו ב-13 לאוקטובר, הורו לכמיליון תושבי צפון הרצועה לעזוב את בתיהם ולעקור לדרום הרצועה תוך 24 שעות.
 
 <a href="https://www.btselem.org/hebrew/202511_no_place_under_heaven_forced_displacement_in_the_gaza_strip_2023_2025#evacuation_orders" target="blank" class="dontinflect thumb">
@@ -222,7 +222,7 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#oct7.svg/-1.63,1.25,3.54/+nibal_rita_hands-comp.jpg)
+[](svg/#oct7.svg/-1.6,1.15,3.54/+nibal_rita_hands-comp.jpg)
 [](map/#31.53103,34.47759,13.51,38.4,0.0/+north,+arrow,+unosat-damage-231015,+pois.csv(poi,id=home))
 נשארנו למרות ההפצצות, הרעב והפחד. סבלתי מאוד בתקופה הזאת. אחמד חסר לי מאוד ולא יכולתי לדמיין את העקירה לבד עם ריתא, בלעדיו ובלי התמיכה של המשפחה שלי.
 
@@ -239,7 +239,7 @@ css: src/theme.css
 
 
 {.meta} 
-[](svg/#oct7.svg/0.01,-0.42,1.99/+ruined_jabalia "תושבים בוחנים אתר תקיפה ישראלית על בית בג׳באליא, 3 בינואר 2024. (רויטרס / עימאד גבון)")
+[](svg/#oct7.svg/0.02,-0.6,2.64/+ruined_jabalia "תושבים בוחנים אתר תקיפה ישראלית על בית בג׳באליא, 3 בינואר 2024. (רויטרס / עימאד גבון)")
 [](map/#31.50989,34.46989,12.68,39.2,0.5/)
 התושבים שעוד נותרו בג׳אבליא תועדו מסתובבים בין ההריסות, כשהם מנסים לאסוף את מה שנותר מרכושם.
 
@@ -321,7 +321,7 @@ css: src/theme.css
 
 
 {.meta}
-[](svg/#south.svg/-0.02,0,3.98/+rafah_tent_comp.jpg "עקורים במחנה אוהלים בח'אן יונס, 11 בדצמבר 2023. (רויטרס / איברהים אבו מוסטפא)")
+[](svg/#south.svg/-0.03,0.03,5.52/+rafah_tent_comp.jpg "עקורים במחנה אוהלים בח'אן יונס, 11 בדצמבר 2023. (רויטרס / איברהים אבו מוסטפא)")
 [](map/#31.27110,34.25408,16.36,0.0,39.0/+pois.csv(poi,id=rafah)) 
 על אף שמחת האיחוד עם אחמד, ניבאל התקשתה להסתגל לחיים באוהל ברפיח. 
 
@@ -337,7 +337,7 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#south.svg/-0.52,-1.83,7.04/+rita_tent2.jpg "ריתא במחנה העקורים ברפיח")
+[](svg/#south.svg/-0.53,-2.08,8.19/+rita_tent2.jpg "ריתא במחנה העקורים ברפיח")
 [](map/#31.27517,34.20911,12.96,0.0,39.0/+pois.csv(poi,id=rafah))    
 זה היה עינוי מתמשך, ככל הנראה מהתקופות הקשות בחיי.
 
@@ -350,7 +350,7 @@ css: src/theme.css
 
 {.meta} 
 [](svg/#south.svg/0.24,-1.2,2.76/+IDF_order_rafah)
-[](map/#31.45870,34.34010,10.35,-49.6,24.5/+IDF_zone_060524-110524(idf-poly),~oct23-IDF_heatmap,+idf-poly-outlines,+IDF_zone_060524-110524_NEW(idf-poly) "בתמונה: צווי הפינוי שהפיץ הצבא הישראלי לתושבי ושוהי רפיח ב-6 במאי 2024")
+[](map/#31.45106,34.33247,10.35,-49.6,24.5/+IDF_zone_060524-110524(idf-poly),~oct23-IDF_heatmap,+idf-poly-outlines,+IDF_zone_060524-110524_NEW(idf-poly) "בתמונה: צווי הפינוי שהפיץ הצבא הישראלי לתושבי ושוהי רפיח ב-6 במאי 2024")
 בתחילת מאי 2024, פחות מחודשיים לאחר הגעתם של ניבאל, אחמד וריתא לעיר, הפיץ הצבא הישראלי צווי פינוי חדשים שדרשו מתושבי רפיח ומהעקורים השוהים בה להתפנות.  
 
 <a href="https://www.btselem.org/hebrew/202511_no_place_under_heaven_forced_displacement_in_the_gaza_strip_2023_2025#rafah_invasion
@@ -363,12 +363,12 @@ css: src/theme.css
 
 
 {.meta} 
-[](svg/#south.svg/-0.01,-3.65,8.67/+rafah_bomb_comp.jpg "תושב רפיח צופה בעשן מיתמר בזמן שכוחות ישראליים מנהלים מתקפה אווירית וקרקעית במזרח העיר, 7 במאי 2024. (רויטרס / חאתם חאלד)")
+[](svg/#south.svg/0,-3.69,8.67/+rafah_bomb_comp.jpg "תושב רפיח צופה בעשן מיתמר בזמן שכוחות ישראליים מנהלים מתקפה אווירית וקרקעית במזרח העיר, 7 במאי 2024. (רויטרס / חאתם חאלד)")
 במקביל להפצת צווי הפינוי, ישראל הגבירה את תקיפותיה ברפיח.
 
 
 {.meta} 
-[](svg/#south.svg/-1.59,-2.33,5.6/+leaving_rafah-comp.jpg)
+[](fg:blank)
 [](map/#31.35894,34.31925,10.36,0.0,39.0/+rafah-bureij(2-by-foot):follow+,+pois.csv(poi)[name=rafah],+pois.csv(poi)[name=bureij],+cities,+villages,+idf-poly-outlines,+IDF_zone_060524-110524_NEW(idf-poly),+pois-he(label-main,id=rafah),+pois-he#2(label-main,id=bureij) "תושבי אל-בוריג׳ צועדים בין מבנים שנהרסו בהפצצות ישראליות, 24 ביוני 2024. (NurPhoto / מג׳די פאתחי)")
 
 ניבאל, אחמד וריתא נאלצו להימלט מרפיח יחד עם כמיליון איש נוספים, רובם המוחלט עקורים להם הורה הצבא הישראלי להתרכז בעיר בחודשים שלפני כן.
@@ -387,8 +387,8 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij1.svg/-0.47,-0.31,1.15/+warehouse_new-compressed.jpg "מחנה הפליטים א-שאטי בעיר עזה, 15 ביולי 2025. (REUTERS/מחמוד עיסא)")
-[](map/#31.44772,34.39655,13.00,0.0,39.0/+pois.csv(poi,id=bureij))
+[](svg/#warehouse_bureij1.svg/-0.08,-0.43,2.71/+warehouse_new-compressed.jpg "מחנה הפליטים א-שאטי בעיר עזה, 15 ביולי 2025. (REUTERS/מחמוד עיסא)")
+[](bg:blank)
 
 החיים במחסן היו קצת יותר יציבים מאשר החיים באוהל, אבל הרגשתי חצויה. מצד אחד שמחתי להיות עם בעלי והבת שלי, ומצד שני, המרחק מהמשפחה ומהבית שלי בג׳אבליא גרם לי להרגיש בודדה ומנוכרת. התגעגעתי אליהם מאוד.
 
@@ -399,15 +399,13 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij1.svg/-0.1,0.4,1.53/+@vimeo-1130687838 "ריתא במחסן באל-בוריג׳, מתוך חשבון הטיקטוק של ניבאל")
-[](map/#31.44772,34.39655,13.00,0.0,39.0/+pois.csv(poi,id=bureij))
+[](svg/#warehouse_bureij1.svg/0.18,0.57,2.26/+@vimeo-1130687838 "ריתא במחסן באל-בוריג׳, מתוך חשבון הטיקטוק של ניבאל")
+[](bg:blank)
 
 גרנו במחסן בערך חמישה חודשים. חיינו בתנאים לא פשוטים, אבל הרגשתי שלאט לאט הצלחנו למצוא קצת נחת.
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij1.svg/-0.1,0.4,1.53/+@vimeo-1130687838 "ריתא במחסן באל-בוריג׳, מתוך חשבון הטיקטוק של ניבאל")
-[](map/#31.44772,34.39655,13.00,0.0,39.0/+pois.csv(poi,id=bureij))
 בבוקר של ה-7 באוקטובר 2024 ריתא קראה לי "אמא" בפעם הראשונה. זה היה מרגש מאוד.
 
 
@@ -454,20 +452,19 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij2.svg/-1.17,0.86,3.93/+nibal_xray,+nibal_after_amputation)
-[](bg:blank)
+
 הייתי בהלם. הרגשתי כאילו הידיים שלי עדיין קיימות, או כאילו יום אחד הן יחזרו לצמוח.
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij2.svg/-2.82,1.79,12.66/+nibal_xray,+nibal_after_amputation,+rita_tent1)
+[](svg/#warehouse_bureij2.svg/-2.82,1.79,12.66/+rita_tent1)
 [](bg:blank)
 שאלתי מה עם ריתא, וענו לי שהיא בריאה ושלמה. זה מה שהחזיק אותי. 
 זה, וזה שאחמד היה לצדי.
 
 
 {.meta}
-[](svg/#warehouse_bureij2.svg/-0.07,-0.93,2.26/+leaving_to_mawasi_triple_comp.jpg)
+[](fg:blank)
 [](map/#31.38437,34.30257,11.63,0.0,39.0/+al-zawaida-al-mawasi(2-by-foot):follow+,+al-zawaida,+al-mawasi,+cities,+villages,+idf-poly-outlines,+pois-he(label-main,id=al-zawaida),+pois-he#2(label-main,id=al-mawasi) "עקורות נושאות את חפציהן על כביש סלאח א־דין באיזור דיר אל־בלח, 20 בנובמבר 2024. (NurPhoto / מג׳די פאתחי)")
 ניבאל השתחררה מבית החולים לאחר 40 יום. בשלב זה, היא, אחמד וריתא נאלצו לעקור שוב.
 
@@ -532,7 +529,7 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij3.svg/-1.44,1.19,4.06/+nibal_after_amputation)
+[](svg/#warehouse_bureij2.svg/-1.13,0.91,3.93/+nibal_after_amputation)
 [](bg:blank)
 
 השתדלתי להישאר מטופחת, ועם עזרה גם להתלבש, להתאפר ולצאת מהאוהל.
@@ -665,13 +662,16 @@ css: src/theme.css
 
 
 {.meta}
-[](svg/#back_home.svg/-0.16,-0.11,1.43/~vimeo-1137391856,~vimeo-1137392312,~nibal_ruined_home1.jpg,~nibal_home_smile3.heic "תושבים בסמוך לגופות הרוגים באתר תקיפה ישראלית על בית בג'באליא, 18 באפריל 2025. (סאהר אל־ע'ורה / ZUMA Press Wire)")
-[](map/#31.53551,34.47021,14.64,38.4,0.0/+pois.csv(poi,id=home),+pois.csv#2(poi,id=couple-home),+pois-he(label-main,id=home),+pois-he#2(label-main,id=couple-home))
+[](fg:blank)
+[](map/#31.52971,34.48003,14.64,38.4,0.0/+pois.csv(poi,id=home),+pois.csv#2(poi,id=couple-home),+pois-he(label-main,id=home),+pois-he#2(label-main,id=couple-home))
 
 בתחילת יוני 2025, החליטה ניבאל לחזור עם ריתא לבית הוריה הסמוך.
  
 
 {.testimony typewriter}
+[](svg/#back_home.svg/0.4,-0.18,2.6/+jabalia_april_25.JPG "תושבים בסמוך לגופות הרוגים באתר תקיפה ישראלית על בית בג'באליא, 18 באפריל 2025. (סאהר אל־ע'ורה / ZUMA Press Wire)")
+[](bg:blank)
+
 המשפחה שוב קיבלה את פנינו באהבה, אבל בבית שרר עצב כבד. אני ואחותי, שאיבדה את שלושת ילדיה, ניסינו לנחם אחת את השנייה.
 
 
@@ -692,7 +692,7 @@ css: src/theme.css
 
 
 {.meta}
-[](map/#31.53196,34.47651,15.28,38.4,0.0/+pois.csv(poi,id=home))
+[](map/#31.52971,34.48003,14.64,38.4,0.0/+pois.csv(poi,id=home))
 בסוף אוגוסט 2025, כוחות הצבא הישראלי נכנסו לג'באליא והתקדמו אל עבר השכונה של ניבאל. 
 
 ההפגזות הלכו והתקרבו לביתה.  
