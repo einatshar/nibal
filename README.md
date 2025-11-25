@@ -369,7 +369,7 @@ css: src/theme.css
 
 {.meta} 
 [](fg:blank)
-[](map/#31.35894,34.31925,10.36,0.0,39.0/+rafah-bureij(2-by-foot):follow+,+pois.csv(poi)[name=rafah],+pois.csv(poi)[name=bureij],+cities,+villages,+idf-poly-outlines,+IDF_zone_060524-110524_NEW(idf-poly),+pois-he(label-main,id=rafah),+pois-he#2(label-main,id=bureij) "תושבי אל-בוריג׳ צועדים בין מבנים שנהרסו בהפצצות ישראליות, 24 ביוני 2024. (NurPhoto / מג׳די פאתחי)")
+[](map/#31.35894,34.31925,10.36,0.0,39.0/+rafah-bureij(2-by-foot):follow+,+pois.csv(poi)[name=rafah],+pois.csv(poi)[name=bureij],+cities,+villages,+idf-poly-outlines,+IDF_zone_060524-110524_NEW(idf-poly),+pois-he(label-main,id=rafah),+pois-he#2(label-main,id=bureij))
 
 ניבאל, אחמד וריתא נאלצו להימלט מרפיח יחד עם כמיליון איש נוספים, רובם המוחלט עקורים להם הורה הצבא הישראלי להתרכז בעיר בחודשים שלפני כן.
 
@@ -510,7 +510,7 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij2.svg/0.28,0.79,2.62/+@vimeo-1129846713  "מתוך חשבון הטיקטוק של ניבאל")
+[](svg/#warehouse_bureij2.svg/0.78,0.99,3.44/+@vimeo-1129846713  "מתוך חשבון הטיקטוק של ניבאל")
 
 לחזור לחיות שוב באוהל אחרי הפציעה היה קשה מאוד. לא יכולתי להשתמש בשירותים באופן עצמאי, והביך אותי כל-כך לבקש בכל פעם עזרה. 
 
@@ -584,19 +584,19 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#ceasefire_hope.svg/-0.77,-0.44,1.93/+nibal_rita_home.jpg,+nibal_rita_happy.jpg,+@vimeo-1129854927 "מתוך חשבון הטיקטוק של ניבאל")
+[](svg/#ceasefire_hope.svg/-0.51,-0.49,1.93/+nibal_rita_home.jpg,+nibal_rita_happy.jpg,+@vimeo-1129854927 "מתוך חשבון הטיקטוק של ניבאל")
 
 המשפחה קיבלה אותי בבית בחיבוקים, שירים ובכי. בלילות נפגשנו כל האחים בבית ההורים שלי.
 
 
 {.testimony typewriter}
-[](svg/#ceasefire_hope.svg/-0.39,-0.4,1.93/+nibal_rita_home.jpg,+nibal_rita_happy.jpg)
+[](svg/#ceasefire_hope.svg/0.01,-0.47,1.93/+nibal_rita_home.jpg,+nibal_rita_happy.jpg)
 
 האחיות שלי היו לצידי כל הזמן ועזרו לי בהכל: להתקלח, להתלבש, לאכול ולטפל בריתא. 
 
 
 {.testimony typewriter}
-[](svg/#ceasefire_hope.svg/-0.13,-0.49,1.93/+nibal_rita_home.jpg)
+[](svg/#ceasefire_hope.svg/0.53,-0.52,1.93/+nibal_rita_home.jpg)
 
 הן החליפו לה חיתולים, חיבקו אותה ושיחקו איתה. בזכותן הרגשתי שהחיים שלי מתחילים לחזור למסלול.
 
