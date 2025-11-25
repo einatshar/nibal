@@ -452,13 +452,12 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij2.svg/-1.17,0.86,3.93/+nibal_xray,+nibal_after_amputation)
-[](bg:blank)
+
 הייתי בהלם. הרגשתי כאילו הידיים שלי עדיין קיימות, או כאילו יום אחד הן יחזרו לצמוח.
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij2.svg/-2.82,1.79,12.66/+nibal_xray,+nibal_after_amputation,+rita_tent1)
+[](svg/#warehouse_bureij2.svg/-2.82,1.79,12.66/+rita_tent1)
 [](bg:blank)
 שאלתי מה עם ריתא, וענו לי שהיא בריאה ושלמה. זה מה שהחזיק אותי. 
 זה, וזה שאחמד היה לצדי.
@@ -530,7 +529,7 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij3.svg/-1.44,1.19,4.06/+nibal_after_amputation)
+[](svg/#warehouse_bureij2.svg/-1.13,0.91,3.93/+nibal_after_amputation)
 [](bg:blank)
 
 השתדלתי להישאר מטופחת, ועם עזרה גם להתלבש, להתאפר ולצאת מהאוהל.
@@ -663,13 +662,16 @@ css: src/theme.css
 
 
 {.meta}
-[](svg/#back_home.svg/-0.16,-0.11,1.43/~vimeo-1137391856,~vimeo-1137392312,~nibal_ruined_home1.jpg,~nibal_home_smile3.heic "תושבים בסמוך לגופות הרוגים באתר תקיפה ישראלית על בית בג'באליא, 18 באפריל 2025. (סאהר אל־ע'ורה / ZUMA Press Wire)")
-[](map/#31.53551,34.47021,14.64,38.4,0.0/+pois.csv(poi,id=home),+pois.csv#2(poi,id=couple-home),+pois-he(label-main,id=home),+pois-he#2(label-main,id=couple-home))
+[](fg:blank)
+[](map/#31.52971,34.48003,14.64,38.4,0.0/+pois.csv(poi,id=home),+pois.csv#2(poi,id=couple-home),+pois-he(label-main,id=home),+pois-he#2(label-main,id=couple-home))
 
 בתחילת יוני 2025, החליטה ניבאל לחזור עם ריתא לבית הוריה הסמוך.
  
 
 {.testimony typewriter}
+[](svg/#back_home.svg/0.4,-0.18,2.6/+jabalia_april_25.JPG "תושבים בסמוך לגופות הרוגים באתר תקיפה ישראלית על בית בג'באליא, 18 באפריל 2025. (סאהר אל־ע'ורה / ZUMA Press Wire)")
+[](bg:blank)
+
 המשפחה שוב קיבלה את פנינו באהבה, אבל בבית שרר עצב כבד. אני ואחותי, שאיבדה את שלושת ילדיה, ניסינו לנחם אחת את השנייה.
 
 
@@ -690,7 +692,7 @@ css: src/theme.css
 
 
 {.meta}
-[](map/#31.53196,34.47651,15.28,38.4,0.0/+pois.csv(poi,id=home))
+[](map/#31.52971,34.48003,14.64,38.4,0.0/+pois.csv(poi,id=home))
 בסוף אוגוסט 2025, כוחות הצבא הישראלי נכנסו לג'באליא והתקדמו אל עבר השכונה של ניבאל. 
 
 ההפגזות הלכו והתקרבו לביתה.  
