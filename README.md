@@ -259,7 +259,7 @@ css: src/theme.css
 
 
 {.meta} 
-[](svg/#south.svg/-0.45,0.65,2.21/+@vimeo-1133751988 "מתוך חשבון האינסטגרם של ניבאל")
+[](fg:blank)
 [](map/#31.50634,34.45154,12.96,0.0,39.0/+jabalia-gaza(by-car):follow+,+pois.csv(poi,id=home),+pois.csv#2(poi,id=gaza-2403),+pois-he(label-main,id=home),+pois-he#2(label-main,id=gaza-2403))
 את תחילת הדרך עושה ניבאל עם אביה, שמסיע אותה ואת ריתא מביתם בג'אבליא לפאתי העיר עזה.
 
