@@ -31,37 +31,37 @@ css: src/theme.css, src/ltr.css
 
 {.meta}
 [](svg/#intro-pre.svg/-0.02,1.21,1.52/+nibal2023,~home,~displacement)
-[](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he)
+[](map/#31.41661,34.37347,10.01,37.6,0.0/~labels_he)
 For two years, Israel has been displacing Palestinians repeatedly throughout Gaza.
 
 
 {.meta}
 [](svg/#intro-pre.svg/0.34,0.36,1.81/~all)
-[](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he,+idf-zones,+idf-poly-outlines "In red: Areas ordered to evacuate from Oct. 2023 to Oct. 2025")
+[](map/#31.41661,34.37347,10.01,37.6,0.0/~labels_he,+idf-zones,+idf-poly-outlines "In red: Areas ordered to evacuate from Oct. 2023 to Oct. 2025")
 Most of the displacement follows on military evacuation orders.
 
 
 {.meta}
 [](svg/#intro-pre.svg/0.34,0.36,1.81/~all)
-[](map/#31.42380,34.35370,10.00,37.6,0.0/~labels_he,+idf-zones "In red: Areas ordered to evacuate from Oct. 2023 to Oct. 2025")
+[](map/#31.41661,34.37347,10.01,37.6,0.0/~labels_he,+idf-zones "In red: Areas ordered to evacuate from Oct. 2023 to Oct. 2025")
 Even without orders, many have fled the massive bombardments throughout the Strip.
 
 
 {.meta}
 [](svg/#intro-pre.svg/0.34,0.36,1.81/~all)
-[](map/#31.43664,34.34673,10.18,37.6,0.0/~labels_he,+unosat-damage-231015 "Assessed density of damage to buildings in the Gaza Strip a week into the offensive, 15 Oct. 2023 (UNOSAT)")
+[](map/#31.41661,34.37347,10.01,37.6,0.0/~labels_he,+unosat-damage-231015 "Assessed density of damage to buildings in the Gaza Strip a week into the offensive, 15 Oct. 2023 (UNOSAT)")
 People also fled of their own accord, escaping the frequent airstrikes that rained down death and destruction throughout the Strip.
 
 
 {.meta}
 [](svg/#intro-pre.svg/0.34,0.36,1.81/+displacement "Residents flee Gaza City following military orders to go south, 15 Sept. 2025 (Reuters / Mahmoud Issa)")
-[](map/#31.49997,34.25627,10.18,37.6,0.0/~labels_he,+unosat-damage-231015)
+[](map/#31.41661,34.37347,10.01,37.6,0.0/~labels_he,+unosat-damage-231015)
 Throughout the offensive, Israel has prevented these Internally Displaced Persons (IDPs) from accessing safe shelter with food, water and basic services.
 
 
 {.meta}
 [](svg/#intro-pre.svg/-0.01,0.27,1.02/+displacement,+nibal2023)
-[](map/#31.40864,34.38832,9.39,37.6,0.0/~labels_he)
+[](map/#31.41661,34.37347,10.01,37.6,0.0/~labels_he)
 Nibal al-Hisi, 25, has been repeatedly displaced with her baby daughter.
 
 
@@ -122,7 +122,7 @@ We were unemployed and survived with our families’ help.
 
 
 {.meta}
-[](svg/#intro-pre.svg/1.17,-0.61,3.26/+@vimeo-1138452992,+vimeo-1137393585,+vimeo-1137391389,+vimeo-1137392053,+vimeo-1137390294,+vimeo-1137388732,+vimeo-1137388732 "From Nibal’s TikTok account")
+[](svg/#intro-pre.svg/1.14,-0.37,3.26/+@vimeo-1138452992,+vimeo-1137393585,+vimeo-1137391389,+vimeo-1137392053,+vimeo-1137390294,+vimeo-1137388732,+vimeo-1137388732 "From Nibal’s TikTok account")
 Baby Rita was born in September 2023.
 
 
@@ -142,13 +142,13 @@ Five days later, Ahmad was issued a work permit and started a job as a construct
 ### Oct 23
 
 [](fg:blank)
-[](map/#31.38551,34.37811,10.31,-10.4,42.0/~labels_he,+oct7-hamas-en#2(bubbles))
+[](map/#31.38461,34.38113,10.13,-10.4,42.0/~labels_he,+oct7-hamas-en#2(bubbles))
 On 7 October 2023, Hamas and other armed Palestinian groups carried out the deadliest attack ever perpetrated against Israeli citizens.
 
 
 {.meta} 
 [](fg:blank)
-[](map/#31.38551,34.37811,10.31,-10.4,42.0/~labels_he,+oct7-hamas-en(label-focused),+oct7-hamas-en#2(bubbles))
+[](map/#31.38461,34.38113,10.13,-10.4,42.0/~labels_he,+oct7-hamas-en(label-focused),+oct7-hamas-en#2(bubbles))
 Entering from Gaza, the attackers killed 1,220 people, including women, elderly people and children, and left tens of thousands injured. 
 
 They carried 252 people, some living and others dead, back to Gaza.
@@ -156,7 +156,7 @@ They carried 252 people, some living and others dead, back to Gaza.
 
 {.meta} 
 [](fg:blank)
-[](map/#31.43664,34.34673,10.18,37.6,0.0/~labels_he,+villages,+cities,+unosat-damage-231015 "Assessed density of damage to buildings in the Gaza Strip a week into the offensive, 15 Oct. 2023 (UNOSAT)")
+[](map/#31.38461,34.38113,10.13,-10.4,42.0/~labels_he,+villages,+cities,+unosat-damage-231015 "Assessed density of damage to buildings in the Gaza Strip a week into the offensive, 15 Oct. 2023 (UNOSAT)")
 That same day, Israel launched a massive wave of strikes across Gaza. 
 
 
@@ -737,7 +737,7 @@ They sheltered in an abandoned restaurant belonging to friends, and later in a c
 
 {.meta} 
 [](map/#31.50774,34.46034,14.51,38.4,0.0/+pois.csv(poi,id=home),+pois.csv#2(poi,id=gaza-2509),+pois(label-main,id=home),+pois#2(label-main,id=gaza-2509),~labels_he,+villages,+cities)
-[](svg/#permanent_impermanence.svg/-0.59,0.39,2.29/+IDF_order_gaza_city-comp.jpg,+leaving_gaza_city_comp.jpg,+@vimeo-1136076786 "Residents displaced from a-Shati R.C. near Gaza City, 19 Sept. 2025 (Activestills/Yousef Zaanoun)")
+[](svg/#permanent_impermanence.svg/-0.59,0.39,2.29/+@vimeo-1136076786 "Residents displaced from a-Shati R.C. near Gaza City, 19 Sept. 2025 (Activestills/Yousef Zaanoun)")
 
 During those weeks, Israel launched another ground invasion into Gaza City.
 
@@ -809,6 +809,7 @@ Nibal is one of nearly 2 million people in Gaza enduring loss, hunger and prolon
 
 
 {.meta}
+[](fg:blank)
 [](map/#31.40796,34.38347,9.91,38.4,0.0/~labels_he,+idf-zones,+idf-poly-outlines "In red: Places included in military evacuation orders, Oct. 2023-Oct.2025")
 Their story is the story of how the Gaza Strip was destroyed.
 
