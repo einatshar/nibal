@@ -240,7 +240,7 @@ css: src/theme.css, src/ar.css
 
 {.meta} 
 [](fg:blank)
-[](map/#31.41524,34.36943,10.06,-0.8,0.0/+pois.csv2(poi,id=khan-yunis),+arrow,+pois-ar(label-main,id=khan-yunis),+pois-ar#2(label-main,id=home),~labels_he,+labels_ar "تقديرات اكتظاظ المباني التي تضررت في قطاع غزة بعد ثلاثة أشهر من الهجوم. المصدر: UNOSAT")
+[](map/#31.41524,34.36943,10.06,-0.8,0.0/+pois.csv2(poi,id=khan-yunis),+arrow,+pois-ar(label-main,id=khan-yunis),+pois-ar#2(label-main,id=home),~labels_he,+labels_ar)
 في شباط 2024، أطلق الجيش الإسرائيلي سراح أحمد، فوصل إلى خان يونس في جنوب قطاع غزة. 
 
 على الرغم من معارضة والديها الشديدة، قررت نِبال التوجه جنوبًا، على أمل لم شملها بزوجها.
