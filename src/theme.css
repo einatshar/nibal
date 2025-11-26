@@ -215,6 +215,10 @@ section.testimony p{
     border-right: 4px solid #FA5F5F;
 }
 
+section.testimony p:last-child{
+    margin-bottom: 2em;
+}
+
 section.closing {
     padding-top: 40vh;
 }
@@ -551,7 +555,7 @@ input#mce-EMAIL{
         top: 0;
         left: 0;
         width: 100vw;
-        height: 70vh;
+        height: 70dvh; /* Use dvh (dynamic viewport) for Safari mobile UI */
         z-index: 0;
         pointer-events: none; /* don't intercept taps when covered */
     }
@@ -563,7 +567,7 @@ input#mce-EMAIL{
         top: 0;
         left: 0;
         width: 100vw;
-        height: 70vh;
+        height: 70dvh; /* Use dvh (dynamic viewport) for Safari mobile UI */
         pointer-events: none; /* don't intercept taps when covered */
     }
 
@@ -578,10 +582,10 @@ input#mce-EMAIL{
     body>div#iframe-container:after {
         content: '';
         position: absolute;
-        top: 70vh;
+        top: 70dvh; /* Use dvh (dynamic viewport) for Safari mobile UI */
         width: 100%;
-        height: 15vh;
-        margin-top: -15vh;
+        height: 15dvh; /* Use dvh (dynamic viewport) for Safari mobile UI */
+        margin-top: -15dvh; /* Use dvh (dynamic viewport) for Safari mobile UI */
         pointer-events: none;
         background: linear-gradient(180deg, rgba(51, 51, 51, 0.00) 0%, #333 100%);
         display: block;
@@ -593,7 +597,7 @@ input#mce-EMAIL{
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: 100dvh; /* Use dvh (dynamic viewport) for Safari mobile UI */
         padding: 5vw 5vw;
         margin:  0 0;
         z-index: 10;
@@ -606,8 +610,8 @@ input#mce-EMAIL{
     section {
         margin: 0; /* spacing handled within main */
         max-width: none;
-        height: 80vh;
-        padding: 0 0 20vh;
+        height: 80dvh; /* Use dvh (dynamic viewport) for Safari mobile UI */
+        padding: 0 0 20dvh; /* Use dvh (dynamic viewport) for Safari mobile UI */
         justify-content: end;
         overflow: hidden; /* hide scrolling on main if content overflows */
     }
@@ -623,7 +627,7 @@ input#mce-EMAIL{
 
     section.subheader{
         justify-content: center;
-        height: 100vh;
+        height: 100dvh; /* Use dvh (dynamic viewport) for Safari mobile UI */
     }
 
     section > a.thumb{
@@ -632,7 +636,7 @@ input#mce-EMAIL{
     }
 
     section:first-of-type > a.thumb{
-        margin: 40px auto 180px;
+        margin: 40px auto 40px;
     }
 
     section:first-of-type > div#lang{

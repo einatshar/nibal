@@ -13,9 +13,9 @@ css: src/theme.css
 </div>
 
 <div id="lang">
-    <a href="index.html" target="blank" class="dontinflect">עברית</a>
-    <a href="index.html#en" target="blank" class="dontinflect">English</a>
-    <a href="index.html#ar" target="blank" class="dontinflect">عربي</a>
+    <a href="index.html" class="dontinflect">עברית</a>
+    <a href="index.html#en" class="dontinflect">English</a>
+    <a href="index.html#ar" class="dontinflect">عربي</a>
 </div>
 
 <a href="https://www.btselem.org/hebrew/202511_no_place_under_heaven_forced_displacement_in_the_gaza_strip_2023_2025" target="blank" class="dontinflect thumb">
@@ -65,6 +65,8 @@ css: src/theme.css
 
 
 {.meta}
+[](svg/#intro-pre.svg/-0.01,0.27,1.02/+displacement,+nibal2023)
+[](map/#31.41661,34.37347,10.01,37.6,0.0/~labels_he)
 זה הסיפור שלה.
 
 
@@ -113,10 +115,12 @@ css: src/theme.css
 
 
 {.testimony typewriter}
+[](svg/#intro-pre.svg/0.26,-0.41,2.4/+vimeo-1137392053,+vimeo-1137391389,+@vimeo-1137393585 "מתוך חשבון הטיקטוק של ניבאל")
 היו לנו חיים מאושרים, מלאים באהבה ועטופים בחום של המשפחה. 
 
 
 {.testimony typewriter}
+[](svg/#intro-pre.svg/0.26,-0.41,2.4/+vimeo-1137392053,+vimeo-1137391389,+@vimeo-1137393585 "מתוך חשבון הטיקטוק של ניבאל")
 היינו מובטלים ומצבנו הכלכלי לא היה פשוט, אבל שרדנו בעזרת התמיכה של המשפחות שלנו.
 
 

@@ -628,30 +628,34 @@
                 const distance = Math.max(-start, to - start); // clamp to avoid negative over-scroll
                 const absDist = Math.abs(distance);
                 
-                // For snap animations, use shorter, gentler duration
+                // For snap animations, use much shorter, precise duration
                 // For hash jumps, use longer duration
                 const isSnap = opts.source === 'snap';
                 let duration;
                 if (opts.duration) {
                     duration = opts.duration;
                 } else if (isSnap) {
-                    // Shorter, snappier duration for snaps
-                    duration = Math.min(400, Math.max(150, Math.round(absDist * 0.2) + 80));
+                    // Much shorter, more precise snap - reduces inertia feel
+                    // Allow runtime tuning via window variables
+                    const minDur = window.__snapDurationMin || 100;
+                    const maxDur = window.__snapDurationMax || 250;
+                    const multiplier = window.__snapDurationMultiplier || 0.15;
+                    const base = window.__snapDurationBase || 50;
+                    duration = Math.min(maxDur, Math.max(minDur, Math.round(absDist * multiplier) + base));
                 } else {
                     // Longer duration for intentional navigation
                     duration = Math.min(900, Math.max(300, Math.round(absDist * 0.45) + 150));
                 }
                 const startTime = performance.now();
 
-                // Stronger ease-out curve: faster initial movement, quicker stop
-                // Using cubic for snaps (stronger), quadratic for hash jumps
-                function easeOutCubic(t) { 
-                    return 1 - Math.pow(1 - t, 3);
+                // Use stronger easing for snaps to reduce perceived inertia
+                // Ease-out-quart gives very rapid deceleration for precise stops
+                // Allow runtime tuning via window.__snapEasingPower
+                const power = isSnap ? (window.__snapEasingPower || 4) : 2;
+                function easeOut(t) { 
+                    return 1 - Math.pow(1 - t, power);
                 }
-                function easeOutQuad(t) { 
-                    return 1 - (1 - t) * (1 - t);
-                }
-                const easingFn = isSnap ? easeOutCubic : easeOutQuad;
+                const easingFn = easeOut;
 
                 // Suppress other snap/scroll handlers while animating
                 // Use Math.max to preserve any existing longer suppression (e.g., from hash jumps)
@@ -1683,16 +1687,21 @@
             }
             const scroller = chooseScroller();
 
-            // Helper to compute the index of the section closest to scroller center
+            // Helper to compute the index of the section closest to current scroll position
+            // Uses section top position instead of center for better short-section handling
             function _snapCurrentIndex() {
                 const secs = Array.from(scroller.querySelectorAll('section'));
                 if (!secs.length) return 0;
-                const viewCenter = (scroller.clientHeight || window.innerHeight) / 2;
                 const scrollTop = scroller.scrollTop || 0;
+                const viewTop = scrollTop;
+                const viewBottom = scrollTop + (scroller.clientHeight || window.innerHeight);
+                const viewMiddle = (viewTop + viewBottom) / 2;
+                
                 let best = 0, bestDist = Infinity;
                 secs.forEach((s, i) => {
-                    const secCenter = s.offsetTop + s.offsetHeight / 2;
-                    const d = Math.abs(secCenter - (scrollTop + viewCenter));
+                    // Find the section whose top is closest to the middle of viewport
+                    const secTop = s.offsetTop;
+                    const d = Math.abs(secTop - viewMiddle);
                     if (d < bestDist) { bestDist = d; best = i; }
                 });
                 return best;
@@ -1700,7 +1709,43 @@
 
             function _snapToSection(sec, smooth = true) {
                 try {
-                    const top = Math.max(0, sec.offsetTop - Math.round((scroller.clientHeight - sec.offsetHeight) / 2));
+                    // On mobile, snap higher to avoid browser UI cropping text
+                    // Use a smaller vertical offset on mobile devices
+                    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+                    let top;
+                    
+                    if (isMobile) {
+                        // Different snap positions based on section type and content height
+                        const isSubheader = sec.classList.contains('subheader');
+                        
+                        if (isSubheader) {
+                            // Subheaders are 100vh tall with centered content - no offset needed
+                            top = Math.max(0, sec.offsetTop);
+                        } else {
+                            // Regular sections: 80vh tall with justify-content:end (content at bottom)
+                            // Measure actual content height to determine optimal pull-up
+                            const secHeight = sec.offsetHeight || scroller.clientHeight * 0.8;
+                            const viewportHeight = scroller.clientHeight;
+                            
+                            // For sections with lots of content, pull up more
+                            // For short sections (< 30vh), pull up less to keep them visible
+                            let pullUpRatio = 0.15; // default 15vh pull-up
+                            
+                            // Detect if section content is short by checking if it's less than half the section height
+                            const contentHeight = sec.scrollHeight;
+                            if (contentHeight < secHeight * 0.4) {
+                                // Short content - minimal pull-up (just 8vh)
+                                pullUpRatio = 0.08;
+                            }
+                            
+                            const pullUp = Math.min(150, viewportHeight * pullUpRatio);
+                            top = Math.max(0, sec.offsetTop - pullUp);
+                        }
+                    } else {
+                        // On desktop: center vertically as before
+                        top = Math.max(0, sec.offsetTop - Math.round((scroller.clientHeight - sec.offsetHeight) / 2));
+                    }
+                    
                     // If our global helper exists, use it for a softer, velocity-like animation
                     if (window.__smoothScrollTo && smooth) {
                         window.__smoothScrollTo(scroller, top, { source: 'snap' });
@@ -1716,62 +1761,105 @@
                 } catch (e) { /* swallow */ }
             }
 
-            // Track last user scroll time to determine if IntersectionObserver should snap
+            // Track last user scroll time and ensure snapping always happens
             let lastUserScrollTime = 0;
             let scrollEndTimeout = null;
+            let lastScrollTop = 0;
+            
             scroller.addEventListener('scroll', () => {
+                const currentScrollTop = scroller.scrollTop || 0;
                 lastUserScrollTime = Date.now();
+                
+                // Clear any pending snap
                 if (scrollEndTimeout) clearTimeout(scrollEndTimeout);
+                
+                // Set new snap timeout - aggressive timing
                 scrollEndTimeout = setTimeout(() => {
-                    // Scroll ended - allow IntersectionObserver to snap
-                    window.__userScrollEnded = true;
-                }, 150);
+                    // Scroll ended - ALWAYS snap to nearest section
+                    const now = Date.now();
+                    if (now > (window.__snapSuppressUntil || 0)) {
+                        const secs = Array.from(scroller.querySelectorAll('section'));
+                        if (secs.length > 0) {
+                            const idx = _snapCurrentIndex();
+                            if (secs[idx]) {
+                                // Double-check we're not already snapped
+                                const targetTop = secs[idx].offsetTop;
+                                const currentTop = scroller.scrollTop || 0;
+                                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+                                let expectedTop;
+                                if (isMobile) {
+                                    const isSubheader = secs[idx].classList.contains('subheader');
+                                    if (isSubheader) {
+                                        expectedTop = Math.max(0, targetTop);
+                                    } else {
+                                        const secHeight = secs[idx].offsetHeight || scroller.clientHeight * 0.8;
+                                        const viewportHeight = scroller.clientHeight;
+                                        let pullUpRatio = 0.15;
+                                        const contentHeight = secs[idx].scrollHeight;
+                                        if (contentHeight < secHeight * 0.4) {
+                                            pullUpRatio = 0.08;
+                                        }
+                                        const pullUp = Math.min(150, viewportHeight * pullUpRatio);
+                                        expectedTop = Math.max(0, targetTop - pullUp);
+                                    }
+                                } else {
+                                    expectedTop = Math.max(0, targetTop - Math.round((scroller.clientHeight - secs[idx].offsetHeight) / 2));
+                                }
+                                
+                                // If we're more than 10px off, snap
+                                if (Math.abs(currentTop - expectedTop) > 10) {
+                                    _snapToSection(secs[idx], true);
+                                }
+                            }
+                        }
+                    }
+                }, 100); // Reduced from 150ms to 100ms for faster response
+                
+                lastScrollTop = currentScrollTop;
             }, { passive: true });
 
-            // Observe sections within the scroller
-            const snapObserver = new IntersectionObserver((entries) => {
-                entries.forEach(en => {
-                    if (en.isIntersecting) {
-                        try {
-                            const sec = en.target;
-                            const now = Date.now() || 0;
-                            // Only snap if: 1) no programmatic snap active, AND 2) user finished scrolling
-                            const timeSinceScroll = now - lastUserScrollTime;
-                            if (now > (window.__snapSuppressUntil || 0) && timeSinceScroll > 100) {
-                                _snapToSection(sec, true);
-                            }
-                        } catch (e) {}
-                    }
-                });
-            }, { root: scroller, threshold: 0.35 });
-
-            // Attach snap observer to each section
+            // Attach snap observer to each section (for stabilization only)
             try {
                 const _secs = Array.from(scroller.querySelectorAll('section'));
-                _secs.forEach(s => snapObserver.observe(s));
+                
+                // SNAP STABILIZATION: Lock section heights after fonts load and layout settles
+                // This prevents layout shifts from affecting snap calculations
+                function stabilizeSectionHeights() {
+                    _secs.forEach(sec => {
+                        // Skip sections that already have height locked (e.g., by typewriter)
+                        if (sec.style.height) return;
+                        
+                        const height = sec.getBoundingClientRect().height;
+                        if (height > 0) {
+                            sec.style.minHeight = Math.ceil(height) + 'px';
+                        }
+                    });
+                }
+                
+                // Wait for fonts and images to load before stabilizing
+                if (document.fonts && document.fonts.ready) {
+                    document.fonts.ready.then(() => {
+                        // Give a small delay for any pending reflows
+                        setTimeout(stabilizeSectionHeights, 100);
+                    });
+                } else {
+                    // Fallback if Fonts API not available
+                    setTimeout(stabilizeSectionHeights, 500);
+                }
             } catch(e) { /* swallow */ }
 
             // (Current-section tracking is now global)
 
-            // Non-passive wheel listener to intercept and flip pages — attach to scroller
+            // Simple wheel listener: any scroll just snaps to next/previous section
+            // Mirrors the simple keyboard snap behavior
             try {
-                // Accumulator for small trackpad deltas: many trackpads emit many
-                // small wheel events that never cross the per-event threshold. We
-                // accumulate small deltas over a short window and when the total
-                // exceeds `smallGestureThreshold` we treat it as an intentional
-                // flick and snap to the next/previous section.
-                let __gestureAccumulator = 0;
-                let __gestureLastDir = 0;
-                let __gestureTimer = null;
-                const __smallGestureThreshold = 35; // px accumulated (reduced for stronger magnet)
-                const __gestureTimeoutMs = 120; // ms to wait for gesture series to finish
-
                 scroller.addEventListener('wheel', (ev) => {
                     try {
                         if (Date.now() < (window.__snapSuppressUntil || 0)) return;
-                        // mark that scroller-level wheel events are being observed
-                        try { window.__snapListenerConfirmed = true; } catch(e){}
-
+                        
+                        const delta = ev.deltaY || 0;
+                        if (Math.abs(delta) < 1) return; // ignore tiny deltas
+                        
                         // If event originated inside an element that should not snap (e.g. maps), skip
                         const path = ev.composedPath && ev.composedPath();
                         for (const node of (path || [])) {
@@ -1779,147 +1867,67 @@
                             const el = node;
                             if (el.classList && (el.classList.contains('no-snap') || el.closest && el.closest('.no-snap'))) return;
                         }
-
-                        const delta = ev.deltaY || 0;
-                        const abs = Math.abs(delta);
-                        const dir = delta > 0 ? 1 : -1;
-
-                        // Fast, large wheel deltas: immediate snap (mouse wheel)
-                        if (abs >= 16) {
-                            try { ev.preventDefault(); ev.stopPropagation(); } catch(e){}
-                            const secs = Array.from(scroller.querySelectorAll('section'));
-                            if (!secs.length) return;
-                            const idx = _snapCurrentIndex();
-                            const nextIdx = delta > 0 ? Math.min(secs.length - 1, idx + 1) : Math.max(0, idx - 1);
-                            if (nextIdx !== idx) _snapToSection(secs[nextIdx], true);
-                            // clear any in-progress accumulator state
-                            __gestureAccumulator = 0; __gestureLastDir = 0; if (__gestureTimer) { clearTimeout(__gestureTimer); __gestureTimer = null; }
-                            return;
-                        }
-
-                        // Small deltas (typical of trackpads): accumulate briefly
-                        if (abs > 0) {
-                            if (__gestureLastDir && __gestureLastDir !== dir) {
-                                // direction changed — reset accumulator to avoid mixing
-                                __gestureAccumulator = 0;
+                        
+                        // Prevent default scrolling
+                        try { ev.preventDefault(); ev.stopPropagation(); } catch(e){}
+                        
+                        // Get all sections
+                        const secs = Array.from(scroller.querySelectorAll('section'));
+                        if (!secs.length) return;
+                        
+                        const idx = _snapCurrentIndex();
+                        if (delta > 0) {
+                            // Scroll down
+                            const next = Math.min(secs.length - 1, idx + 1);
+                            if (next !== idx) {
+                                window.__snapSuppressUntil = Date.now() + 700;
+                                _snapToSection(secs[next], true);
                             }
-                            __gestureLastDir = dir;
-                            __gestureAccumulator += abs;
-
-                            // If accumulator crosses threshold now, snap immediately
-                            if (__gestureAccumulator >= __smallGestureThreshold) {
-                                try { ev.preventDefault(); ev.stopPropagation(); } catch(e){}
-                                const secs = Array.from(scroller.querySelectorAll('section'));
-                                if (secs.length) {
-                                    const idx = _snapCurrentIndex();
-                                    const nextIdx = __gestureLastDir > 0 ? Math.min(secs.length - 1, idx + 1) : Math.max(0, idx - 1);
-                                    if (nextIdx !== idx) {
-                                        window.__snapSuppressUntil = Date.now() + 700;
-                                        _snapToSection(secs[nextIdx], true);
-                                    }
-                                }
-                                // reset accumulator and clear timer
-                                __gestureAccumulator = 0; __gestureLastDir = 0; if (__gestureTimer) { clearTimeout(__gestureTimer); __gestureTimer = null; }
-                                return;
+                        } else {
+                            // Scroll up
+                            const prev = Math.max(0, idx - 1);
+                            if (prev !== idx) {
+                                window.__snapSuppressUntil = Date.now() + 700;
+                                _snapToSection(secs[prev], true);
                             }
-
-                            // Schedule evaluation shortly after the last wheel event (fallback)
-                            if (__gestureTimer) clearTimeout(__gestureTimer);
-                            __gestureTimer = setTimeout(() => {
-                                try {
-                                    if (__gestureAccumulator >= __smallGestureThreshold) {
-                                        const secs = Array.from(scroller.querySelectorAll('section'));
-                                        if (secs.length) {
-                                            const idx = _snapCurrentIndex();
-                                            const nextIdx = __gestureLastDir > 0 ? Math.min(secs.length - 1, idx + 1) : Math.max(0, idx - 1);
-                                            if (nextIdx !== idx) {
-                                                window.__snapSuppressUntil = Date.now() + 700;
-                                                _snapToSection(secs[nextIdx], true);
-                                            }
-                                        }
-                                    }
-                                } catch(e) { /* swallow */ }
-                                // reset accumulator
-                                __gestureAccumulator = 0; __gestureLastDir = 0; __gestureTimer = null;
-                            }, __gestureTimeoutMs);
                         }
                     } catch(e) { /* swallow */ }
                 }, { passive: false, capture: true });
             } catch(e) { /* swallow */ }
 
-            // Install a window-level fallback listener as well. Some browsers
-            // or embedded content route wheel events to the window/document
-            // instead of the scroller element — installing both handlers is
-            // safe as each handler checks `window.__snapSuppressUntil` and
-            // the scroller handler marks `window.__snapListenerConfirmed` so
-            // the window handler can avoid double-acting when not needed.
+            // Install a window-level fallback listener as well - same simple logic
             try {
-                let __w_acc = 0, __w_dir = 0, __w_timer = null;
-                const __w_thresh = 35, __w_timeout = 120;
                 window.addEventListener('wheel', (wev) => {
                     try {
-                        // If scroller already handled wheel events recently, skip
-                        if (window.__snapListenerConfirmed) return;
                         if (Date.now() < (window.__snapSuppressUntil || 0)) return;
-
+                        
                         const delta = wev.deltaY || 0;
-                        const abs = Math.abs(delta);
-                        const dir = delta > 0 ? 1 : -1;
-
-                        // Large deltas: immediate snap
-                        if (abs >= 16) {
-                            try { wev.preventDefault(); wev.stopPropagation(); } catch(e){}
-                            const secs = Array.from((document.scrollingElement || document.documentElement).querySelectorAll('section'));
-                            if (!secs.length) return;
-                            const idx = _snapCurrentIndex();
-                            const nextIdx = delta > 0 ? Math.min(secs.length - 1, idx + 1) : Math.max(0, idx - 1);
-                            if (nextIdx !== idx) {
-                                _snapToSection(secs[nextIdx], true);
+                        if (Math.abs(delta) < 1) return; // ignore tiny deltas
+                        
+                        // Prevent default scrolling
+                        try { wev.preventDefault(); wev.stopPropagation(); } catch(e){}
+                        
+                        const secs = Array.from((document.scrollingElement || document.documentElement).querySelectorAll('section'));
+                        if (!secs.length) return;
+                        
+                        const idx = _snapCurrentIndex();
+                        if (delta > 0) {
+                            // Scroll down
+                            const next = Math.min(secs.length - 1, idx + 1);
+                            if (next !== idx) {
+                                window.__snapSuppressUntil = Date.now() + 700;
+                                _snapToSection(secs[next], true);
                             }
-                            __w_acc = 0; __w_dir = 0; if (__w_timer) { clearTimeout(__w_timer); __w_timer = null; }
-                            return;
-                        }
-
-                        if (abs > 0) {
-                            if (__w_dir && __w_dir !== dir) __w_acc = 0;
-                            __w_dir = dir; __w_acc += abs;
-
-                            // If accumulated crosses threshold immediately, snap now
-                            if (__w_acc >= __w_thresh) {
-                                try { wev.preventDefault(); wev.stopPropagation(); } catch(e){}
-                                const secs = Array.from((document.scrollingElement || document.documentElement).querySelectorAll('section'));
-                                if (secs.length) {
-                                    const idx = _snapCurrentIndex();
-                                    const nextIdx = __w_dir > 0 ? Math.min(secs.length - 1, idx + 1) : Math.max(0, idx - 1);
-                                    if (nextIdx !== idx) {
-                                        window.__snapSuppressUntil = Date.now() + 700;
-                                        _snapToSection(secs[nextIdx], true);
-                                    }
-                                }
-                                __w_acc = 0; __w_dir = 0; if (__w_timer) { clearTimeout(__w_timer); __w_timer = null; }
-                                return;
+                        } else {
+                            // Scroll up
+                            const prev = Math.max(0, idx - 1);
+                            if (prev !== idx) {
+                                window.__snapSuppressUntil = Date.now() + 700;
+                                _snapToSection(secs[prev], true);
                             }
-
-                            if (__w_timer) clearTimeout(__w_timer);
-                            __w_timer = setTimeout(() => {
-                                try {
-                                    if (__w_acc >= __w_thresh) {
-                                        const secs = Array.from((document.scrollingElement || document.documentElement).querySelectorAll('section'));
-                                        if (secs.length) {
-                                            const idx = _snapCurrentIndex();
-                                            const nextIdx = __w_dir > 0 ? Math.min(secs.length - 1, idx + 1) : Math.max(0, idx - 1);
-                                            if (nextIdx !== idx) {
-                                                window.__snapSuppressUntil = Date.now() + 700;
-                                                _snapToSection(secs[nextIdx], true);
-                                            }
-                                        }
-                                    }
-                                } catch(e){}
-                                __w_acc = 0; __w_dir = 0; __w_timer = null;
-                            }, __w_timeout);
                         }
                     } catch(e) { /* swallow */ }
-                }, { passive: true, capture: true });
+                }, { passive: false, capture: true });
             } catch(e) { /* swallow */ }
 
             // Keyboard navigation for snapping (remain on document)

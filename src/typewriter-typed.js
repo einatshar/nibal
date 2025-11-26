@@ -37,6 +37,14 @@
         if (!el || el.dataset._tw_started) return;
         el.dataset._tw_started = '1';
         
+        // CRITICAL: Measure and lock the section height BEFORE any modifications
+        // This ensures snap calculations remain consistent throughout the typing animation
+        const sectionHeight = el.getBoundingClientRect().height;
+        if (sectionHeight > 0) {
+          el.style.height = Math.ceil(sectionHeight) + 'px';
+          el.style.minHeight = Math.ceil(sectionHeight) + 'px';
+        }
+        
         // Get all paragraph children that have text content (not empty link paragraphs)
         const paragraphs = Array.from(el.querySelectorAll('p')).filter(p => {
           const text = p.textContent || '';
