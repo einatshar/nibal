@@ -21,7 +21,7 @@ css: src/theme.css, src/ar.css
 <a href="https://www.btselem.org/hebrew/202511_no_place_under_heaven_forced_displacement_in_the_gaza_strip_2023_2025" target="blank" class="dontinflect thumb">
    إلى التقرير الكامل:
     <strong>
-   لا مكان تحت السماء
+   ״لا مكان تحت السماء״
     </strong>
 </a>
 
@@ -733,7 +733,7 @@ css: src/theme.css, src/ar.css
 
 
 {.meta thumb} 
-[](svg/#permanent_impermanence.svg/0.55,0.69,2.43/+IDF_order_gaza_city-comp.jpg "أحد سكان مدينة غزة يحمل أمر إخلاء ألقته طائرة إسرائيلية، 9 أيلول 2025 (رويترز: داود أبو الكاس)")
+[](svg/#permanent_impermanence.svg/0.64,0.69,2.43/+IDF_order_gaza_city-comp.jpg,~@vimeo-1136076786 "أحد سكان مدينة غزة يحمل أمر إخلاء ألقته طائرة إسرائيلية، 9 أيلول 2025 (رويترز: داود أبو الكاس)")
 [](map/#31.50774,34.46034,14.51,38.4,0.0/+IDF_zone_090925_NEW(idf-poly),+pois.csv(poi,id=gaza-2509),~labels_he,+labels_ar)
 أوامر الإخلاء التي أصدرها الجيش الإسرائيلي في أوائل أيلول 2025، بعد أسابيع قليلة من وصول عائلة نِبال إلى المدينة، تأمر حوالي 1,2 مليون شخص بالنزوح من مكان إقامتهم، مرة أخرى.
 
