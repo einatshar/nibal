@@ -22,7 +22,7 @@ css: src/theme.css, src/ltr.css
 <a href="https://www.btselem.org/hebrew/202511_no_place_under_heaven_forced_displacement_in_the_gaza_strip_2023_2025" target="blank" class="dontinflect thumb">
     To the full report:
     <strong>
-    No Place Under Heaven
+    "No Place Under Heaven"
     </strong>
 </a>
 
@@ -161,7 +161,7 @@ That same day, Israel launched a massive wave of strikes across Gaza.
 
 
 {.meta} 
-[](svg/#intro-pre.svg/#31.43482,34.38239,9.64,-10.4,42.0/+unosat-damage-231015,+vimeo-1138452992)
+[](svg/#intro-pre.svg/0.46,-0.31,0.5/+vimeo-1138452992)
 [](map/#31.43482,34.38239,9.64,-10.4,42.0/+unosat-damage-231015,~labels_he)
 Nibal was at home in Jabalya with her newborn. 
 
@@ -197,8 +197,8 @@ Meanwhile, the military began issuing evacuation orders for areas throughout Gaz
 
 
 {.meta thumb} 
-[](svg/#oct7.svg/0.04,-0.06,1.77/+IDF_order_north)
-[](map/#31.54982,34.25067,9.50,-48.5,0.0/+north,+arrow,~labels_he,+villages,+cities "A leaflet dropped by the military in Gaza City warning of an “impending attack” and ordering residents to evacuate south, 13 Oct. 2023 (Anadolu / Doaa Albaz)")
+[](fg:blank)
+[](map/#31.41869,34.37279,10.00,37.6,0.0/+north,+arrow,~labels_he,+villages,+cities)
 The first mass orders, issued on 13 October, ordered about 1 million people in northern Gaza to go south within 24 hours.
 
 <a href="https://btselem.org/" target="blank" class="dontinflect thumb">
@@ -742,7 +742,7 @@ They sheltered in an abandoned restaurant belonging to friends, and later in a c
 During those weeks, Israel launched another ground invasion into Gaza City.
 
 {.meta thumb} 
-[](svg/#permanent_impermanence.svg/0.55,0.69,2.43/+IDF_order_gaza_city-comp.jpg "A leaflet ordering evacuation dropped by an Israeli plane in Gaza City, 9 Sept. 2025 (Reuters/Dawoud Abu Alkas)")
+[](svg/#permanent_impermanence.svg/0.64,0.69,2.43/+IDF_order_gaza_city-comp.jpg,~@vimeo-1136076786 "A leaflet ordering evacuation dropped by an Israeli plane in Gaza City, 9 Sept. 2025 (Reuters/Dawoud Abu Alkas)")
 [](map/#31.50774,34.46034,14.51,38.4,0.0/+IDF_zone_090925_NEW(idf-poly),+pois.csv(poi,id=gaza-2509),~labels_he,+villages,+cities)
 In early September 2025, just weeks after Nibal arrived in Gaza City, Israel ordered about 1.2 million people to evacuate the city.
 
