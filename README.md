@@ -745,7 +745,7 @@ css: src/theme.css
 
 
 {.meta thumb} 
-[](svg/#permanent_impermanence.svg/0.55,0.69,2.43/+IDF_order_gaza_city-comp.jpg,@vimeo-1136076786 "תושב העיר עזה מחזיק בצו פינוי שהוטל ממטוס ישראלי, 9 בספטמבר 2025. (רויטרס / דאווד אבו אלקאס)")
+[](svg/#permanent_impermanence.svg/0.64,0.69,2.43/+IDF_order_gaza_city-comp.jpg,~@vimeo-1136076786 "תושב העיר עזה מחזיק בצו פינוי שהוטל ממטוס ישראלי, 9 בספטמבר 2025. (רויטרס / דאווד אבו אלקאס)")
 [](map/#31.50774,34.46034,14.51,38.4,0.0/+IDF_zone_090925_NEW(idf-poly),+pois.csv(poi,id=gaza-2509))
 צווי הפינוי שהוציא הצבא בתחילת ספטמבר 2025 לתושבי צפון הרצועה הורו לכ-1.2 מיליון בני אדם לעקור שוב ממקום מושבם.
 
@@ -871,7 +871,7 @@ css: src/theme.css
 <a href="https://www.btselem.org/hebrew/202511_no_place_under_heaven_forced_displacement_in_the_gaza_strip_2023_2025" target="blank" class="dontinflect thumb">
 לפרסום המלא על עקירה ברצועת עזה, 2023-2025
     <strong>
-    אין מקום בטוח
+    ״אין מקום מתחת לשמיים״
     </strong>
 </a>
 
