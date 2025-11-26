@@ -14,9 +14,9 @@ css: src/theme.css, src/ltr.css
 </div>
 
 <div id="lang">
-    <a href="#"target="blank" class="dontinflect">עברית</a>
-    <a href="#en"target="blank" class="dontinflect">English</a>
-    <a href="#ar"target="blank" class="dontinflect">عربي</a>
+    <a href="#" class="dontinflect" data-reload>עברית</a>
+    <a href="#en" class="dontinflect" data-reload>English</a>
+    <a href="#ar" class="dontinflect" data-reload>عربي</a>
 </div>
 
 <a href="https://www.btselem.org/hebrew/202511_no_place_under_heaven_forced_displacement_in_the_gaza_strip_2023_2025" target="blank" class="dontinflect thumb">

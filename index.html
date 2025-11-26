@@ -635,12 +635,12 @@
                 if (opts.duration) {
                     duration = opts.duration;
                 } else if (isSnap) {
-                    // Much shorter, more precise snap - reduces inertia feel
+                    // Much slower snap for smooth, deliberate transitions
                     // Allow runtime tuning via window variables
-                    const minDur = window.__snapDurationMin || 100;
-                    const maxDur = window.__snapDurationMax || 250;
-                    const multiplier = window.__snapDurationMultiplier || 0.15;
-                    const base = window.__snapDurationBase || 50;
+                    const minDur = window.__snapDurationMin || 600;
+                    const maxDur = window.__snapDurationMax || 1200;
+                    const multiplier = window.__snapDurationMultiplier || 0.8;
+                    const base = window.__snapDurationBase || 200;
                     duration = Math.min(maxDur, Math.max(minDur, Math.round(absDist * multiplier) + base));
                 } else {
                     // Longer duration for intentional navigation
@@ -663,6 +663,7 @@
                 window.__snapSuppressUntil = Math.max(window.__snapSuppressUntil || 0, newSuppressUntil);
                 window.__chaptersAnimating = true;
                 window.__scrollAnimating = true;
+                window.__programmaticScrollInProgress = true;
 
                 function step(now) {
                     const elapsed = Math.min(duration, Math.max(0, now - startTime));
@@ -685,6 +686,10 @@
                         try { if (scroller === document.scrollingElement || scroller === document.documentElement) window.scrollTo(0, to); else scroller.scrollTo({ top: to }); } catch(e){}
                         window.__chaptersAnimating = false;
                         window.__scrollAnimating = false;
+                        
+                        // Clear programmatic scroll flag after a brief delay to allow scroll events to settle
+                        setTimeout(() => { window.__programmaticScrollInProgress = false; }, 50);
+                        
                         try { if (typeof window.__onSmoothScrollDone === 'function') window.__onSmoothScrollDone(); } catch(e){}
                     }
                 }
@@ -1716,29 +1721,33 @@
                     
                     if (isMobile) {
                         // Different snap positions based on section type and content height
+                        // Pull up MORE to prevent Safari mobile UI from cropping text
                         const isSubheader = sec.classList.contains('subheader');
                         
                         if (isSubheader) {
-                            // Subheaders are 100vh tall with centered content - no offset needed
-                            top = Math.max(0, sec.offsetTop);
+                            // Subheaders are 100vh tall with centered content - pull up 10vh to avoid Safari UI
+                            const viewportHeight = scroller.clientHeight;
+                            const pullUp = viewportHeight * 0.1;
+                            top = Math.max(0, sec.offsetTop - pullUp);
                         } else {
                             // Regular sections: 80vh tall with justify-content:end (content at bottom)
-                            // Measure actual content height to determine optimal pull-up
-                            const secHeight = sec.offsetHeight || scroller.clientHeight * 0.8;
+                            // Need aggressive pull-up to keep text visible above Safari mobile UI
                             const viewportHeight = scroller.clientHeight;
                             
-                            // For sections with lots of content, pull up more
-                            // For short sections (< 30vh), pull up less to keep them visible
-                            let pullUpRatio = 0.15; // default 15vh pull-up
-                            
-                            // Detect if section content is short by checking if it's less than half the section height
+                            // Detect if section content is short
+                            const secHeight = sec.offsetHeight || viewportHeight * 0.8;
                             const contentHeight = sec.scrollHeight;
+                            
+                            let pullUpRatio;
                             if (contentHeight < secHeight * 0.4) {
-                                // Short content - minimal pull-up (just 8vh)
-                                pullUpRatio = 0.08;
+                                // Short content - moderate pull-up (20vh)
+                                pullUpRatio = 0.2;
+                            } else {
+                                // Regular/long content - aggressive pull-up (30vh) to avoid Safari UI
+                                pullUpRatio = 0.3;
                             }
                             
-                            const pullUp = Math.min(150, viewportHeight * pullUpRatio);
+                            const pullUp = viewportHeight * pullUpRatio;
                             top = Math.max(0, sec.offsetTop - pullUp);
                         }
                     } else {
@@ -1761,59 +1770,23 @@
                 } catch (e) { /* swallow */ }
             }
 
-            // Track last user scroll time and ensure snapping always happens
+            // Track last user scroll time
             let lastUserScrollTime = 0;
             let scrollEndTimeout = null;
             let lastScrollTop = 0;
+            window.__programmaticScrollInProgress = false;
             
             scroller.addEventListener('scroll', () => {
                 const currentScrollTop = scroller.scrollTop || 0;
-                lastUserScrollTime = Date.now();
                 
-                // Clear any pending snap
-                if (scrollEndTimeout) clearTimeout(scrollEndTimeout);
+                // Track user scroll time (not during programmatic scrolls)
+                if (!window.__programmaticScrollInProgress) {
+                    lastUserScrollTime = Date.now();
+                }
                 
-                // Set new snap timeout - aggressive timing
-                scrollEndTimeout = setTimeout(() => {
-                    // Scroll ended - ALWAYS snap to nearest section
-                    const now = Date.now();
-                    if (now > (window.__snapSuppressUntil || 0)) {
-                        const secs = Array.from(scroller.querySelectorAll('section'));
-                        if (secs.length > 0) {
-                            const idx = _snapCurrentIndex();
-                            if (secs[idx]) {
-                                // Double-check we're not already snapped
-                                const targetTop = secs[idx].offsetTop;
-                                const currentTop = scroller.scrollTop || 0;
-                                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
-                                let expectedTop;
-                                if (isMobile) {
-                                    const isSubheader = secs[idx].classList.contains('subheader');
-                                    if (isSubheader) {
-                                        expectedTop = Math.max(0, targetTop);
-                                    } else {
-                                        const secHeight = secs[idx].offsetHeight || scroller.clientHeight * 0.8;
-                                        const viewportHeight = scroller.clientHeight;
-                                        let pullUpRatio = 0.15;
-                                        const contentHeight = secs[idx].scrollHeight;
-                                        if (contentHeight < secHeight * 0.4) {
-                                            pullUpRatio = 0.08;
-                                        }
-                                        const pullUp = Math.min(150, viewportHeight * pullUpRatio);
-                                        expectedTop = Math.max(0, targetTop - pullUp);
-                                    }
-                                } else {
-                                    expectedTop = Math.max(0, targetTop - Math.round((scroller.clientHeight - secs[idx].offsetHeight) / 2));
-                                }
-                                
-                                // If we're more than 10px off, snap
-                                if (Math.abs(currentTop - expectedTop) > 10) {
-                                    _snapToSection(secs[idx], true);
-                                }
-                            }
-                        }
-                    }
-                }, 100); // Reduced from 150ms to 100ms for faster response
+                // Note: scroll-end snap verification disabled to prevent conflicts with
+                // programmatic snaps on mobile Safari. The wheel event handlers already
+                // provide complete snap control.
                 
                 lastScrollTop = currentScrollTop;
             }, { passive: true });
@@ -1823,17 +1796,9 @@
                 const _secs = Array.from(scroller.querySelectorAll('section'));
                 
                 // SNAP STABILIZATION: Lock section heights after fonts load and layout settles
-                // This prevents layout shifts from affecting snap calculations
+                // Section heights are now handled by CSS
                 function stabilizeSectionHeights() {
-                    _secs.forEach(sec => {
-                        // Skip sections that already have height locked (e.g., by typewriter)
-                        if (sec.style.height) return;
-                        
-                        const height = sec.getBoundingClientRect().height;
-                        if (height > 0) {
-                            sec.style.minHeight = Math.ceil(height) + 'px';
-                        }
-                    });
+                    // No-op: CSS handles min-height instead of JS
                 }
                 
                 // Wait for fonts and images to load before stabilizing
@@ -1850,16 +1815,11 @@
 
             // (Current-section tracking is now global)
 
-            // Simple wheel listener: any scroll just snaps to next/previous section
-            // Mirrors the simple keyboard snap behavior
+            // Complete scroll takeover: ignore all browser scroll behavior and velocity
+            // Only direction matters - one gesture = one section, regardless of speed
             try {
                 scroller.addEventListener('wheel', (ev) => {
                     try {
-                        if (Date.now() < (window.__snapSuppressUntil || 0)) return;
-                        
-                        const delta = ev.deltaY || 0;
-                        if (Math.abs(delta) < 1) return; // ignore tiny deltas
-                        
                         // If event originated inside an element that should not snap (e.g. maps), skip
                         const path = ev.composedPath && ev.composedPath();
                         for (const node of (path || [])) {
@@ -1868,8 +1828,14 @@
                             if (el.classList && (el.classList.contains('no-snap') || el.closest && el.closest('.no-snap'))) return;
                         }
                         
-                        // Prevent default scrolling
+                        // ALWAYS prevent default scrolling - complete takeover
                         try { ev.preventDefault(); ev.stopPropagation(); } catch(e){}
+                        
+                        // Suppress all events during animation - NO velocity effect
+                        if (Date.now() < (window.__snapSuppressUntil || 0)) return;
+                        
+                        const delta = ev.deltaY || 0;
+                        if (Math.abs(delta) < 1) return; // ignore tiny deltas
                         
                         // Get all sections
                         const secs = Array.from(scroller.querySelectorAll('section'));
@@ -1877,17 +1843,19 @@
                         
                         const idx = _snapCurrentIndex();
                         if (delta > 0) {
-                            // Scroll down
+                            // Scroll down - move exactly ONE section
                             const next = Math.min(secs.length - 1, idx + 1);
                             if (next !== idx) {
-                                window.__snapSuppressUntil = Date.now() + 700;
+                                // Block ALL wheel events until animation completes
+                                window.__snapSuppressUntil = Date.now() + 1500;
                                 _snapToSection(secs[next], true);
                             }
                         } else {
-                            // Scroll up
+                            // Scroll up - move exactly ONE section
                             const prev = Math.max(0, idx - 1);
                             if (prev !== idx) {
-                                window.__snapSuppressUntil = Date.now() + 700;
+                                // Block ALL wheel events until animation completes
+                                window.__snapSuppressUntil = Date.now() + 1500;
                                 _snapToSection(secs[prev], true);
                             }
                         }
@@ -1895,34 +1863,37 @@
                 }, { passive: false, capture: true });
             } catch(e) { /* swallow */ }
 
-            // Install a window-level fallback listener as well - same simple logic
+            // Window-level fallback - complete takeover of all scroll behavior
             try {
                 window.addEventListener('wheel', (wev) => {
                     try {
+                        // ALWAYS prevent default - complete takeover
+                        try { wev.preventDefault(); wev.stopPropagation(); } catch(e){}
+                        
+                        // Suppress all events during animation - NO velocity effect
                         if (Date.now() < (window.__snapSuppressUntil || 0)) return;
                         
                         const delta = wev.deltaY || 0;
                         if (Math.abs(delta) < 1) return; // ignore tiny deltas
-                        
-                        // Prevent default scrolling
-                        try { wev.preventDefault(); wev.stopPropagation(); } catch(e){}
                         
                         const secs = Array.from((document.scrollingElement || document.documentElement).querySelectorAll('section'));
                         if (!secs.length) return;
                         
                         const idx = _snapCurrentIndex();
                         if (delta > 0) {
-                            // Scroll down
+                            // Scroll down - move exactly ONE section
                             const next = Math.min(secs.length - 1, idx + 1);
                             if (next !== idx) {
-                                window.__snapSuppressUntil = Date.now() + 700;
+                                // Block ALL wheel events until animation completes
+                                window.__snapSuppressUntil = Date.now() + 1500;
                                 _snapToSection(secs[next], true);
                             }
                         } else {
-                            // Scroll up
+                            // Scroll up - move exactly ONE section
                             const prev = Math.max(0, idx - 1);
                             if (prev !== idx) {
-                                window.__snapSuppressUntil = Date.now() + 700;
+                                // Block ALL wheel events until animation completes
+                                window.__snapSuppressUntil = Date.now() + 1500;
                                 _snapToSection(secs[prev], true);
                             }
                         }
@@ -1961,28 +1932,23 @@
             const hrefAttr = (link.getAttribute('href') || '').trim();
             // Treat any non-empty href as an inflection-link candidate. This allows
             // external URLs as well as local paths to be handled by the iframe
-            // forwarding logic. Skip empty hrefs or javascript/mailto pseudo-links.
+            // forwarding logic via IntersectionObserver. Skip empty hrefs or javascript/mailto pseudo-links.
             const isInflection = hrefAttr && !hrefAttr.toLowerCase().startsWith('javascript:') && !hrefAttr.toLowerCase().startsWith('mailto:');
-                if (isInflection) {
-                // Add event listener to manually handle click
-                link.addEventListener('click', function(event) {
-                    document.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-                    link.classList.add('active');
-                    const rawHref = link.getAttribute('href');
-                    // In dual-iframe mode, call setIframeIfPathChanged directly to avoid timeout issues
-                    const isDualMode = document.body.classList.contains('dual-iframe');
-                    if (isDualMode) {
-                        try { const full = new URL(rawHref, window.location.href).href; setIframeIfPathChanged(full); } catch(e){ setIframeIfPathChanged(link.href); }
-                    } else {
-                        try { const full = new URL(rawHref, window.location.href).href; setIframeNext(full); } catch(e){ setIframeNext(link.href); }
-                    }
-                    try { if (window.__setInflectCaptionFromLink) window.__setInflectCaptionFromLink(link); } catch(e){}
-                    // (typewriter removed)
-                });
-            } else {
+            
+            if (!isInflection) {
                 // mark external/non-inflection links so they can be styled differently
                 link.classList.add('dontinflect');
             }
+            
+            // Links with data-reload attribute will force a page reload when clicked
+            if (link.hasAttribute('data-reload')) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    window.location.href = link.href;
+                });
+            }
+            // Note: Regular links navigate normally when clicked
+            // The IntersectionObserver handles loading content into iframes when links enter viewport
         });
 
         // Initial load: in dual-iframe mode, load all visible links from first section
