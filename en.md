@@ -60,7 +60,7 @@ Throughout the offensive, Israel has prevented these Internally Displaced Person
 
 
 {.meta}
-[](svg/#intro-pre.svg/-0.01,0.27,1.02/+displacement,+nibal2023)
+[](svg/#intro-pre.svg/-0.01,0.31,1.28/+displacement,+nibal2023)
 [](map/#31.41661,34.37347,10.01,37.6,0.0/+pois.csv(poi,id=home),+pois.csv#2(poi,id=gaza-2403),+pois.csv#3(poi,id=nuseirat),+pois.csv#4(poi,id=rafah),+pois.csv#5(poi,id=bureij),+pois.csv#6(poi,id=al-mawasi),+pois.csv#7(poi,id=deir-al-balah),~labels_he,~labels_he)
 Nibal al-Hisi, 25, has been repeatedly displaced with her baby daughter.
 
@@ -127,8 +127,8 @@ Baby Rita was born in September 2023.
 
 
 {.meta}
-[](svg/#intro-pre.svg/-0.02,0.02,0.5/+vimeo-1138452992)
-[](map/#31.72716,34.76485,8.57,0.0,35.0/~labels_he,+villages,+cities)
+[](svg/#intro-pre.svg/0.41,-0.23,0.5/+vimeo-1138452992)
+[](map/#31.43482,34.38239,9.64,-10.4,42.0/~labels_he,+villages,+cities)
 Five days later, Ahmad was issued a work permit and started a job as a construction laborer in Israel .
 
 
@@ -161,7 +161,7 @@ That same day, Israel launched a massive wave of strikes across Gaza.
 
 
 {.meta} 
-[](svg/#intro-pre.svg/0.46,-0.31,0.5/+vimeo-1138452992)
+[](svg/#intro-pre.svg/0.41,-0.23,0.5/+vimeo-1138452992)
 [](map/#31.43482,34.38239,9.64,-10.4,42.0/+unosat-damage-231015,~labels_he)
 Nibal was at home in Jabalya with her newborn. 
 
@@ -210,7 +210,7 @@ The first mass orders, issued on 13 October, ordered about 1 million people in n
 
 
 {.meta} 
-[](svg/#oct7.svg/-0.39,-0.38,1.97/+@vimeo-1136099759 "Evacuating south along the the coastal road, 14 Oct. 2023 (Mohammed Zaanoun)")
+[](svg/#oct7.svg/-0.32,-0.25,2.53/+@vimeo-1136099759 "Evacuating south along the the coastal road, 14 Oct. 2023 (Mohammed Zaanoun)")
 [](map/#31.38336,34.21994,10.31,-10.4,42.0/+north,+arrow,+unosat-damage-231015,+pois.csv(poi,id=home),~labels_he,+villages,+cities)
 Under heavy fire, hundreds of thousands had to decide where to run without knowing if they would ever return.
 
@@ -244,7 +244,7 @@ Residents who stayed in Jabalya were documented trying to salvage what was left 
 
 {.meta} 
 [](fg:blank)
-[](map/#31.41524,34.36943,10.06,-0.8,0.0/+pois.csv2(poi,id=khan-yunis),+arrow,+pois(label-main,id=khan-yunis),+pois#2(label-main,id=family-home),~labels_he,+villages,+cities "Assessed damage to buildings in Gaza three months into the offensive, 24 Jan. 2024 (UNOSAT)")
+[](map/#31.41524,34.36943,10.06,-0.8,0.0/+pois.csv2(poi,id=khan-yunis),+arrow,+pois(label-main,id=khan-yunis),+pois#2(label-main,id=home),~labels_he,+villages,+cities "Assessed damage to buildings in Gaza three months into the offensive, 24 Jan. 2024 (UNOSAT)")
 Ahmad was released from Israeli detention in February 2024 and he went to Khan Yunis in southern Gaza. 
 
 Nibal decided to go meet him, despite her parents’ strong objections.
