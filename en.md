@@ -244,7 +244,7 @@ Residents who stayed in Jabalya were documented trying to salvage what was left 
 
 {.meta} 
 [](fg:blank)
-[](map/#31.41524,34.36943,10.06,-0.8,0.0/+pois.csv2(poi,id=khan-yunis),+arrow,+pois(label-main,id=khan-yunis),+pois#2(label-main,id=home),~labels_he,+villages,+cities "Assessed damage to buildings in Gaza three months into the offensive, 24 Jan. 2024 (UNOSAT)")
+[](map/#31.41524,34.36943,10.06,-0.8,0.0/+pois.csv2(poi,id=khan-yunis),+arrow,+pois(label-main,id=khan-yunis),+pois#2(label-main,id=home),~labels_he,+villages,+cities)
 Ahmad was released from Israeli detention in February 2024 and he went to Khan Yunis in southern Gaza. 
 
 Nibal decided to go meet him, despite her parents’ strong objections.
