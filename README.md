@@ -65,7 +65,7 @@ css: src/theme.css
 
 
 {.meta}
-[](svg/#intro-pre.svg/-0.01,0.27,1.02/+displacement,+nibal2023)
+[](svg/#intro-pre.svg/-0.01,0.31,1.28/+displacement,+nibal2023)
 [](map/#31.41661,34.37347,10.01,37.6,0.0/+pois.csv(poi,id=home),+pois.csv#2(poi,id=gaza-2403),+pois.csv#3(poi,id=nuseirat),+pois.csv#4(poi,id=rafah),+pois.csv#5(poi,id=bureij),+pois.csv#6(poi,id=al-mawasi),+pois.csv#7(poi,id=deir-al-balah),~labels_he,~labels_he)
 זה הסיפור שלה.
 
@@ -131,8 +131,8 @@ css: src/theme.css
 
 
 {.meta}
-[](svg/#intro-pre.svg/-0.02,0.02,0.5/+vimeo-1138452992)
-[](map/#31.72716,34.76485,8.57,0.0,35.0/)
+[](svg/#intro-pre.svg/0.41,-0.23,0.5/+vimeo-1138452992)
+[](map/#31.43482,34.38239,9.64,-10.4,42.0/)
 חמישה ימים אחרי שריתא נולדה, אחמד קיבל היתר עבודה בישראל והתחיל לעבוד בשטחה כפועל בניין.
 
 
@@ -165,7 +165,7 @@ css: src/theme.css
 
 
 {.meta} 
-[](svg/#intro-pre.svg/0.46,-0.31,0.5/+vimeo-1138452992)
+[](svg/#intro-pre.svg/0.41,-0.23,0.5/+vimeo-1138452992)
 [](map/#31.43482,34.38239,9.64,-10.4,42.0/+unosat-damage-231015,~labels_he)
 ניבאל הייתה אז בביתה בג׳באליא עם בתה ריתא, אז בת חודש בלבד. 
 
@@ -214,7 +214,7 @@ css: src/theme.css
 
 
 {.meta} 
-[](svg/#oct7.svg/-0.39,-0.38,1.97/+@vimeo-1136099759 "נסיעה על כביש סלאח א-דין החוצה את הרצועה מצפון לדרום, 14 באוקטובר 2023. (מוחמד זענון)")
+[](svg/#oct7.svg/-0.32,-0.25,2.53/+@vimeo-1136099759 "נסיעה על כביש סלאח א-דין החוצה את הרצועה מצפון לדרום, 14 באוקטובר 2023. (מוחמד זענון)")
 [](map/#31.38336,34.21994,10.31,-10.4,42.0/+north,+arrow,+pois.csv(poi,id=home))
 תחת ההפצצות הכבדות, נאלצו מאות אלפי בני אדם להחליט במהירות לאן להימלט, מבלי לדעת אם ומתי יוכלו לשוב לבתיהם.
 
@@ -248,7 +248,7 @@ css: src/theme.css
 
 {.meta} 
 [](fg:blank)
-[](map/#31.41524,34.36943,10.06,-0.8,0.0/+pois.csv2(poi,id=khan-yunis),+arrow,+pois-he(label-main,id=khan-yunis),+pois-he#2(label-main,id=family-home) "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר שלושה חודשי מתקפה. מקור: UNOSAT")
+[](map/#31.41524,34.36943,10.06,-0.8,0.0/+pois.csv2(poi,id=khan-yunis),+arrow,+pois-he(label-main,id=khan-yunis),+pois-he#2(label-main,id=home) "הערכת צפיפות בניינים שניזוקו ברצועת עזה לאחר שלושה חודשי מתקפה. מקור: UNOSAT")
 בפברואר 2024 שיחרר הצבא הישראלי את אחמד, והוא הגיע לח'אן יונס שבדרום הרצועה.  
 
 למרות התנגדותם הנחרצת של הוריה, ניבאל החליטה לצאת דרומה, בתקווה להתאחד עם בעלה.
