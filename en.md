@@ -316,7 +316,7 @@ But seeing him also shocked me. He had lost so much weight, and it looked like h
 
 
 {.meta} 
-[](svg/#south.svg/0.73,0.65,2.87/+ahmed_detained-comp.jpg "Palestinians in Rafah released from Israeli detention, 28 Dec. 2023 (Reuters/Bassam Masoud)")
+[](svg/#south.svg/-2.43,-3.55,12.19/+prisoners_kid "Palestinians released from Israeli prisons arrive outside the Nasser hospital in Khan Yunis, 13 Oct. 2025 (Majdi Fathi/NurPhoto)")
 [](map/#31.27110,34.25408,16.36,0.0,39.0/+pois.csv(poi,id=rafah),~labels_he,+villages,+cities) 
 Nibal and Rita met Ahmad after he had been held in an Israeli detention facility for months, without trial. 
 
