@@ -292,7 +292,6 @@ css: src/theme.css
 {.testimony typewriter}
 [](fg:blank)
 [](map/#31.26878,34.25305,15.23,0.0,39.0/+pois.csv(poi,id=rafah)) 
-
 התרגשתי מאוד לראות את אחמד. הוא חיבק ונישק את ריתא בלי הפסקה. 
 
 
@@ -408,12 +407,15 @@ css: src/theme.css
 
 
 {.testimony typewriter}
+[](svg/#warehouse_bureij1.svg/0.18,0.57,2.26/+@vimeo-1130687838 "ריתא במחסן באל-בוריג׳, מתוך חשבון הטיקטוק של ניבאל")
+[](bg:blank)
 בבוקר של ה-7 באוקטובר 2024 ריתא קראה לי "אמא" בפעם הראשונה. זה היה מרגש מאוד.
 
 
 {.testimony typewriter}
 [](fg:blank)
 [](bg:blank)
+
 אבל אז הכול השתנה.
 
 
@@ -450,19 +452,21 @@ css: src/theme.css
 
 
 {.meta}
+[](svg/#warehouse_bureij2.svg/-1.08,0.46,3.64/+nibal_xray)
+[](bg:blank)
 כתוצאה מפגיעת הפגז, ידיה של ניבאל נקטעו מתחת למרפק והיא נכוותה קשות. בית החולים בו היא אושפזה היה שרוי בעומס אדיר של פצועים, והרופאים טיפלו בה בתנאים קשים.
 
 
 {.testimony typewriter}
-
+[](svg/#warehouse_bureij2.svg/-1.08,0.46,3.64/+nibal_xray,+nibal_after_amputation)
+[](bg:blank)
 הייתי בהלם. הרגשתי כאילו הידיים שלי עדיין קיימות, או כאילו יום אחד הן יחזרו לצמוח.
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij2.svg/-2.04,1.3,10.73/+rita_tent1)
+[](svg/#warehouse_bureij2.svg/-2.38,1.57,10.5/+nibal_xray,+nibal_after_amputation,+rita_tent1)
 [](bg:blank)
-שאלתי מה עם ריתא, וענו לי שהיא בריאה ושלמה. זה מה שהחזיק אותי. 
-זה, וזה שאחמד היה לצדי.
+שאלתי מה עם ריתא, וענו לי שהיא בריאה ושלמה. זה מה שהחזיק אותי. זה, וזה שאחמד היה לצדי.
 
 
 {.meta}
