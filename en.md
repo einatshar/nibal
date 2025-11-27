@@ -628,28 +628,28 @@ Nibal’s relatives picked them up at the Netzarim checkpoint. They took Ahmad t
 
 
 {.testimony typewriter}
-[](svg/#ceasefire_hope.svg/-0.51,-0.49,1.93/+nibal_rita_home.jpg,+nibal_rita_happy.jpg,+@vimeo-1129854927 "From Nibal’s TikTok account")
+[](svg/#ceasefire_hope.svg/-0.51,-0.49,1.93/+@vimeo-1129854927 "From Nibal’s TikTok account")
 [](map/#31.53564,34.47997,11.77,0.0,39.0/+pois(label-main,id=home))
 
 My family welcomed me with hugging, singing and tears. My  brothers and sisters came over every evening.
 
 
 {.testimony typewriter}
-[](svg/#ceasefire_hope.svg/0.01,-0.47,1.93/+nibal_rita_home.jpg,+nibal_rita_happy.jpg)
+[](svg/#ceasefire_hope.svg/0.05,-0.56,2.32/+nibal_rita_happy.jpg)
 [](map/#31.53564,34.47997,11.77,0.0,39.0/+pois(label-main,id=home))
 
 My sisters never left my side. They helped me with everything: showering, dressing, eating, caring for Rita.
 
 
 {.testimony typewriter}
-[](svg/#ceasefire_hope.svg/0.53,-0.52,1.93/+nibal_rita_home.jpg)
+[](svg/#ceasefire_hope.svg/0.69,-0.67,2.32/+nibal_rita_home.jpg)
 [](map/#31.53564,34.47997,11.77,0.0,39.0/+pois(label-main,id=home))
 
 They changed her diapers, held her and played with her. Thanks to them, I felt my life was slowly getting back on track. 
 
 
 {.meta}
-[](svg/#ceasefire_hope.svg/0.53,-0.52,1.93/+nibal_rita_home.jpg)
+[](svg/#ceasefire_hope.svg/0.69,-0.67,2.32/+nibal_rita_home.jpg)
 [](map/#31.53564,34.47997,11.77,0.0,39.0/+pois(label-main,id=home))
 After about a month of recovery with her parents, Ahmad asked Nibal to join him.
 Despite her parents’ concerns, she went back to their apartment with Rita and the couple hired help.
@@ -726,7 +726,7 @@ One day, he demanded I go back to my parents.
 
 {.meta}
 [](fg:blank)
-[](map/#31.52971,34.48003,14.64,38.4,0.0/+pois.csv(poi,id=home),+pois.csv#2(poi,id=couple-home),+pois(label-main,id=home),+pois#2(label-main,id=couple-home),~labels_he,+villages,+cities)
+[](map/#31.52964,34.47981,15.54,38.4,0.0/+pois(label-main,id=home),+pois#2(label-main,id=couple-home),~labels_he,+villages,+cities)
 
 A few months after returning to their apartment, Nibal moved back to her parents with Rita in early June 2025.
 
@@ -880,7 +880,8 @@ She is fighting to imagine a better future for herself and for Rita.
 
 
 {.meta}
-[](svg/#permanent_impermanence.svg/0.76,-1.17,3.23/+@vimeo-1139274686,+refugees_end-comp.jpg "Residents flee Gaza City following military orders to go south, 15 Sept. 2025 (Reuters / Mahmoud Issa)")
+[](svg/#permanent_impermanence.svg/0.7,-0.99,2.7/+vimeo-1139274686,+refugees_end-comp.jpg "Residents flee Gaza City following military orders to go south, 15 Sept. 2025 (Reuters / Mahmoud Issa)")
+[](map/#31.41306,34.39134,9.30,38.4,0.0/~labels_he,+idf-zones,+idf-poly-outlines)
 Nibal is one of nearly 2 million people in Gaza enduring loss, hunger and prolonged displacement.
 
 
@@ -941,7 +942,7 @@ B’Tselem will follow their story and share any developments in our newsletter:
 ## Methodology and sources
 
 <a href="https://btselem.org/" target="blank" class="dontinflect thumb">
-For the full publication on displacement in the Gaza Strip, 2023–2025:
+For the full publication on displacement in the Gaza Strip:
     <strong>
     “No Place Under Heaven”
     </strong>
