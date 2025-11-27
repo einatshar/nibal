@@ -619,14 +619,14 @@ css: src/theme.css, src/ar.css
 
 
 {.testimony typewriter}
-[](svg/#ceasefire_hope.svg/-0.51,-0.49,1.93/+nibal_rita_home.jpg,+nibal_rita_happy.jpg,+@vimeo-1129854927 "من حساب نبال على تيك توك")
+[](svg/#ceasefire_hope.svg/-0.51,-0.49,1.93/+@vimeo-1129854927 "من حساب نبال على تيك توك")
 [](map/#31.53564,34.47997,11.77,0.0,39.0/+pois-ar(label-main,id=home))
 
 استقبلتني العائلة بالأحضان والأغاني والبكاء. في الليالي، كنا نلتقي جميعًا، جميع الأخوة، في منزل والديّ.
 
 
 {.testimony typewriter}
-[](svg/#ceasefire_hope.svg/0.01,-0.47,1.93/+nibal_rita_home.jpg,+nibal_rita_happy.jpg)
+[](svg/#ceasefire_hope.svg/0.05,-0.56,2.32/+nibal_rita_happy.jpg)
 [](map/#31.53564,34.47997,11.77,0.0,39.0/+pois-ar(label-main,id=home))
 
 
@@ -634,7 +634,7 @@ css: src/theme.css, src/ar.css
 
 
 {.testimony typewriter}
-[](svg/#ceasefire_hope.svg/0.53,-0.52,1.93/+nibal_rita_home.jpg)
+[](svg/#ceasefire_hope.svg/0.69,-0.67,2.32/+nibal_rita_home.jpg)
 [](map/#31.53564,34.47997,11.77,0.0,39.0/+pois-ar(label-main,id=home))
 
 
@@ -642,7 +642,7 @@ css: src/theme.css, src/ar.css
 
 
 {.meta}
-[](svg/#ceasefire_hope.svg/0.53,-0.52,1.93/+nibal_rita_home.jpg)
+[](svg/#ceasefire_hope.svg/0.69,-0.67,2.32/+nibal_rita_home.jpg)
 [](map/#31.53564,34.47997,11.77,0.0,39.0/+pois-ar(label-main,id=home))
 بعد حوالي شهر من الراحة والتعافي في منزل والديها، طلب أحمد من نِبال العودة إليه.
 استجابت نِبال لطلبه، رغم تحفظ والديها، وعادت مع ريتا إلى شقتهم، حيث استأجروا مساعِدة لها.
@@ -718,7 +718,7 @@ css: src/theme.css, src/ar.css
 
 {.meta}
 [](fg:blank)
-[](map/#31.52971,34.48003,14.64,38.4,0.0/+pois.csv(poi,id=home),+pois.csv#2(poi,id=couple-home),+pois-ar(label-main,id=home),+pois-ar#2(label-main,id=couple-home),~labels_he,+labels_ar)
+[](map/#31.52964,34.47981,15.54,38.4,0.0/+pois-ar(label-main,id=home),+pois-ar#2(label-main,id=couple-home),~labels_he,+labels_ar)
 
 في بداية حزيران 2025، بعد بضعة أشهر من عودتها إلى شقتها وشقة أحمد، تركت نِبال منزلها وعادت مع ريتا إلى منزل والديها.
 
@@ -869,8 +869,8 @@ css: src/theme.css, src/ar.css
 
 
 {.meta}
-[](svg/#permanent_impermanence.svg/0.76,-1.17,3.23/+@vimeo-1139274686,+refugees_end-comp.jpg "سكان مدينة غزة يهربون بعد أن أمرهم الجيش الإسرائيلي بالانتقال جنوبًا. 15 أيلول 2025 (رويترز: محمود عيسى)")
-[](bg:blank)
+[](svg/#permanent_impermanence.svg/0.7,-0.99,2.7/+vimeo-1139274686,+refugees_end-comp.jpg "سكان مدينة غزة يهربون بعد أن أمرهم الجيش الإسرائيلي بالانتقال جنوبًا. 15 أيلول 2025 (رويترز: محمود عيسى)")
+[](map/#31.41306,34.39134,9.30,38.4,0.0/~labels_he,+idf-zones,+idf-poly-outlines)
 قصة نِبال هي واحدة فقط من بين حوالي مليونيّ قصة لسكان قطاع غزة الذين عانوا من الفقدان والجوع والتهجير المستمر.
 
 
@@ -932,7 +932,7 @@ css: src/theme.css, src/ar.css
 ## المنهجية والمصادر
 
 <a href="https://btselem.org/" target="blank" class="dontinflect thumb">
-للتقرير الكامل حول التهجير في قطاع غزة، 2023-2025: 
+للتقرير الكامل حول التهجير في قطاع غزة،: 
     <strong>
     ״لا مكان تحت السماء״
     </strong>
