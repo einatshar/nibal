@@ -196,13 +196,13 @@ css: src/theme.css
 
 {.meta} 
 [](fg:blank)
-[](map/#31.41869,34.37279,10.00,37.6,0.0/+IDF_zone_081023(idf-poly) "באדום: האיזורים הנכללים בצווי הפינוי שהפיץ הצבא הישראלי לתושבי עזה ב-8 באוקטובר 2023")
+[](map/#31.41869,34.37279,10.00,37.6,0.0/+IDF_zone_081023(idf-poly) "באדום: האיזורים שנכללו בצווי הפינוי שהפיץ הצבא הישראלי לתושבי עזה ב-8 באוקטובר 2023")
 במקביל, הצבא הישראלי החל להפיץ צווי פינוי לתושבי עזה.
 
 
 {.meta} 
 [](fg:blank)
-[](map/#31.41869,34.37279,10.00,37.6,0.0/+north,+arrow)
+[](map/#31.41869,34.37279,10.00,37.6,0.0/+north,+arrow "באדום: האיזורים שנכללו בצווי הפינוי שהפיץ הצבא הישראלי לתושבי עזה ב-8 באוקטובר 2023")
 צווי הפינוי ההמוניים הראשונים, שהוצאו ב-13 לאוקטובר, הורו לכמיליון תושבי צפון הרצועה לעזוב את בתיהם ולעקור לדרום הרצועה תוך 24 שעות.
 
 <a href="https://www.btselem.org/hebrew/202511_no_place_under_heaven_forced_displacement_in_the_gaza_strip_2023_2025#evacuation_orders" target="blank" class="dontinflect thumb">
@@ -441,7 +441,7 @@ css: src/theme.css
 {.meta}
 [](svg/#warehouse_bureij2.svg/-14.33,5.34,54.39/+nibal_xray)
 [](bg:blank)
-ניבאל נפצעה קשה, אבל הצליחה להעזיק עזרה מתוך המחסן ההרוס. היא פונתה לבית החולים, בזמן שהשכנים שלה לקחו את ריתא לביתם.
+ניבאל נפצעה קשה, אבל הצליחה להעזיק עזרה מתוך המחסן ההרוס ופונתה לבית החולים.
 
 
 {.testimony typewriter}
@@ -474,6 +474,8 @@ css: src/theme.css
 [](map/#31.38437,34.30257,11.63,0.0,39.0/+al-zawaida-al-mawasi(2-by-foot):follow+,+al-zawaida,+al-mawasi,+idf-poly-outlines,+pois-he(label-main,id=al-zawaida),+pois-he#2(label-main,id=al-mawasi))
 ניבאל השתחררה מבית החולים לאחר 40 יום. בשלב זה, היא, אחמד וריתא נאלצו לעקור שוב.
 
+
+{.meta}
 הם הגיעו ל״אזור ההומניטרי״ באל-מוואסי, שם הם חיו שוב באוהל.
 
 
@@ -529,20 +531,20 @@ css: src/theme.css
 
 
 {.testimony typewriter}
-[](fg:blank)
+[](svg/#warehouse_bureij2.svg/-2.06,1.89,6.89/+nibal_after_amputation)
 [](bg:blank)
 
 התקשיתי לקבל את הגוף החדש שלי. 
 
 
 {.testimony typewriter}
-[](svg/#warehouse_bureij2.svg/-1.13,0.91,3.93/+nibal_after_amputation)
-[](bg:blank)
 
 השתדלתי להישאר מטופחת, ועם עזרה גם להתלבש, להתאפר ולצאת מהאוהל.
 
 
 {.testimony typewriter}
+[](svg/#warehouse_bureij2.svg/-1.13,0.91,3.93/+nibal_after_amputation)
+[](bg:blank)
 אבל לא העזתי להסתכל במראה. 
 
 
@@ -592,6 +594,8 @@ css: src/theme.css
 
 {.testimony typewriter}
 [](svg/#ceasefire_hope.svg/-0.51,-0.49,1.93/+nibal_rita_home.jpg,+nibal_rita_happy.jpg,+@vimeo-1129854927 "מתוך חשבון הטיקטוק של ניבאל")
+[](map/#31.53564,34.47997,11.77,0.0,39.0/+pois-he(label-main,id=home))
+
 
 המשפחה קיבלה אותי בבית בחיבוקים, שירים ובכי. בלילות נפגשנו כל האחים בבית ההורים שלי.
 
