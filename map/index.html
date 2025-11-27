@@ -741,7 +741,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let layersStr = parts[1] || '';
   const tokens = layersStr ? splitLayerTokens(layersStr) : [];
     
-  // Check if this exact layer ID already exists in tokens and replace, otherwise append
+  // Check if this exact layer ID already exists in tokens and replace, otherwise prepend
   // Escape special regex chars but preserve # for counter matching
   const escapedLayerId = layerId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   // New grammar: optional single parentheses group (no square brackets)
@@ -751,7 +751,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Layer with this exact ID exists, replace it
       tokens[idx] = newToken;
     } else {
-      // New layer, append
+      // New layer - append to end so it appears below existing layers in hash order
       tokens.push(newToken);
     }
     layersStr = tokens.join(',');
@@ -819,20 +819,25 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       // Copy to clipboard
-      navigator.clipboard.writeText(linkToCopy).then(function() {
-        // Visual feedback
-        var originalText = copyBtn.textContent;
-        copyBtn.textContent = '✓ Copied!';
-        copyBtn.classList.add('copied');
-        
-        setTimeout(function() {
-          copyBtn.textContent = originalText;
-          copyBtn.classList.remove('copied');
-        }, 2000);
-      }).catch(function(err) {
-        console.error('Failed to copy:', err);
-        alert('Failed to copy link. Please copy manually: ' + linkToCopy);
-      });
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(linkToCopy).then(function() {
+          // Visual feedback
+          var originalText = copyBtn.textContent;
+          copyBtn.textContent = '✓ Copied!';
+          copyBtn.classList.add('copied');
+          
+          setTimeout(function() {
+            copyBtn.textContent = originalText;
+            copyBtn.classList.remove('copied');
+          }, 2000);
+        }).catch(function(err) {
+          console.error('Failed to copy:', err);
+          alert('Failed to copy link. Please copy manually: ' + linkToCopy);
+        });
+      } else {
+        // Fallback for non-HTTPS or older browsers
+        alert('Clipboard API not available. Please copy manually: ' + linkToCopy);
+      }
     });
   }
 });
@@ -1120,18 +1125,27 @@ function parseHash() {
       // Always use the id without :follow for loading/toggling
       layerState[lname] = { sign, sourceHint: sourceHint || null, filter, follow: hasFollow, followOffset: parsedOffset, showTicker: hasTickerFlag };
     });
+  // Count wayback layers in hash to determine if we need to reposition
+  const waybackLayersInHash = Object.entries(layerState).filter(([lname, { sign }]) => 
+    sign === '+' && /^wayback:\d{8}$/.test(lname)
+  ).map(([lname]) => lname);
+  const needWaybackRepositioning = waybackLayersInHash.length > 1;
+  
   Object.entries(layerState).forEach(([lname, { sign, sourceHint, filter, follow, followOffset: layerFollowOffset, showTicker: layerShowTicker }]) => {
       if (sign === '+') {
         const isStyleLayer = allStyleLayers.some(l => l.id === lname);
         const isExternalLayer = externalLayers.has(lname);
         
+        // Check if this is a Wayback layer (format: wayback:YYYYMMDD)
+        const waybackMatch = lname.match(/^wayback:(\d{8})$/);
+        const isWaybackLayer = waybackMatch !== null;
+        
         // Load layer if:
         // 1. It's not a style layer (new external layer)
         // 2. It's an external layer and has a sourceHint (reload with new style)
-        if (!isStyleLayer || (isExternalLayer && sourceHint)) {
-          // Check if this is a Wayback layer (format: wayback:YYYYMMDD)
-          const waybackMatch = lname.match(/^wayback:(\d{8})$/);
-          if (waybackMatch) {
+        // 3. It's a wayback layer and there are multiple wayback layers (need repositioning)
+        if (!isStyleLayer || (isExternalLayer && sourceHint) || (isWaybackLayer && needWaybackRepositioning)) {
+          if (isWaybackLayer) {
             const dateStr = waybackMatch[1];
             dynamicGeojsonToLoad.push({ name: lname, sourceHint: sourceHint || 'overlay', filter, isWayback: true, waybackDate: dateStr });
           } else {
@@ -1631,22 +1645,89 @@ async function loadWaybackLayer(dateStr, toLayer) {
       // Failed to copy paint from source hint
     }
     
-    // Add layer positioned right after the source hint layer
+    // Add layer positioned according to hash order
     try {
-      if (sourceHint) {
-        const allLayers = map.getStyle().layers;
-        const sourceIndex = allLayers.findIndex(l => l.id === sourceHint);
-        if (sourceIndex >= 0 && sourceIndex < allLayers.length - 1) {
-          const beforeId = allLayers[sourceIndex + 1].id;
-          map.addLayer(layerDef, beforeId);
-        } else {
-          map.addLayer(layerDef);
+      const allLayers = map.getStyle().layers;
+      let beforeId = null;
+      
+      // If we have hash order info, use it to determine correct position
+      const waybackLayersInHashOrder = (toLayer && toLayer.waybackLayersInHashOrder) || [];
+      
+      console.log(`[Wayback] Adding layer ${layerId}, hash order:`, waybackLayersInHashOrder);
+      
+      if (waybackLayersInHashOrder.length > 0) {
+        // Find the position of this layer in the hash order
+        const thisLayerHashIndex = waybackLayersInHashOrder.indexOf(layerId);
+        
+        console.log(`[Wayback] Layer ${layerId} is at hash index ${thisLayerHashIndex}`);
+        
+        if (thisLayerHashIndex >= 0) {
+          // Find the next wayback layer in hash order that already exists in the map
+          for (let i = thisLayerHashIndex + 1; i < waybackLayersInHashOrder.length; i++) {
+            const nextLayerId = waybackLayersInHashOrder[i];
+            if (map.getLayer(nextLayerId)) {
+              beforeId = nextLayerId;
+              console.log(`[Wayback] Found next layer ${nextLayerId} at hash index ${i}, will insert before it`);
+              break;
+            }
+          }
+          
+          // If no next wayback layer found, check if there are previous wayback layers
+          // If so, position after the last one (find first non-wayback layer after all waybacks)
+          if (!beforeId && thisLayerHashIndex > 0) {
+            console.log(`[Wayback] No next layer found, looking for previous layers...`);
+            // Look for previous wayback layers in hash order
+            for (let i = thisLayerHashIndex - 1; i >= 0; i--) {
+              const prevLayerId = waybackLayersInHashOrder[i];
+              if (map.getLayer(prevLayerId)) {
+                // Found a previous wayback layer - insert right after it
+                const prevLayerIndex = allLayers.findIndex(l => l.id === prevLayerId);
+                console.log(`[Wayback] Found previous layer ${prevLayerId} at map index ${prevLayerIndex}`);
+                if (prevLayerIndex >= 0 && prevLayerIndex < allLayers.length - 1) {
+                  beforeId = allLayers[prevLayerIndex + 1].id;
+                  console.log(`[Wayback] Will insert after ${prevLayerId}, before ${beforeId}`);
+                }
+                break;
+              }
+            }
+          }
+          
+          // If still no position found, use sourceHint
+          if (!beforeId && sourceHint) {
+            const sourceIndex = allLayers.findIndex(l => l.id === sourceHint);
+            if (sourceIndex >= 0 && sourceIndex < allLayers.length - 1) {
+              beforeId = allLayers[sourceIndex + 1].id;
+              console.log(`[Wayback] Using sourceHint ${sourceHint}, beforeId = ${beforeId}`);
+            }
+          }
         }
+      } else {
+        // Fallback: manually added layer (not from hash) - insert before topmost wayback
+        const existingWaybackLayers = allLayers.filter(l => l.id.startsWith('wayback:'));
+        
+        if (existingWaybackLayers.length > 0) {
+          const topmostWaybackIndex = allLayers.findIndex(l => l.id === existingWaybackLayers[0].id);
+          if (topmostWaybackIndex >= 0) {
+            beforeId = allLayers[topmostWaybackIndex].id;
+          }
+        } else if (sourceHint) {
+          const sourceIndex = allLayers.findIndex(l => l.id === sourceHint);
+          if (sourceIndex >= 0 && sourceIndex < allLayers.length - 1) {
+            beforeId = allLayers[sourceIndex + 1].id;
+          }
+        }
+      }
+      
+      console.log(`[Wayback] Final decision: adding ${layerId} ${beforeId ? `before ${beforeId}` : 'at top'}`);
+      
+      if (beforeId) {
+        map.addLayer(layerDef, beforeId);
       } else {
         map.addLayer(layerDef);
       }
     } catch (ex) {
       // Failed to add layer with positioning, fallback
+      console.error('[Wayback] Error adding layer:', ex);
       map.addLayer(layerDef);
     }
     
@@ -1660,18 +1741,83 @@ async function loadWaybackLayer(dateStr, toLayer) {
       map.setLayoutProperty(layerId, 'visibility', 'none');
     }
     
-    // Add to allStyleLayers if not present
+    // Add to allStyleLayers if not present - respect hash order
     if (!allStyleLayers.some(l => l.id === layerId)) {
       try {
-        if (sourceHint) {
-          const sourceIdx = allStyleLayers.findIndex(l => l.id === sourceHint);
-          if (sourceIdx >= 0) {
-            allStyleLayers.splice(sourceIdx + 1, 0, { id: layerId, name: `Wayback ${requestDate}` });
+        const waybackLayersInHashOrder = (toLayer && toLayer.waybackLayersInHashOrder) || [];
+        
+        if (waybackLayersInHashOrder.length > 0) {
+          // Use hash order to determine position
+          const thisLayerHashIndex = waybackLayersInHashOrder.indexOf(layerId);
+          
+          if (thisLayerHashIndex >= 0) {
+            // Find the next wayback layer in hash order that already exists
+            let insertBeforeIndex = -1;
+            for (let i = thisLayerHashIndex + 1; i < waybackLayersInHashOrder.length; i++) {
+              const nextLayerId = waybackLayersInHashOrder[i];
+              const existingIndex = allStyleLayers.findIndex(l => l.id === nextLayerId);
+              if (existingIndex >= 0) {
+                insertBeforeIndex = existingIndex;
+                break;
+              }
+            }
+            
+            if (insertBeforeIndex >= 0) {
+              allStyleLayers.splice(insertBeforeIndex, 0, { id: layerId, name: `Wayback ${requestDate}` });
+            } else if (thisLayerHashIndex > 0) {
+              // No next layer found - look for previous layer in hash order
+              for (let i = thisLayerHashIndex - 1; i >= 0; i--) {
+                const prevLayerId = waybackLayersInHashOrder[i];
+                const prevIndex = allStyleLayers.findIndex(l => l.id === prevLayerId);
+                if (prevIndex >= 0) {
+                  // Insert after the previous layer
+                  allStyleLayers.splice(prevIndex + 1, 0, { id: layerId, name: `Wayback ${requestDate}` });
+                  insertBeforeIndex = prevIndex; // Mark as handled
+                  break;
+                }
+              }
+              // If still not handled, fall back to sourceHint
+              if (insertBeforeIndex === -1) {
+                if (sourceHint) {
+                  const sourceIdx = allStyleLayers.findIndex(l => l.id === sourceHint);
+                  if (sourceIdx >= 0) {
+                    allStyleLayers.splice(sourceIdx + 1, 0, { id: layerId, name: `Wayback ${requestDate}` });
+                  } else {
+                    allStyleLayers.push({ id: layerId, name: `Wayback ${requestDate}` });
+                  }
+                } else {
+                  allStyleLayers.push({ id: layerId, name: `Wayback ${requestDate}` });
+                }
+              }
+            } else if (sourceHint) {
+              const sourceIdx = allStyleLayers.findIndex(l => l.id === sourceHint);
+              if (sourceIdx >= 0) {
+                allStyleLayers.splice(sourceIdx + 1, 0, { id: layerId, name: `Wayback ${requestDate}` });
+              } else {
+                allStyleLayers.push({ id: layerId, name: `Wayback ${requestDate}` });
+              }
+            } else {
+              allStyleLayers.push({ id: layerId, name: `Wayback ${requestDate}` });
+            }
           } else {
             allStyleLayers.push({ id: layerId, name: `Wayback ${requestDate}` });
           }
         } else {
-          allStyleLayers.push({ id: layerId, name: `Wayback ${requestDate}` });
+          // Fallback for manually added layers
+          const existingWaybackIndex = allStyleLayers.findIndex(l => l.id.startsWith('wayback:'));
+          
+          if (existingWaybackIndex >= 0) {
+            allStyleLayers.splice(existingWaybackIndex, 0, { id: layerId, name: `Wayback ${requestDate}` });
+          } else if (sourceHint) {
+            const sourceIdx = allStyleLayers.findIndex(l => l.id === sourceHint);
+            if (sourceIdx >= 0) {
+              allStyleLayers.splice(sourceIdx + 1, 0, { id: layerId, name: `Wayback ${requestDate}` });
+            } else {
+              allStyleLayers.push({ id: layerId, name: `Wayback ${requestDate}` });
+            }
+          } else {
+            allStyleLayers.push({ id: layerId, name: `Wayback ${requestDate}` });
+          }
         }
       } catch (ex) {
         // Failed to position layer in list, add at end
@@ -3141,6 +3287,32 @@ window.addEventListener('hashchange', () => {
   // Load dynamic layers as needed (GeoJSON/CSV, Sentinel-2, or Wayback)
   if (dynamicGeojsonToLoad && dynamicGeojsonToLoad.length) {
     const layersOn = layers || [];
+    // Extract all wayback layer IDs in hash order (for correct positioning)
+    const waybackLayersInHashOrder = dynamicGeojsonToLoad
+      .filter(entry => entry && entry.isWayback)
+      .map(entry => `wayback:${entry.waybackDate}`);
+    
+    console.log('[Hash] Wayback layers in hash order:', waybackLayersInHashOrder);
+    
+    // If multiple wayback layers exist, remove all existing ones first to ensure clean repositioning
+    if (waybackLayersInHashOrder.length > 1) {
+      console.log('[Hash] Multiple wayback layers detected, removing existing ones first');
+      waybackLayersInHashOrder.forEach(layerId => {
+        if (map.getLayer(layerId)) {
+          // Store visibility state before removal
+          const wasVisible = map.getLayoutProperty(layerId, 'visibility') === 'visible';
+          if (!layerId.startsWith('_wayback_state_')) {
+            window['_wayback_state_' + layerId] = wasVisible;
+          }
+          console.log('[Hash] Removing existing layer:', layerId);
+          map.removeLayer(layerId);
+        }
+        if (map.getSource(layerId)) {
+          map.removeSource(layerId);
+        }
+      });
+    }
+    
     dynamicGeojsonToLoad.forEach(entry => {
       let name = null, sourceHint = null, filter = null, isWayback = false, waybackDate = null;
       if (typeof entry === 'string') {
@@ -3154,18 +3326,25 @@ window.addEventListener('hashchange', () => {
       }
       if (!name) return;
       
-      // Check if layer already exists
+      // Check if layer already exists (after potential removal above)
       const layerExists = map.getLayer(name);
       // If this layer will be followed, load it hidden initially - the follow animation will show it
   const isFollowLayer = (name === followId);
-  const visibility = isFollowLayer ? 'none' : (layersOn.includes(name) ? 'visible' : 'none');
+  let visibility = isFollowLayer ? 'none' : (layersOn.includes(name) ? 'visible' : 'none');
+      
+      // Restore visibility for wayback layers that were visible before removal
+      if (isWayback && window['_wayback_state_' + name]) {
+        visibility = 'visible';
+        delete window['_wayback_state_' + name];
+      }
       
       if (isWayback && waybackDate) {
-        // ESRI Wayback layer
-        if (!layerExists) {
-          loadWaybackLayer(waybackDate, { visibility, sourceHint, filter });
+        // ESRI Wayback layer - always load if multiple wayback layers in hash
+        if (!layerExists || waybackLayersInHashOrder.length > 1) {
+          console.log('[Hash] Loading wayback layer:', waybackDate, 'passing hash order:', waybackLayersInHashOrder);
+          loadWaybackLayer(waybackDate, { visibility, sourceHint, filter, waybackLayersInHashOrder });
         } else if (sourceHint) {
-          loadWaybackLayer(waybackDate, { visibility, sourceHint, filter });
+          loadWaybackLayer(waybackDate, { visibility, sourceHint, filter, waybackLayersInHashOrder });
         }
       } else {
         // GeoJSON/CSV layer
