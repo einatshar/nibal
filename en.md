@@ -615,11 +615,13 @@ Despite her parents’ concerns, she went back to their apartment with Rita and 
 [](map/#31.43623,34.35063,10.79,0.0,39.0/+IDF_zone_21_25_03_25(idf-poly),+idf-poly-outlines,~labels_he,+villages,+cities "In red: Areas ordered to evacuate in the week after Israel violated the ceasefire in March 2025")
 But then the war resumed. 
 
+[](svg/#ceasefire_hope.svg/-0.25,0.55,2.15/+@vimeo-1141082583)
+[](bg:blank)
 Living under the pressure of the Israeli blockade and airstrikes, tensions in the marriage resurfaced.
 
 
 {.meta}
-[](svg/#ceasefire_hope.svg/0.3,0.51,2.15/+@vimeo-1129871187,+vimeo-1137391158 "From Nibal’s TikTok account")
+[](svg/#ceasefire_hope.svg/-0.46,0.56,2.15/+@vimeo-1141082583,+ahmad_rita_srgb.jpg)
 [](bg:blank)
 Ahmad was struggling with the consequences of his time in Israeli detention.
 
@@ -631,7 +633,7 @@ In a way, it felt like he’d lost a part of himself there.
 
 
 {.meta}
-[](svg/#ceasefire_hope.svg/0.72,0.42,2.15/+@vimeo-1137391158  "From Nibal’s TikTok account")
+[](svg/#ceasefire_hope.svg/0.8,0.36,2.15/+@vimeo-1137391158  "From Nibal’s TikTok account")
 Nibal described Ahmad’s psychological challenges, which worsened as the small family struggled to survive under blockade.
 
 
@@ -640,6 +642,7 @@ At first he was very supportive. But over time, I felt he was only taking care o
 
 
 {.testimony typewriter}
+[](svg/#ceasefire_hope.svg/0.28,0.5,2.15/+@vimeo-1129871187,+vimeo-1137391158  "From Nibal’s TikTok account")
 I tried to focus on Rita. She was the most important thing. I did everything I could to overcome the tension with Ahmad and take care of her.
 
 
@@ -834,7 +837,7 @@ In recent months, Nibal has shared her story on social and mainstream media. She
 
 
 {.meta thumb closing}
-[](fg:blank)
+[](svg/#permanent_impermanence.svg/-1.03,-1.53,5.21/+IMG-20250910-WA0107.jpg,+nibal_rita_nov_25.jpg)
 [](map/#31.42216,34.36628,9.79,40.0,0.0/~labels_he)
 **Nibal and Rita’s ordeal is not over.**  
 
