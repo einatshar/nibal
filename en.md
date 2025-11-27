@@ -127,7 +127,7 @@ Baby Rita was born in September 2023.
 
 
 {.meta}
-[](svg/#intro-pre.svg/0.41,-0.23,0.5/+vimeo-1138452992)
+[](fg:blank)
 [](map/#31.43482,34.38239,9.64,-10.4,42.0/~labels_he,+villages,+cities)
 Five days later, Ahmad was issued a work permit and started a job as a construction laborer in Israel.
 
@@ -161,16 +161,14 @@ That same day, Israel launched a massive wave of strikes across Gaza.
 
 
 {.meta} 
-[](svg/#intro-pre.svg/0.41,-0.23,0.5/+vimeo-1138452992)
-[](map/#31.43482,34.38239,9.64,-10.4,42.0/+unosat-damage-231015,~labels_he)
+[](fg:blank)
+[](map/#31.43482,34.38239,9.64,-10.4,42.0/+unosat-damage-231015,~labels_he,+pois.csv(poi,id=home))
 Nibal was at home in Jabalya with her newborn. 
 
 Ahmad was at work in Israel.
 
 
 {.meta} 
-[](fg:blank)
-[](map/#31.43482,34.38239,9.64,-10.4,42.0/+unosat-damage-231015,~labels_he,+pois.csv(poi,id=home))
 Nibal was terrified and went to stay with her parents nearby. 
 
 
@@ -211,7 +209,7 @@ The first mass orders, issued on 13 October, ordered about 1 million people in n
 
 {.meta} 
 [](svg/#oct7.svg/-0.32,-0.25,2.53/+@vimeo-1136099759 "Evacuating south along the the coastal road, 14 Oct. 2023 (Mohammed Zaanoun)")
-[](map/#31.38336,34.21994,10.31,-10.4,42.0/+north,+arrow,+unosat-damage-231015,+pois.csv(poi,id=home),~labels_he,+villages,+cities)
+[](map/#31.37390,34.16724,9.97,-10.4,42.0/+north,+arrow,+unosat-damage-231015,+pois.csv(poi,id=home),~labels_he,+villages,+cities)
 Under heavy fire, hundreds of thousands had to decide where to run without knowing if they would ever return.
 
 
