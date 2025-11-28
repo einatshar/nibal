@@ -412,6 +412,9 @@
 
         // Keyboard shortcut for toggling edit mode
         document.addEventListener('keydown', function(e) {
+            // Only enable editor shortcuts if body has 'editor' class
+            if (!document.body.classList.contains('editor')) return;
+            
             // Ignore if typing in an input field
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
             
