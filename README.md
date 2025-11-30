@@ -19,7 +19,7 @@ css: src/theme.css
 </div>
 
 <a href="https://www.btselem.org/hebrew/202511_no_place_under_heaven_forced_displacement_in_the_gaza_strip_2023_2025" target="blank" class="dontinflect thumb">
-    לתחקיר בצלם המלא:
+    לפרסום המלא על העברה בכפייה ברצועת עזה:
     <strong>
     ״אין מקום תחת השמיים״
     </strong>
@@ -949,7 +949,7 @@ css: src/theme.css
 ## מתודולוגיה ומקורות
 
 <a href="https://www.btselem.org/hebrew/202511_no_place_under_heaven_forced_displacement_in_the_gaza_strip_2023_2025" target="blank" class="dontinflect thumb">
-לפרסום המלא על עקירה ברצועת עזה
+לפרסום המלא על העברה בכפייה ברצועת עזה:
     <strong>
     ״אין מקום מתחת לשמיים״
     </strong>
